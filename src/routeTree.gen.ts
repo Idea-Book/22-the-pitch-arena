@@ -14,6 +14,7 @@ import { Route as SponsorsRouteImport } from './routes/sponsors'
 import { Route as PanelistsRouteImport } from './routes/panelists'
 import { Route as FoundersRouteImport } from './routes/founders'
 import { Route as EpisodesRouteImport } from './routes/episodes'
+import { Route as CommunityRouteImport } from './routes/community'
 import { Route as ApplyRouteImport } from './routes/apply'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -42,6 +43,11 @@ const EpisodesRoute = EpisodesRouteImport.update({
   path: '/episodes',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CommunityRoute = CommunityRouteImport.update({
+  id: '/community',
+  path: '/community',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApplyRoute = ApplyRouteImport.update({
   id: '/apply',
   path: '/apply',
@@ -56,6 +62,7 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/apply': typeof ApplyRoute
+  '/community': typeof CommunityRoute
   '/episodes': typeof EpisodesRoute
   '/founders': typeof FoundersRoute
   '/panelists': typeof PanelistsRoute
@@ -65,6 +72,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/apply': typeof ApplyRoute
+  '/community': typeof CommunityRoute
   '/episodes': typeof EpisodesRoute
   '/founders': typeof FoundersRoute
   '/panelists': typeof PanelistsRoute
@@ -75,6 +83,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/apply': typeof ApplyRoute
+  '/community': typeof CommunityRoute
   '/episodes': typeof EpisodesRoute
   '/founders': typeof FoundersRoute
   '/panelists': typeof PanelistsRoute
@@ -86,6 +95,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/apply'
+    | '/community'
     | '/episodes'
     | '/founders'
     | '/panelists'
@@ -95,6 +105,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/apply'
+    | '/community'
     | '/episodes'
     | '/founders'
     | '/panelists'
@@ -104,6 +115,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/apply'
+    | '/community'
     | '/episodes'
     | '/founders'
     | '/panelists'
@@ -114,6 +126,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ApplyRoute: typeof ApplyRoute
+  CommunityRoute: typeof CommunityRoute
   EpisodesRoute: typeof EpisodesRoute
   FoundersRoute: typeof FoundersRoute
   PanelistsRoute: typeof PanelistsRoute
@@ -158,6 +171,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EpisodesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/community': {
+      id: '/community'
+      path: '/community'
+      fullPath: '/community'
+      preLoaderRoute: typeof CommunityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/apply': {
       id: '/apply'
       path: '/apply'
@@ -178,6 +198,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ApplyRoute: ApplyRoute,
+  CommunityRoute: CommunityRoute,
   EpisodesRoute: EpisodesRoute,
   FoundersRoute: FoundersRoute,
   PanelistsRoute: PanelistsRoute,
