@@ -14,6 +14,7 @@ import { Route as SponsorsRouteImport } from './routes/sponsors'
 import { Route as PanelistsRouteImport } from './routes/panelists'
 import { Route as FoundersRouteImport } from './routes/founders'
 import { Route as EpisodesRouteImport } from './routes/episodes'
+import { Route as ApplyRouteImport } from './routes/apply'
 import { Route as IndexRouteImport } from './routes/index'
 
 const TicketsRoute = TicketsRouteImport.update({
@@ -41,6 +42,11 @@ const EpisodesRoute = EpisodesRouteImport.update({
   path: '/episodes',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApplyRoute = ApplyRouteImport.update({
+  id: '/apply',
+  path: '/apply',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -49,6 +55,7 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/apply': typeof ApplyRoute
   '/episodes': typeof EpisodesRoute
   '/founders': typeof FoundersRoute
   '/panelists': typeof PanelistsRoute
@@ -57,6 +64,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/apply': typeof ApplyRoute
   '/episodes': typeof EpisodesRoute
   '/founders': typeof FoundersRoute
   '/panelists': typeof PanelistsRoute
@@ -66,6 +74,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/apply': typeof ApplyRoute
   '/episodes': typeof EpisodesRoute
   '/founders': typeof FoundersRoute
   '/panelists': typeof PanelistsRoute
@@ -76,16 +85,25 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/apply'
     | '/episodes'
     | '/founders'
     | '/panelists'
     | '/sponsors'
     | '/tickets'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/episodes' | '/founders' | '/panelists' | '/sponsors' | '/tickets'
+  to:
+    | '/'
+    | '/apply'
+    | '/episodes'
+    | '/founders'
+    | '/panelists'
+    | '/sponsors'
+    | '/tickets'
   id:
     | '__root__'
     | '/'
+    | '/apply'
     | '/episodes'
     | '/founders'
     | '/panelists'
@@ -95,6 +113,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ApplyRoute: typeof ApplyRoute
   EpisodesRoute: typeof EpisodesRoute
   FoundersRoute: typeof FoundersRoute
   PanelistsRoute: typeof PanelistsRoute
@@ -139,6 +158,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EpisodesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/apply': {
+      id: '/apply'
+      path: '/apply'
+      fullPath: '/apply'
+      preLoaderRoute: typeof ApplyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -151,6 +177,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ApplyRoute: ApplyRoute,
   EpisodesRoute: EpisodesRoute,
   FoundersRoute: FoundersRoute,
   PanelistsRoute: PanelistsRoute,
