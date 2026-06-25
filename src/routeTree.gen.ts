@@ -10,12 +10,18 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as PanelistsRouteImport } from './routes/panelists'
+import { Route as FoundersRouteImport } from './routes/founders'
 import { Route as EpisodesRouteImport } from './routes/episodes'
 import { Route as IndexRouteImport } from './routes/index'
 
 const PanelistsRoute = PanelistsRouteImport.update({
   id: '/panelists',
   path: '/panelists',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FoundersRoute = FoundersRouteImport.update({
+  id: '/founders',
+  path: '/founders',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EpisodesRoute = EpisodesRouteImport.update({
@@ -32,30 +38,34 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/episodes': typeof EpisodesRoute
+  '/founders': typeof FoundersRoute
   '/panelists': typeof PanelistsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/episodes': typeof EpisodesRoute
+  '/founders': typeof FoundersRoute
   '/panelists': typeof PanelistsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/episodes': typeof EpisodesRoute
+  '/founders': typeof FoundersRoute
   '/panelists': typeof PanelistsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/episodes' | '/panelists'
+  fullPaths: '/' | '/episodes' | '/founders' | '/panelists'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/episodes' | '/panelists'
-  id: '__root__' | '/' | '/episodes' | '/panelists'
+  to: '/' | '/episodes' | '/founders' | '/panelists'
+  id: '__root__' | '/' | '/episodes' | '/founders' | '/panelists'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   EpisodesRoute: typeof EpisodesRoute
+  FoundersRoute: typeof FoundersRoute
   PanelistsRoute: typeof PanelistsRoute
 }
 
@@ -66,6 +76,13 @@ declare module '@tanstack/react-router' {
       path: '/panelists'
       fullPath: '/panelists'
       preLoaderRoute: typeof PanelistsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/founders': {
+      id: '/founders'
+      path: '/founders'
+      fullPath: '/founders'
+      preLoaderRoute: typeof FoundersRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/episodes': {
@@ -88,6 +105,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   EpisodesRoute: EpisodesRoute,
+  FoundersRoute: FoundersRoute,
   PanelistsRoute: PanelistsRoute,
 }
 export const routeTree = rootRouteImport
