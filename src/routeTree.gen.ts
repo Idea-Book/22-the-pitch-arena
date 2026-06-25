@@ -9,9 +9,15 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as PanelistsRouteImport } from './routes/panelists'
 import { Route as EpisodesRouteImport } from './routes/episodes'
 import { Route as IndexRouteImport } from './routes/index'
 
+const PanelistsRoute = PanelistsRouteImport.update({
+  id: '/panelists',
+  path: '/panelists',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EpisodesRoute = EpisodesRouteImport.update({
   id: '/episodes',
   path: '/episodes',
@@ -26,31 +32,42 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/episodes': typeof EpisodesRoute
+  '/panelists': typeof PanelistsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/episodes': typeof EpisodesRoute
+  '/panelists': typeof PanelistsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/episodes': typeof EpisodesRoute
+  '/panelists': typeof PanelistsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/episodes'
+  fullPaths: '/' | '/episodes' | '/panelists'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/episodes'
-  id: '__root__' | '/' | '/episodes'
+  to: '/' | '/episodes' | '/panelists'
+  id: '__root__' | '/' | '/episodes' | '/panelists'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   EpisodesRoute: typeof EpisodesRoute
+  PanelistsRoute: typeof PanelistsRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/panelists': {
+      id: '/panelists'
+      path: '/panelists'
+      fullPath: '/panelists'
+      preLoaderRoute: typeof PanelistsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/episodes': {
       id: '/episodes'
       path: '/episodes'
@@ -71,6 +88,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   EpisodesRoute: EpisodesRoute,
+  PanelistsRoute: PanelistsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
