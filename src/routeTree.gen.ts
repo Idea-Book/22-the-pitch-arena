@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TicketsRouteImport } from './routes/tickets'
 import { Route as SponsorsRouteImport } from './routes/sponsors'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as PanelistsRouteImport } from './routes/panelists'
 import { Route as FoundersRouteImport } from './routes/founders'
 import { Route as EpisodesRouteImport } from './routes/episodes'
@@ -26,6 +27,11 @@ const TicketsRoute = TicketsRouteImport.update({
 const SponsorsRoute = SponsorsRouteImport.update({
   id: '/sponsors',
   path: '/sponsors',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PanelistsRoute = PanelistsRouteImport.update({
@@ -66,6 +72,7 @@ export interface FileRoutesByFullPath {
   '/episodes': typeof EpisodesRoute
   '/founders': typeof FoundersRoute
   '/panelists': typeof PanelistsRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sponsors': typeof SponsorsRoute
   '/tickets': typeof TicketsRoute
 }
@@ -76,6 +83,7 @@ export interface FileRoutesByTo {
   '/episodes': typeof EpisodesRoute
   '/founders': typeof FoundersRoute
   '/panelists': typeof PanelistsRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sponsors': typeof SponsorsRoute
   '/tickets': typeof TicketsRoute
 }
@@ -87,6 +95,7 @@ export interface FileRoutesById {
   '/episodes': typeof EpisodesRoute
   '/founders': typeof FoundersRoute
   '/panelists': typeof PanelistsRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sponsors': typeof SponsorsRoute
   '/tickets': typeof TicketsRoute
 }
@@ -99,6 +108,7 @@ export interface FileRouteTypes {
     | '/episodes'
     | '/founders'
     | '/panelists'
+    | '/sitemap.xml'
     | '/sponsors'
     | '/tickets'
   fileRoutesByTo: FileRoutesByTo
@@ -109,6 +119,7 @@ export interface FileRouteTypes {
     | '/episodes'
     | '/founders'
     | '/panelists'
+    | '/sitemap.xml'
     | '/sponsors'
     | '/tickets'
   id:
@@ -119,6 +130,7 @@ export interface FileRouteTypes {
     | '/episodes'
     | '/founders'
     | '/panelists'
+    | '/sitemap.xml'
     | '/sponsors'
     | '/tickets'
   fileRoutesById: FileRoutesById
@@ -130,6 +142,7 @@ export interface RootRouteChildren {
   EpisodesRoute: typeof EpisodesRoute
   FoundersRoute: typeof FoundersRoute
   PanelistsRoute: typeof PanelistsRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SponsorsRoute: typeof SponsorsRoute
   TicketsRoute: typeof TicketsRoute
 }
@@ -148,6 +161,13 @@ declare module '@tanstack/react-router' {
       path: '/sponsors'
       fullPath: '/sponsors'
       preLoaderRoute: typeof SponsorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/panelists': {
@@ -202,6 +222,7 @@ const rootRouteChildren: RootRouteChildren = {
   EpisodesRoute: EpisodesRoute,
   FoundersRoute: FoundersRoute,
   PanelistsRoute: PanelistsRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   SponsorsRoute: SponsorsRoute,
   TicketsRoute: TicketsRoute,
 }
