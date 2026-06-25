@@ -11,6 +11,9 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { SiteNav } from "../components/site-nav";
+import { SiteFooter } from "../components/site-footer";
+import { StickyPitchCTA } from "../components/sticky-pitch-cta";
 
 function NotFoundComponent() {
   return (
@@ -77,19 +80,24 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "The Arena — Build. Pitch. Survive." },
+      { name: "description", content: "The internet's most brutal startup reality show. Founders pitch under live pressure. Brutal panel. Real verdicts." },
+      { name: "author", content: "The Arena" },
+      { property: "og:title", content: "The Arena — Build. Pitch. Survive." },
+      { property: "og:description", content: "The internet's most brutal startup reality show." },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
       {
         rel: "stylesheet",
         href: appCss,
+      },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:ital,wght@0,400..600;1,400..600&family=JetBrains+Mono:wght@400;500&display=swap",
       },
     ],
   }),
@@ -118,8 +126,14 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <div className="min-h-screen bg-background text-foreground">
+        <SiteNav />
+        <main>
+          <Outlet />
+        </main>
+        <SiteFooter />
+        <StickyPitchCTA />
+      </div>
     </QueryClientProvider>
   );
 }
