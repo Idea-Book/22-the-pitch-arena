@@ -55,7 +55,13 @@ const FAQ = [
 ];
 
 function TicketsPage() {
+  const [tier, setTier] = useState<Tier>("Paddock");
+  function book(t: Tier) {
+    setTier(t);
+    setTimeout(() => document.getElementById("book")?.scrollIntoView({ behavior: "smooth", block: "start" }), 30);
+  }
   return (
+
     <>
       <PageHero
         eyebrow="Live Taping · NMACC Mumbai · 14 Nov · 19:00 IST"
