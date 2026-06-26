@@ -3,13 +3,18 @@ import { z } from "zod";
 
 const slugInput = z.object({ slug: z.string().trim().min(1).max(80) });
 
-export const listEpisodes = createServerFn({ method: "GET" }).handler(async () => {
-  const { getPublicSupabase } = await import("./supabase-public.server");
-  const sb = getPublicSupabase();
-  const { data, error } = await sb.from("episodes").select("*").order("air_date", { ascending: false });
-  if (error) throw new Error(error.message);
-  return data ?? [];
-});
+const listEpisodesInput = z.object({ all: z.boolean().optional() }).optional();
+export const listEpisodes = createServerFn({ method: "GET" })
+  .inputValidator((v) => listEpisodesInput.parse(v ?? {}))
+  .handler(async ({ data }) => {
+    const { getPublicSupabase } = await import("./supabase-public.server");
+    const sb = getPublicSupabase();
+    let q = sb.from("episodes").select("*").order("air_date", { ascending: false });
+    if (!data?.all) q = q.eq("status", "aired");
+    const { data: rows, error } = await q;
+    if (error) throw new Error(error.message);
+    return rows ?? [];
+  });
 
 export const getEpisode = createServerFn({ method: "GET" })
   .inputValidator((v) => slugInput.parse(v))
