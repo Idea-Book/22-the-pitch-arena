@@ -1,7 +1,8 @@
 import { Link, Outlet } from "@tanstack/react-router";
 import { useAuth } from "@/hooks/use-auth";
 
-const SECTIONS = [
+type Section = { to: string; label: string; admin?: boolean };
+const SECTIONS: Section[] = [
   { to: "/admin", label: "Dashboard", staff: true },
   { to: "/admin/reports", label: "Reports", staff: true },
   { to: "/admin/posts", label: "Posts", staff: true },
@@ -12,7 +13,7 @@ const SECTIONS = [
   { to: "/admin/tickets", label: "Tickets", staff: true },
   { to: "/admin/sponsors", label: "Sponsors", staff: true },
   { to: "/admin/users", label: "Users", admin: true },
-] as const;
+] as any;
 
 export function AdminShell() {
   const { isAdmin, isStaff, loading } = useAuth();
@@ -39,8 +40,8 @@ export function AdminShell() {
             <h2 className="font-display text-2xl">Admin</h2>
           </div>
           <nav className="flex flex-col">
-            {SECTIONS.filter(s => s.staff || (s as any).admin ? (s as any).admin ? isAdmin : true : false).map((s) => (
-              <Link key={s.to} to={s.to}
+            {SECTIONS.filter(s => s.admin ? isAdmin : true).map((s) => (
+              <Link key={s.to} to={s.to as any}
                 className="px-3 py-2 text-[12px] font-mono uppercase tracking-[0.22em] text-muted-foreground hover:text-foreground hover:bg-[var(--surface)]"
                 activeProps={{ className: "px-3 py-2 text-[12px] font-mono uppercase tracking-[0.22em] text-foreground bg-[var(--surface)] border-l-2 border-[var(--crimson)]" }}
                 activeOptions={{ exact: s.to === "/admin" }}
