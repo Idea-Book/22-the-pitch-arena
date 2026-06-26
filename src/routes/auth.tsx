@@ -4,6 +4,8 @@ import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable/index";
 import { toast } from "sonner";
+import { useServerFn } from "@tanstack/react-start";
+import { ensureDemoAdmin } from "@/lib/demo-auth.functions";
 
 const searchSchema = z.object({ redirect: z.string().optional() });
 
