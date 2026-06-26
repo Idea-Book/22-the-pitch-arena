@@ -94,7 +94,7 @@ function TicketsPage() {
                   </li>
                 ))}
               </ul>
-              <button className={`w-full py-3 text-xs uppercase tracking-[0.22em] transition-colors ${t.featured ? "bg-[var(--crimson)] text-white hover:bg-[var(--crimson)]/90" : "bg-foreground text-background hover:bg-[var(--silver)]"}`}>{t.cta}</button>
+              <button onClick={() => book(t.name as Tier)} className={`w-full py-3 text-xs uppercase tracking-[0.22em] transition-colors ${t.featured ? "bg-[var(--crimson)] text-white hover:bg-[var(--crimson)]/90" : "bg-foreground text-background hover:bg-[var(--silver)]"}`}>{t.cta}</button>
             </article>
           ))}
         </div>
