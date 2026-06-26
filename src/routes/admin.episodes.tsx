@@ -89,9 +89,9 @@ function EpisodeForm({ initial, onCancel, onSave, busy }: { initial: any; onCanc
           {OUTCOMES.map(o => <option key={o}>{o}</option>)}
         </select>
       </Field>
-      <Field label="Status">
+      <Field label="Status" hint="Draft & Preview stay hidden from the public Episodes page">
         <select className={inputCls} value={v.status} onChange={(e) => set("status", e.target.value)}>
-          {STATUSES.map(o => <option key={o}>{o}</option>)}
+          {STATUS_OPTIONS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
         </select>
       </Field>
       <Field label="Video URL (embed)" error={errs.video_url}><input className={inputCls} value={v.video_url ?? ""} onChange={(e) => set("video_url", e.target.value)} /></Field>
