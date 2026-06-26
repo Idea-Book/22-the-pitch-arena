@@ -221,7 +221,45 @@ export const adminSetPostStatus = createServerFn({ method: "POST" })
     return { ok: true };
   });
 
-// ---------- BANS ----------
+const postUpsertSchema = z.object({
+  id: z.string().uuid().optional(),
+  body: z.string().trim().min(2, "Say something").max(1000),
+  media_url: z.string().url().max(500).optional().or(z.literal("")),
+  episode_id: z.string().uuid().optional().nullable().or(z.literal("")),
+  status: z.enum(["live", "pending", "removed"]).default("live"),
+});
+
+export const adminUpsertPost = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((v) => postUpsertSchema.parse(v))
+  .handler(async ({ data, context }) => {
+    await assertStaff(context);
+    const payload: any = {
+      body: data.body,
+      media_url: data.media_url || null,
+      episode_id: data.episode_id || null,
+      status: data.status,
+    };
+    if (data.id) {
+      const { error } = await context.supabase.from("community_posts").update(payload).eq("id", data.id);
+      if (error) throw new Error(error.message);
+      return { ok: true, id: data.id };
+    }
+    payload.author_id = context.userId;
+    const { data: row, error } = await context.supabase.from("community_posts").insert(payload).select().single();
+    if (error) throw new Error(error.message);
+    return row;
+  });
+
+export const adminDeletePost = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((v) => z.object({ id: z.string().uuid() }).parse(v))
+  .handler(async ({ data, context }) => {
+    await assertStaff(context);
+    const { error } = await context.supabase.from("community_posts").delete().eq("id", data.id);
+    if (error) throw new Error(error.message);
+    return { ok: true };
+  });
 export const adminBanUser = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((v) => z.object({
