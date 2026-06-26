@@ -47,6 +47,10 @@ const GEO = [
 ];
 
 function SponsorsPage() {
+  const { data: pkgRows } = useQuery({ queryKey: ["sponsorPackages"], queryFn: () => listSponsorPackages() });
+  const { data: partnerRows } = useQuery({ queryKey: ["sponsorPartners"], queryFn: () => listSponsorPartners() });
+  const PACKAGES = (pkgRows && pkgRows.length ? pkgRows.map((p: any) => ({ tier: p.tier, name: p.name, scope: p.scope, price: p.price, units: p.units ?? "", color: p.color || "text-foreground" })) : PACKAGES_FALLBACK);
+  const PARTNERS = (partnerRows && partnerRows.length ? partnerRows.map((p: any) => p.name as string) : PARTNERS_FALLBACK);
   return (
     <>
       <PageHero
