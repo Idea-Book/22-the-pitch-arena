@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { ApplicationForm } from "@/components/inquiry-form";
 
 export const Route = createFileRoute("/apply")({
   head: () => ({
@@ -35,10 +35,6 @@ function Meter({ label, value, bar, color = "var(--silver)" }: { label: string; 
 }
 
 function ApplyPage() {
-  const [step, setStep] = useState(0);
-  const progress = ((step + 1) / STEPS.length) * 100;
-  const survival = 18 + step * 16;
-
   return (
     <section className="min-h-screen pt-28 pb-20 px-6">
       <div className="mx-auto max-w-5xl">
@@ -57,53 +53,12 @@ function ApplyPage() {
             your GST filings and your last three pitch decks.
           </p>
         </header>
-
-        {/* TELEMETRY METERS */}
-        <div className="grid grid-cols-3 gap-px bg-border mb-12">
-          <Meter label="Application" value={`${Math.round(progress)}%`} bar={progress} />
-          <Meter label="Survival probability" value={`${survival}%`} bar={survival} color="var(--crimson)" />
-          <Meter label="Investor readiness" value={step >= 2 ? "Live" : "Pending"} bar={step >= 2 ? 70 : 10} color="var(--gold)" />
-        </div>
-
-        {/* STEP NAV */}
-        <div className="flex gap-2 mb-12 overflow-x-auto no-scrollbar">
-          {STEPS.map((s, i) => (
-            <button key={i} onClick={() => setStep(i)} className={`flex-1 min-w-[140px] text-left p-4 border transition-colors ${i === step ? "border-[var(--crimson)] bg-[var(--surface-2)] glow-crimson" : "border-border hover:border-muted-foreground"}`}>
-              <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground mb-1">PHASE 0{i + 1}</div>
-              <div className="font-display text-lg">{s.label}</div>
-            </button>
-          ))}
-        </div>
-
-        {/* FORM CARD */}
         <div className="bg-[var(--surface)] ring-1 ring-border p-8 md:p-12">
           <div className="flex items-baseline justify-between mb-8">
-            <h2 className="font-display text-3xl">{STEPS[step].label}</h2>
-            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">{step + 1} / {STEPS.length}</span>
+            <h2 className="font-display text-3xl">Founder application</h2>
+            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">S02 · Open call</span>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {STEPS[step].fields.map((f) => (
-              <div key={f} className={f.length > 30 ? "md:col-span-2" : ""}>
-                <label className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground mb-2 block">{f}</label>
-                {f.length > 30 ? (
-                  <textarea rows={4} className="w-full bg-background border border-border px-4 py-3 text-sm focus:outline-none focus:ring-1 focus:ring-[var(--electric)]" />
-                ) : (
-                  <input type="text" className="w-full bg-background border border-border px-4 py-3 text-sm focus:outline-none focus:ring-1 focus:ring-[var(--electric)]" />
-                )}
-              </div>
-            ))}
-          </div>
-          <div className="flex justify-between items-center mt-10 pt-8 border-t border-border">
-            <button onClick={() => setStep((s) => Math.max(0, s - 1))} disabled={step === 0} className="text-xs uppercase tracking-[0.25em] text-muted-foreground hover:text-foreground disabled:opacity-30">← Back</button>
-            {step < STEPS.length - 1 ? (
-              <button onClick={() => setStep((s) => Math.min(STEPS.length - 1, s + 1))} className="bg-foreground text-background px-8 py-3 text-xs uppercase tracking-[0.22em] hover:bg-[var(--silver)] transition-colors">Continue →</button>
-            ) : (
-              <button className="bg-[var(--crimson)] text-white px-10 py-3 text-xs uppercase tracking-[0.22em] hover:bg-[var(--crimson)]/90 transition-colors glow-crimson">
-                <span className="size-1.5 rounded-full bg-white live-blink inline-block mr-3 align-middle" />
-                Submit to the Arena
-              </button>
-            )}
-          </div>
+          <ApplicationForm />
         </div>
 
         {/* SELECTION FUNNEL */}
