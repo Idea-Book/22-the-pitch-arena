@@ -16,7 +16,7 @@ export const Route = createFileRoute("/sponsors")({
   component: SponsorsPage,
 });
 
-const PACKAGES = [
+const PACKAGES_FALLBACK = [
   { tier: "T1", name: "Title Sponsor", scope: "Season-long brand presence. Stage naming rights. Post-show editorial.", price: "₹18 Cr+", units: "1 slot", color: "text-[var(--crimson)]" },
   { tier: "T2", name: "Circuit Sponsor", scope: "On-floor branding, audience badges, lobby activation, panel mention.", price: "₹5.5 Cr", units: "4 slots", color: "text-[var(--gold)]" },
   { tier: "T3", name: "Round Sponsor", scope: "Pre-roll, mid-show segment, founder-room branding for one round.", price: "₹1.6 Cr", units: "16 slots · 11 sold", color: "text-foreground" },
