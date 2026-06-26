@@ -25,7 +25,7 @@ export const adminStats = createServerFn({ method: "GET" })
     const tables = ["community_posts", "post_comments", "reports", "applications", "ticket_inquiries", "sponsor_inquiries", "episodes", "panelists", "founders", "profiles"];
     const counts: Record<string, number> = {};
     await Promise.all(tables.map(async (t) => {
-      const { count } = await supabaseAdmin.from(t).select("*", { count: "exact", head: true });
+      const { count } = await (supabaseAdmin as any).from(t).select("*", { count: "exact", head: true });
       counts[t] = count ?? 0;
     }));
     const { count: openReports } = await supabaseAdmin.from("reports").select("*", { count: "exact", head: true }).eq("status", "open");
@@ -125,7 +125,7 @@ export const adminResolveReport = createServerFn({ method: "POST" })
     if (!rep) throw new Error("Report not found");
     if (data.remove_target) {
       const table = rep.target_type === "post" ? "community_posts" : "post_comments";
-      await context.supabase.from(table).update({ status: "removed" }).eq("id", rep.target_id);
+      await (context.supabase as any).from(table).update({ status: "removed" }).eq("id", rep.target_id);
     }
     const { error } = await context.supabase.from("reports").update({
       status: data.status,
@@ -204,7 +204,7 @@ export const adminListSubmissions = createServerFn({ method: "GET" })
   .inputValidator((v) => listSubInput.parse(v))
   .handler(async ({ data, context }) => {
     await assertStaff(context);
-    const { data: rows, error } = await context.supabase.from(data.table).select("*").order("created_at", { ascending: false }).limit(500);
+    const { data: rows, error } = await (context.supabase as any).from(data.table).select("*").order("created_at", { ascending: false }).limit(500);
     if (error) throw new Error(error.message);
     return rows ?? [];
   });
@@ -224,7 +224,7 @@ export const adminUpdateSubmissionStatus = createServerFn({ method: "POST" })
       patch.reviewed_by = context.userId;
       if (data.notes) patch.reviewer_notes = data.notes;
     }
-    const { error } = await context.supabase.from(data.table).update(patch).eq("id", data.id);
+    const { error } = await (context.supabase as any).from(data.table).update(patch).eq("id", data.id);
     if (error) throw new Error(error.message);
     return { ok: true };
   });
