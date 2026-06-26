@@ -18,22 +18,21 @@ import { Route as EpisodesRouteImport } from './routes/episodes'
 import { Route as CommunityRouteImport } from './routes/community'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ApplyRouteImport } from './routes/apply'
-import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as PanelistsSlugRouteImport } from './routes/panelists.$slug'
 import { Route as FoundersSlugRouteImport } from './routes/founders.$slug'
 import { Route as EpisodesSlugRouteImport } from './routes/episodes.$slug'
-import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated.admin'
-import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated.admin.index'
-import { Route as AuthenticatedAdminUsersRouteImport } from './routes/_authenticated.admin.users'
-import { Route as AuthenticatedAdminTicketsRouteImport } from './routes/_authenticated.admin.tickets'
-import { Route as AuthenticatedAdminSponsorsRouteImport } from './routes/_authenticated.admin.sponsors'
-import { Route as AuthenticatedAdminReportsRouteImport } from './routes/_authenticated.admin.reports'
-import { Route as AuthenticatedAdminPostsRouteImport } from './routes/_authenticated.admin.posts'
-import { Route as AuthenticatedAdminPanelistsRouteImport } from './routes/_authenticated.admin.panelists'
-import { Route as AuthenticatedAdminFoundersRouteImport } from './routes/_authenticated.admin.founders'
-import { Route as AuthenticatedAdminEpisodesRouteImport } from './routes/_authenticated.admin.episodes'
-import { Route as AuthenticatedAdminApplicationsRouteImport } from './routes/_authenticated.admin.applications'
+import { Route as AdminUsersRouteImport } from './routes/admin.users'
+import { Route as AdminTicketsRouteImport } from './routes/admin.tickets'
+import { Route as AdminSponsorsRouteImport } from './routes/admin.sponsors'
+import { Route as AdminReportsRouteImport } from './routes/admin.reports'
+import { Route as AdminPostsRouteImport } from './routes/admin.posts'
+import { Route as AdminPanelistsRouteImport } from './routes/admin.panelists'
+import { Route as AdminFoundersRouteImport } from './routes/admin.founders'
+import { Route as AdminEpisodesRouteImport } from './routes/admin.episodes'
+import { Route as AdminApplicationsRouteImport } from './routes/admin.applications'
 
 const TicketsRoute = TicketsRouteImport.update({
   id: '/tickets',
@@ -80,14 +79,20 @@ const ApplyRoute = ApplyRouteImport.update({
   path: '/apply',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedRoute = AuthenticatedRouteImport.update({
-  id: '/_authenticated',
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
 } as any)
 const PanelistsSlugRoute = PanelistsSlugRouteImport.update({
   id: '/$slug',
@@ -104,71 +109,55 @@ const EpisodesSlugRoute = EpisodesSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => EpisodesRoute,
 } as any)
-const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
-  id: '/admin',
-  path: '/admin',
-  getParentRoute: () => AuthenticatedRoute,
-} as any)
-const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => AuthenticatedAdminRoute,
-} as any)
-const AuthenticatedAdminUsersRoute = AuthenticatedAdminUsersRouteImport.update({
+const AdminUsersRoute = AdminUsersRouteImport.update({
   id: '/users',
   path: '/users',
-  getParentRoute: () => AuthenticatedAdminRoute,
+  getParentRoute: () => AdminRoute,
 } as any)
-const AuthenticatedAdminTicketsRoute =
-  AuthenticatedAdminTicketsRouteImport.update({
-    id: '/tickets',
-    path: '/tickets',
-    getParentRoute: () => AuthenticatedAdminRoute,
-  } as any)
-const AuthenticatedAdminSponsorsRoute =
-  AuthenticatedAdminSponsorsRouteImport.update({
-    id: '/sponsors',
-    path: '/sponsors',
-    getParentRoute: () => AuthenticatedAdminRoute,
-  } as any)
-const AuthenticatedAdminReportsRoute =
-  AuthenticatedAdminReportsRouteImport.update({
-    id: '/reports',
-    path: '/reports',
-    getParentRoute: () => AuthenticatedAdminRoute,
-  } as any)
-const AuthenticatedAdminPostsRoute = AuthenticatedAdminPostsRouteImport.update({
+const AdminTicketsRoute = AdminTicketsRouteImport.update({
+  id: '/tickets',
+  path: '/tickets',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminSponsorsRoute = AdminSponsorsRouteImport.update({
+  id: '/sponsors',
+  path: '/sponsors',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminReportsRoute = AdminReportsRouteImport.update({
+  id: '/reports',
+  path: '/reports',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminPostsRoute = AdminPostsRouteImport.update({
   id: '/posts',
   path: '/posts',
-  getParentRoute: () => AuthenticatedAdminRoute,
+  getParentRoute: () => AdminRoute,
 } as any)
-const AuthenticatedAdminPanelistsRoute =
-  AuthenticatedAdminPanelistsRouteImport.update({
-    id: '/panelists',
-    path: '/panelists',
-    getParentRoute: () => AuthenticatedAdminRoute,
-  } as any)
-const AuthenticatedAdminFoundersRoute =
-  AuthenticatedAdminFoundersRouteImport.update({
-    id: '/founders',
-    path: '/founders',
-    getParentRoute: () => AuthenticatedAdminRoute,
-  } as any)
-const AuthenticatedAdminEpisodesRoute =
-  AuthenticatedAdminEpisodesRouteImport.update({
-    id: '/episodes',
-    path: '/episodes',
-    getParentRoute: () => AuthenticatedAdminRoute,
-  } as any)
-const AuthenticatedAdminApplicationsRoute =
-  AuthenticatedAdminApplicationsRouteImport.update({
-    id: '/applications',
-    path: '/applications',
-    getParentRoute: () => AuthenticatedAdminRoute,
-  } as any)
+const AdminPanelistsRoute = AdminPanelistsRouteImport.update({
+  id: '/panelists',
+  path: '/panelists',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminFoundersRoute = AdminFoundersRouteImport.update({
+  id: '/founders',
+  path: '/founders',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminEpisodesRoute = AdminEpisodesRouteImport.update({
+  id: '/episodes',
+  path: '/episodes',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminApplicationsRoute = AdminApplicationsRouteImport.update({
+  id: '/applications',
+  path: '/applications',
+  getParentRoute: () => AdminRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteWithChildren
   '/apply': typeof ApplyRoute
   '/auth': typeof AuthRoute
   '/community': typeof CommunityRoute
@@ -178,20 +167,19 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sponsors': typeof SponsorsRoute
   '/tickets': typeof TicketsRoute
-  '/admin': typeof AuthenticatedAdminRouteWithChildren
+  '/admin/applications': typeof AdminApplicationsRoute
+  '/admin/episodes': typeof AdminEpisodesRoute
+  '/admin/founders': typeof AdminFoundersRoute
+  '/admin/panelists': typeof AdminPanelistsRoute
+  '/admin/posts': typeof AdminPostsRoute
+  '/admin/reports': typeof AdminReportsRoute
+  '/admin/sponsors': typeof AdminSponsorsRoute
+  '/admin/tickets': typeof AdminTicketsRoute
+  '/admin/users': typeof AdminUsersRoute
   '/episodes/$slug': typeof EpisodesSlugRoute
   '/founders/$slug': typeof FoundersSlugRoute
   '/panelists/$slug': typeof PanelistsSlugRoute
-  '/admin/applications': typeof AuthenticatedAdminApplicationsRoute
-  '/admin/episodes': typeof AuthenticatedAdminEpisodesRoute
-  '/admin/founders': typeof AuthenticatedAdminFoundersRoute
-  '/admin/panelists': typeof AuthenticatedAdminPanelistsRoute
-  '/admin/posts': typeof AuthenticatedAdminPostsRoute
-  '/admin/reports': typeof AuthenticatedAdminReportsRoute
-  '/admin/sponsors': typeof AuthenticatedAdminSponsorsRoute
-  '/admin/tickets': typeof AuthenticatedAdminTicketsRoute
-  '/admin/users': typeof AuthenticatedAdminUsersRoute
-  '/admin/': typeof AuthenticatedAdminIndexRoute
+  '/admin/': typeof AdminIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -204,24 +192,24 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sponsors': typeof SponsorsRoute
   '/tickets': typeof TicketsRoute
+  '/admin/applications': typeof AdminApplicationsRoute
+  '/admin/episodes': typeof AdminEpisodesRoute
+  '/admin/founders': typeof AdminFoundersRoute
+  '/admin/panelists': typeof AdminPanelistsRoute
+  '/admin/posts': typeof AdminPostsRoute
+  '/admin/reports': typeof AdminReportsRoute
+  '/admin/sponsors': typeof AdminSponsorsRoute
+  '/admin/tickets': typeof AdminTicketsRoute
+  '/admin/users': typeof AdminUsersRoute
   '/episodes/$slug': typeof EpisodesSlugRoute
   '/founders/$slug': typeof FoundersSlugRoute
   '/panelists/$slug': typeof PanelistsSlugRoute
-  '/admin/applications': typeof AuthenticatedAdminApplicationsRoute
-  '/admin/episodes': typeof AuthenticatedAdminEpisodesRoute
-  '/admin/founders': typeof AuthenticatedAdminFoundersRoute
-  '/admin/panelists': typeof AuthenticatedAdminPanelistsRoute
-  '/admin/posts': typeof AuthenticatedAdminPostsRoute
-  '/admin/reports': typeof AuthenticatedAdminReportsRoute
-  '/admin/sponsors': typeof AuthenticatedAdminSponsorsRoute
-  '/admin/tickets': typeof AuthenticatedAdminTicketsRoute
-  '/admin/users': typeof AuthenticatedAdminUsersRoute
-  '/admin': typeof AuthenticatedAdminIndexRoute
+  '/admin': typeof AdminIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/_authenticated': typeof AuthenticatedRouteWithChildren
+  '/admin': typeof AdminRouteWithChildren
   '/apply': typeof ApplyRoute
   '/auth': typeof AuthRoute
   '/community': typeof CommunityRoute
@@ -231,25 +219,25 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sponsors': typeof SponsorsRoute
   '/tickets': typeof TicketsRoute
-  '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
+  '/admin/applications': typeof AdminApplicationsRoute
+  '/admin/episodes': typeof AdminEpisodesRoute
+  '/admin/founders': typeof AdminFoundersRoute
+  '/admin/panelists': typeof AdminPanelistsRoute
+  '/admin/posts': typeof AdminPostsRoute
+  '/admin/reports': typeof AdminReportsRoute
+  '/admin/sponsors': typeof AdminSponsorsRoute
+  '/admin/tickets': typeof AdminTicketsRoute
+  '/admin/users': typeof AdminUsersRoute
   '/episodes/$slug': typeof EpisodesSlugRoute
   '/founders/$slug': typeof FoundersSlugRoute
   '/panelists/$slug': typeof PanelistsSlugRoute
-  '/_authenticated/admin/applications': typeof AuthenticatedAdminApplicationsRoute
-  '/_authenticated/admin/episodes': typeof AuthenticatedAdminEpisodesRoute
-  '/_authenticated/admin/founders': typeof AuthenticatedAdminFoundersRoute
-  '/_authenticated/admin/panelists': typeof AuthenticatedAdminPanelistsRoute
-  '/_authenticated/admin/posts': typeof AuthenticatedAdminPostsRoute
-  '/_authenticated/admin/reports': typeof AuthenticatedAdminReportsRoute
-  '/_authenticated/admin/sponsors': typeof AuthenticatedAdminSponsorsRoute
-  '/_authenticated/admin/tickets': typeof AuthenticatedAdminTicketsRoute
-  '/_authenticated/admin/users': typeof AuthenticatedAdminUsersRoute
-  '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
+  '/admin/': typeof AdminIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/admin'
     | '/apply'
     | '/auth'
     | '/community'
@@ -259,10 +247,6 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/sponsors'
     | '/tickets'
-    | '/admin'
-    | '/episodes/$slug'
-    | '/founders/$slug'
-    | '/panelists/$slug'
     | '/admin/applications'
     | '/admin/episodes'
     | '/admin/founders'
@@ -272,6 +256,9 @@ export interface FileRouteTypes {
     | '/admin/sponsors'
     | '/admin/tickets'
     | '/admin/users'
+    | '/episodes/$slug'
+    | '/founders/$slug'
+    | '/panelists/$slug'
     | '/admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -285,9 +272,6 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/sponsors'
     | '/tickets'
-    | '/episodes/$slug'
-    | '/founders/$slug'
-    | '/panelists/$slug'
     | '/admin/applications'
     | '/admin/episodes'
     | '/admin/founders'
@@ -297,11 +281,14 @@ export interface FileRouteTypes {
     | '/admin/sponsors'
     | '/admin/tickets'
     | '/admin/users'
+    | '/episodes/$slug'
+    | '/founders/$slug'
+    | '/panelists/$slug'
     | '/admin'
   id:
     | '__root__'
     | '/'
-    | '/_authenticated'
+    | '/admin'
     | '/apply'
     | '/auth'
     | '/community'
@@ -311,25 +298,24 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/sponsors'
     | '/tickets'
-    | '/_authenticated/admin'
+    | '/admin/applications'
+    | '/admin/episodes'
+    | '/admin/founders'
+    | '/admin/panelists'
+    | '/admin/posts'
+    | '/admin/reports'
+    | '/admin/sponsors'
+    | '/admin/tickets'
+    | '/admin/users'
     | '/episodes/$slug'
     | '/founders/$slug'
     | '/panelists/$slug'
-    | '/_authenticated/admin/applications'
-    | '/_authenticated/admin/episodes'
-    | '/_authenticated/admin/founders'
-    | '/_authenticated/admin/panelists'
-    | '/_authenticated/admin/posts'
-    | '/_authenticated/admin/reports'
-    | '/_authenticated/admin/sponsors'
-    | '/_authenticated/admin/tickets'
-    | '/_authenticated/admin/users'
-    | '/_authenticated/admin/'
+    | '/admin/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
+  AdminRoute: typeof AdminRouteWithChildren
   ApplyRoute: typeof ApplyRoute
   AuthRoute: typeof AuthRoute
   CommunityRoute: typeof CommunityRoute
@@ -406,11 +392,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApplyRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_authenticated': {
-      id: '/_authenticated'
-      path: ''
-      fullPath: '/'
-      preLoaderRoute: typeof AuthenticatedRouteImport
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -419,6 +405,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
     }
     '/panelists/$slug': {
       id: '/panelists/$slug'
@@ -441,126 +434,99 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EpisodesSlugRouteImport
       parentRoute: typeof EpisodesRoute
     }
-    '/_authenticated/admin': {
-      id: '/_authenticated/admin'
-      path: '/admin'
-      fullPath: '/admin'
-      preLoaderRoute: typeof AuthenticatedAdminRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/admin/': {
-      id: '/_authenticated/admin/'
-      path: '/'
-      fullPath: '/admin/'
-      preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
-    }
-    '/_authenticated/admin/users': {
-      id: '/_authenticated/admin/users'
+    '/admin/users': {
+      id: '/admin/users'
       path: '/users'
       fullPath: '/admin/users'
-      preLoaderRoute: typeof AuthenticatedAdminUsersRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
+      preLoaderRoute: typeof AdminUsersRouteImport
+      parentRoute: typeof AdminRoute
     }
-    '/_authenticated/admin/tickets': {
-      id: '/_authenticated/admin/tickets'
+    '/admin/tickets': {
+      id: '/admin/tickets'
       path: '/tickets'
       fullPath: '/admin/tickets'
-      preLoaderRoute: typeof AuthenticatedAdminTicketsRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
+      preLoaderRoute: typeof AdminTicketsRouteImport
+      parentRoute: typeof AdminRoute
     }
-    '/_authenticated/admin/sponsors': {
-      id: '/_authenticated/admin/sponsors'
+    '/admin/sponsors': {
+      id: '/admin/sponsors'
       path: '/sponsors'
       fullPath: '/admin/sponsors'
-      preLoaderRoute: typeof AuthenticatedAdminSponsorsRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
+      preLoaderRoute: typeof AdminSponsorsRouteImport
+      parentRoute: typeof AdminRoute
     }
-    '/_authenticated/admin/reports': {
-      id: '/_authenticated/admin/reports'
+    '/admin/reports': {
+      id: '/admin/reports'
       path: '/reports'
       fullPath: '/admin/reports'
-      preLoaderRoute: typeof AuthenticatedAdminReportsRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
+      preLoaderRoute: typeof AdminReportsRouteImport
+      parentRoute: typeof AdminRoute
     }
-    '/_authenticated/admin/posts': {
-      id: '/_authenticated/admin/posts'
+    '/admin/posts': {
+      id: '/admin/posts'
       path: '/posts'
       fullPath: '/admin/posts'
-      preLoaderRoute: typeof AuthenticatedAdminPostsRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
+      preLoaderRoute: typeof AdminPostsRouteImport
+      parentRoute: typeof AdminRoute
     }
-    '/_authenticated/admin/panelists': {
-      id: '/_authenticated/admin/panelists'
+    '/admin/panelists': {
+      id: '/admin/panelists'
       path: '/panelists'
       fullPath: '/admin/panelists'
-      preLoaderRoute: typeof AuthenticatedAdminPanelistsRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
+      preLoaderRoute: typeof AdminPanelistsRouteImport
+      parentRoute: typeof AdminRoute
     }
-    '/_authenticated/admin/founders': {
-      id: '/_authenticated/admin/founders'
+    '/admin/founders': {
+      id: '/admin/founders'
       path: '/founders'
       fullPath: '/admin/founders'
-      preLoaderRoute: typeof AuthenticatedAdminFoundersRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
+      preLoaderRoute: typeof AdminFoundersRouteImport
+      parentRoute: typeof AdminRoute
     }
-    '/_authenticated/admin/episodes': {
-      id: '/_authenticated/admin/episodes'
+    '/admin/episodes': {
+      id: '/admin/episodes'
       path: '/episodes'
       fullPath: '/admin/episodes'
-      preLoaderRoute: typeof AuthenticatedAdminEpisodesRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
+      preLoaderRoute: typeof AdminEpisodesRouteImport
+      parentRoute: typeof AdminRoute
     }
-    '/_authenticated/admin/applications': {
-      id: '/_authenticated/admin/applications'
+    '/admin/applications': {
+      id: '/admin/applications'
       path: '/applications'
       fullPath: '/admin/applications'
-      preLoaderRoute: typeof AuthenticatedAdminApplicationsRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
+      preLoaderRoute: typeof AdminApplicationsRouteImport
+      parentRoute: typeof AdminRoute
     }
   }
 }
 
-interface AuthenticatedAdminRouteChildren {
-  AuthenticatedAdminApplicationsRoute: typeof AuthenticatedAdminApplicationsRoute
-  AuthenticatedAdminEpisodesRoute: typeof AuthenticatedAdminEpisodesRoute
-  AuthenticatedAdminFoundersRoute: typeof AuthenticatedAdminFoundersRoute
-  AuthenticatedAdminPanelistsRoute: typeof AuthenticatedAdminPanelistsRoute
-  AuthenticatedAdminPostsRoute: typeof AuthenticatedAdminPostsRoute
-  AuthenticatedAdminReportsRoute: typeof AuthenticatedAdminReportsRoute
-  AuthenticatedAdminSponsorsRoute: typeof AuthenticatedAdminSponsorsRoute
-  AuthenticatedAdminTicketsRoute: typeof AuthenticatedAdminTicketsRoute
-  AuthenticatedAdminUsersRoute: typeof AuthenticatedAdminUsersRoute
-  AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
+interface AdminRouteChildren {
+  AdminApplicationsRoute: typeof AdminApplicationsRoute
+  AdminEpisodesRoute: typeof AdminEpisodesRoute
+  AdminFoundersRoute: typeof AdminFoundersRoute
+  AdminPanelistsRoute: typeof AdminPanelistsRoute
+  AdminPostsRoute: typeof AdminPostsRoute
+  AdminReportsRoute: typeof AdminReportsRoute
+  AdminSponsorsRoute: typeof AdminSponsorsRoute
+  AdminTicketsRoute: typeof AdminTicketsRoute
+  AdminUsersRoute: typeof AdminUsersRoute
+  AdminIndexRoute: typeof AdminIndexRoute
 }
 
-const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
-  AuthenticatedAdminApplicationsRoute: AuthenticatedAdminApplicationsRoute,
-  AuthenticatedAdminEpisodesRoute: AuthenticatedAdminEpisodesRoute,
-  AuthenticatedAdminFoundersRoute: AuthenticatedAdminFoundersRoute,
-  AuthenticatedAdminPanelistsRoute: AuthenticatedAdminPanelistsRoute,
-  AuthenticatedAdminPostsRoute: AuthenticatedAdminPostsRoute,
-  AuthenticatedAdminReportsRoute: AuthenticatedAdminReportsRoute,
-  AuthenticatedAdminSponsorsRoute: AuthenticatedAdminSponsorsRoute,
-  AuthenticatedAdminTicketsRoute: AuthenticatedAdminTicketsRoute,
-  AuthenticatedAdminUsersRoute: AuthenticatedAdminUsersRoute,
-  AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminApplicationsRoute: AdminApplicationsRoute,
+  AdminEpisodesRoute: AdminEpisodesRoute,
+  AdminFoundersRoute: AdminFoundersRoute,
+  AdminPanelistsRoute: AdminPanelistsRoute,
+  AdminPostsRoute: AdminPostsRoute,
+  AdminReportsRoute: AdminReportsRoute,
+  AdminSponsorsRoute: AdminSponsorsRoute,
+  AdminTicketsRoute: AdminTicketsRoute,
+  AdminUsersRoute: AdminUsersRoute,
+  AdminIndexRoute: AdminIndexRoute,
 }
 
-const AuthenticatedAdminRouteWithChildren =
-  AuthenticatedAdminRoute._addFileChildren(AuthenticatedAdminRouteChildren)
-
-interface AuthenticatedRouteChildren {
-  AuthenticatedAdminRoute: typeof AuthenticatedAdminRouteWithChildren
-}
-
-const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
-  AuthenticatedAdminRoute: AuthenticatedAdminRouteWithChildren,
-}
-
-const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
-  AuthenticatedRouteChildren,
-)
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
 interface EpisodesRouteChildren {
   EpisodesSlugRoute: typeof EpisodesSlugRoute
@@ -600,7 +566,7 @@ const PanelistsRouteWithChildren = PanelistsRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AuthenticatedRoute: AuthenticatedRouteWithChildren,
+  AdminRoute: AdminRouteWithChildren,
   ApplyRoute: ApplyRoute,
   AuthRoute: AuthRoute,
   CommunityRoute: CommunityRoute,

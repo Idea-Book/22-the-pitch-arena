@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SubmissionsList } from "@/components/admin/submissions-list";
 
-export const Route = createFileRoute("/_authenticated/admin/applications")({
+export const Route = createFileRoute("/admin/applications")({
   component: () => <SubmissionsList
     table="applications"
     title="Founder applications"

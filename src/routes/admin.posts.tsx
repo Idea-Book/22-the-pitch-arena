@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import { adminListPosts, adminSetPostStatus } from "@/lib/admin.functions";
 import { AdminHeader } from "@/components/admin/admin-shell";
 
-export const Route = createFileRoute("/_authenticated/admin/posts")({
+export const Route = createFileRoute("/admin/posts")({
   component: PostsAdmin,
 });
 
