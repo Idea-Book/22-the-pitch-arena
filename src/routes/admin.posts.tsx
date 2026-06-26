@@ -81,9 +81,10 @@ function PostsAdmin() {
 
       {editing && <PostForm initial={editing} onCancel={() => setEditing(null)} onSave={(p) => save.mutate(p)} busy={save.isPending} />}
 
-      {isLoading ? <p className="text-sm text-muted-foreground mt-6">Loading…</p> :
+      {isLoading ? <PostsSkeleton /> :
         visible.length === 0 ? <p className="text-sm text-muted-foreground mt-6">Nothing in this queue.</p> :
         <ul className="divide-y divide-border ring-1 ring-border mt-6">
+
           {visible.map((p: any) => (
             <li key={p.id} className="p-4 bg-background flex gap-4 items-start">
               <div className="flex-1 min-w-0">
