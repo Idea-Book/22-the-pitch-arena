@@ -117,3 +117,24 @@ export const founderUpsertSchema = z.object({
   funded_label: z.string().trim().max(40).optional().or(z.literal("")),
   status: z.enum(["active","eliminated","champion","withdrew"]).default("active"),
 });
+
+export const sponsorPackageSchema = z.object({
+  id: z.string().uuid().optional(),
+  tier: z.string().trim().min(1).max(10),
+  name: z.string().trim().min(2).max(120),
+  scope: z.string().trim().min(2).max(600),
+  price: z.string().trim().min(1).max(40),
+  units: z.string().trim().max(80).optional().or(z.literal("")),
+  color: z.string().trim().max(80).optional().or(z.literal("")),
+  sort_order: z.coerce.number().int().min(0).max(9999).default(100),
+  active: z.boolean().default(true),
+});
+
+export const sponsorPartnerSchema = z.object({
+  id: z.string().uuid().optional(),
+  name: z.string().trim().min(1).max(80),
+  logo_url: z.string().url().max(500).optional().or(z.literal("")),
+  website: z.string().url().max(500).optional().or(z.literal("")),
+  sort_order: z.coerce.number().int().min(0).max(9999).default(100),
+  active: z.boolean().default(true),
+});

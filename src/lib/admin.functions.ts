@@ -1,7 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
-import { episodeUpsertSchema, panelistUpsertSchema, founderUpsertSchema } from "./schemas";
+import { episodeUpsertSchema, panelistUpsertSchema, founderUpsertSchema, sponsorPackageSchema, sponsorPartnerSchema } from "./schemas";
 
 async function assertStaff(ctx: { supabase: any; userId: string }) {
   const { data } = await ctx.supabase.from("user_roles").select("role").eq("user_id", ctx.userId);
@@ -99,7 +99,64 @@ export const adminDeleteFounder = createServerFn({ method: "POST" })
     return { ok: true };
   });
 
-// ---------- MODERATION ----------
+// ---------- SPONSOR CONTENT ----------
+export const adminListSponsorPackages = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    await assertStaff(context);
+    const { data, error } = await context.supabase.from("sponsor_packages").select("*").order("sort_order");
+    if (error) throw new Error(error.message);
+    return data ?? [];
+  });
+export const adminUpsertSponsorPackage = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((v) => sponsorPackageSchema.parse(v))
+  .handler(async ({ data, context }) => {
+    await assertStaff(context);
+    const payload: any = { ...data };
+    if (!payload.id) delete payload.id;
+    const { data: row, error } = await context.supabase.from("sponsor_packages").upsert(payload).select().single();
+    if (error) throw new Error(error.message);
+    return row;
+  });
+export const adminDeleteSponsorPackage = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((v) => z.object({ id: z.string().uuid() }).parse(v))
+  .handler(async ({ data, context }) => {
+    await assertStaff(context);
+    const { error } = await context.supabase.from("sponsor_packages").delete().eq("id", data.id);
+    if (error) throw new Error(error.message);
+    return { ok: true };
+  });
+
+export const adminListSponsorPartners = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    await assertStaff(context);
+    const { data, error } = await context.supabase.from("sponsor_partners").select("*").order("sort_order");
+    if (error) throw new Error(error.message);
+    return data ?? [];
+  });
+export const adminUpsertSponsorPartner = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((v) => sponsorPartnerSchema.parse(v))
+  .handler(async ({ data, context }) => {
+    await assertStaff(context);
+    const payload: any = { ...data };
+    if (!payload.id) delete payload.id;
+    const { data: row, error } = await context.supabase.from("sponsor_partners").upsert(payload).select().single();
+    if (error) throw new Error(error.message);
+    return row;
+  });
+export const adminDeleteSponsorPartner = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((v) => z.object({ id: z.string().uuid() }).parse(v))
+  .handler(async ({ data, context }) => {
+    await assertStaff(context);
+    const { error } = await context.supabase.from("sponsor_partners").delete().eq("id", data.id);
+    if (error) throw new Error(error.message);
+    return { ok: true };
+  });
 export const adminListReports = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
