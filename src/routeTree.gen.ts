@@ -27,6 +27,7 @@ import { Route as EpisodesSlugRouteImport } from './routes/episodes.$slug'
 import { Route as AdminUsersRouteImport } from './routes/admin.users'
 import { Route as AdminTicketsRouteImport } from './routes/admin.tickets'
 import { Route as AdminSponsorsRouteImport } from './routes/admin.sponsors'
+import { Route as AdminSponsorContentRouteImport } from './routes/admin.sponsor-content'
 import { Route as AdminReportsRouteImport } from './routes/admin.reports'
 import { Route as AdminPostsRouteImport } from './routes/admin.posts'
 import { Route as AdminPanelistsRouteImport } from './routes/admin.panelists'
@@ -124,6 +125,11 @@ const AdminSponsorsRoute = AdminSponsorsRouteImport.update({
   path: '/sponsors',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminSponsorContentRoute = AdminSponsorContentRouteImport.update({
+  id: '/sponsor-content',
+  path: '/sponsor-content',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminReportsRoute = AdminReportsRouteImport.update({
   id: '/reports',
   path: '/reports',
@@ -173,6 +179,7 @@ export interface FileRoutesByFullPath {
   '/admin/panelists': typeof AdminPanelistsRoute
   '/admin/posts': typeof AdminPostsRoute
   '/admin/reports': typeof AdminReportsRoute
+  '/admin/sponsor-content': typeof AdminSponsorContentRoute
   '/admin/sponsors': typeof AdminSponsorsRoute
   '/admin/tickets': typeof AdminTicketsRoute
   '/admin/users': typeof AdminUsersRoute
@@ -198,6 +205,7 @@ export interface FileRoutesByTo {
   '/admin/panelists': typeof AdminPanelistsRoute
   '/admin/posts': typeof AdminPostsRoute
   '/admin/reports': typeof AdminReportsRoute
+  '/admin/sponsor-content': typeof AdminSponsorContentRoute
   '/admin/sponsors': typeof AdminSponsorsRoute
   '/admin/tickets': typeof AdminTicketsRoute
   '/admin/users': typeof AdminUsersRoute
@@ -225,6 +233,7 @@ export interface FileRoutesById {
   '/admin/panelists': typeof AdminPanelistsRoute
   '/admin/posts': typeof AdminPostsRoute
   '/admin/reports': typeof AdminReportsRoute
+  '/admin/sponsor-content': typeof AdminSponsorContentRoute
   '/admin/sponsors': typeof AdminSponsorsRoute
   '/admin/tickets': typeof AdminTicketsRoute
   '/admin/users': typeof AdminUsersRoute
@@ -253,6 +262,7 @@ export interface FileRouteTypes {
     | '/admin/panelists'
     | '/admin/posts'
     | '/admin/reports'
+    | '/admin/sponsor-content'
     | '/admin/sponsors'
     | '/admin/tickets'
     | '/admin/users'
@@ -278,6 +288,7 @@ export interface FileRouteTypes {
     | '/admin/panelists'
     | '/admin/posts'
     | '/admin/reports'
+    | '/admin/sponsor-content'
     | '/admin/sponsors'
     | '/admin/tickets'
     | '/admin/users'
@@ -304,6 +315,7 @@ export interface FileRouteTypes {
     | '/admin/panelists'
     | '/admin/posts'
     | '/admin/reports'
+    | '/admin/sponsor-content'
     | '/admin/sponsors'
     | '/admin/tickets'
     | '/admin/users'
@@ -455,6 +467,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminSponsorsRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/sponsor-content': {
+      id: '/admin/sponsor-content'
+      path: '/sponsor-content'
+      fullPath: '/admin/sponsor-content'
+      preLoaderRoute: typeof AdminSponsorContentRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/reports': {
       id: '/admin/reports'
       path: '/reports'
@@ -507,6 +526,7 @@ interface AdminRouteChildren {
   AdminPanelistsRoute: typeof AdminPanelistsRoute
   AdminPostsRoute: typeof AdminPostsRoute
   AdminReportsRoute: typeof AdminReportsRoute
+  AdminSponsorContentRoute: typeof AdminSponsorContentRoute
   AdminSponsorsRoute: typeof AdminSponsorsRoute
   AdminTicketsRoute: typeof AdminTicketsRoute
   AdminUsersRoute: typeof AdminUsersRoute
@@ -520,6 +540,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminPanelistsRoute: AdminPanelistsRoute,
   AdminPostsRoute: AdminPostsRoute,
   AdminReportsRoute: AdminReportsRoute,
+  AdminSponsorContentRoute: AdminSponsorContentRoute,
   AdminSponsorsRoute: AdminSponsorsRoute,
   AdminTicketsRoute: AdminTicketsRoute,
   AdminUsersRoute: AdminUsersRoute,

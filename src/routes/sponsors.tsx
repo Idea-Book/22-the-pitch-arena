@@ -1,6 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
 import { PageHero } from "@/components/page-hero";
 import { SponsorInquiryForm } from "@/components/inquiry-form";
+import { listSponsorPackages, listSponsorPartners } from "@/lib/content.functions";
 
 export const Route = createFileRoute("/sponsors")({
   head: () => ({
