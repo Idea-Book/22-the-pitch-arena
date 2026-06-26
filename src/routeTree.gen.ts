@@ -9,12 +9,18 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TicketsRouteImport } from './routes/tickets'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as PanelistsRouteImport } from './routes/panelists'
 import { Route as FoundersRouteImport } from './routes/founders'
 import { Route as EpisodesRouteImport } from './routes/episodes'
 import { Route as IndexRouteImport } from './routes/index'
 
+const TicketsRoute = TicketsRouteImport.update({
+  id: '/tickets',
+  path: '/tickets',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
@@ -47,6 +53,7 @@ export interface FileRoutesByFullPath {
   '/founders': typeof FoundersRoute
   '/panelists': typeof PanelistsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/tickets': typeof TicketsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -54,6 +61,7 @@ export interface FileRoutesByTo {
   '/founders': typeof FoundersRoute
   '/panelists': typeof PanelistsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/tickets': typeof TicketsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -62,12 +70,25 @@ export interface FileRoutesById {
   '/founders': typeof FoundersRoute
   '/panelists': typeof PanelistsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/tickets': typeof TicketsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/episodes' | '/founders' | '/panelists' | '/sitemap.xml'
+  fullPaths:
+    | '/'
+    | '/episodes'
+    | '/founders'
+    | '/panelists'
+    | '/sitemap.xml'
+    | '/tickets'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/episodes' | '/founders' | '/panelists' | '/sitemap.xml'
+  to:
+    | '/'
+    | '/episodes'
+    | '/founders'
+    | '/panelists'
+    | '/sitemap.xml'
+    | '/tickets'
   id:
     | '__root__'
     | '/'
@@ -75,6 +96,7 @@ export interface FileRouteTypes {
     | '/founders'
     | '/panelists'
     | '/sitemap.xml'
+    | '/tickets'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -83,10 +105,18 @@ export interface RootRouteChildren {
   FoundersRoute: typeof FoundersRoute
   PanelistsRoute: typeof PanelistsRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  TicketsRoute: typeof TicketsRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/tickets': {
+      id: '/tickets'
+      path: '/tickets'
+      fullPath: '/tickets'
+      preLoaderRoute: typeof TicketsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
@@ -131,6 +161,7 @@ const rootRouteChildren: RootRouteChildren = {
   FoundersRoute: FoundersRoute,
   PanelistsRoute: PanelistsRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  TicketsRoute: TicketsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
