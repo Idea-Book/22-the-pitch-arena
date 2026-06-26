@@ -15,13 +15,20 @@ export function SiteFooter() {
       <div className="relative mx-auto max-w-7xl px-6 pt-20 pb-10">
         <div className="grid grid-cols-2 gap-10 md:grid-cols-5 mb-16">
           <div className="col-span-2">
-            <Link to="/" className="font-display text-3xl tracking-tight block mb-4">
-              THE ARENA
+            <Link to="/" className="flex items-center gap-3 mb-5 group">
+              <span aria-hidden className="inline-flex items-center justify-center size-9 bg-[var(--crimson)] text-white font-mono text-sm font-bold rounded-sm">B</span>
+              <span className="font-display text-3xl tracking-tight">
+                BKL <span className="text-[var(--crimson)]">SHARKS</span>
+              </span>
             </Link>
-            <p className="text-sm text-muted-foreground max-w-[34ch] leading-relaxed">
-              An independent production exploring the limits of founder psychology
-              and market darwinism. Built for those who build.
+            <p className="text-sm text-muted-foreground max-w-[36ch] leading-relaxed mb-6">
+              India's most uncensored founder bloodsport. Built in Mumbai. Aimed at
+              the world. No edits. No safety nets. <span className="italic">No prisoners.</span>
             </p>
+            <div className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+              <span className="size-2 rounded-full bg-[var(--crimson)] live-blink" />
+              S02 · LIGHTS OUT · NOV 14 · NMACC
+            </div>
           </div>
 
           <FooterCol
@@ -29,12 +36,12 @@ export function SiteFooter() {
             items={[
               { to: "/episodes", label: "Episodes" },
               { to: "/panelists", label: "Panelists" },
-              { to: "/founders", label: "Founders" },
+              { to: "/founders", label: "Grid Standings" },
               { to: "/community", label: "Community" },
             ]}
           />
           <FooterCol
-            title="Get In"
+            title="Paddock"
             items={[
               { to: "/apply", label: "Apply to Pitch" },
               { to: "/tickets", label: "Tickets" },
@@ -53,7 +60,7 @@ export function SiteFooter() {
 
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between border-t border-border pt-8">
           <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground/60">
-            © 2026 The Arena Media Group · No rights reserved to the weak.
+            © 2026 BKL Sharks Media · Made in Bharat. Aimed at the world.
           </span>
           <div className="flex gap-5 text-[11px] uppercase tracking-[0.25em] text-muted-foreground">
             <a href="#" className="hover:text-foreground transition-colors">Twitter</a>
