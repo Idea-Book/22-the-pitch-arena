@@ -13,26 +13,12 @@ export const Route = createFileRoute("/apply")({
   component: ApplyPage,
 });
 
-const STEPS = [
+const _STEPS_UNUSED = [
   { label: "Founder", fields: ["Full Name", "Role · Title", "City · Mumbai / BLR / DEL ...", "Twitter / X handle", "LinkedIn URL", "Founder Story (URL or paragraph)"] },
   { label: "Startup", fields: ["Company name", "One-line pitch", "Sector · D2C / Fintech / AI ...", "Stage · Pre-seed / Seed / A", "Website / App link", "Pitch deck URL"] },
   { label: "Traction", fields: ["MRR / ARR (₹)", "Monthly growth %", "Team size", "Funding raised to date (₹)", "Burn rate · monthly (₹)", "Runway · months"] },
   { label: "The Stage", fields: ["Why you deserve the spotlight", "What number on your deck you will defend to the death", "What scares you most about the panel", "If you walk off · what does it cost you?"] },
 ];
-
-function Meter({ label, value, bar, color = "var(--silver)" }: { label: string; value: string; bar: number; color?: string }) {
-  return (
-    <div className="bg-background p-6">
-      <div className="flex items-center justify-between mb-3">
-        <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground">{label}</span>
-        <span className="font-mono text-xs" style={{ color }}>{value}</span>
-      </div>
-      <div className="h-px bg-border overflow-hidden">
-        <div className="h-full transition-all duration-700" style={{ width: `${bar}%`, background: color }} />
-      </div>
-    </div>
-  );
-}
 
 function ApplyPage() {
   return (
