@@ -560,6 +560,81 @@ export type Database = {
         }
         Relationships: []
       }
+      sponsor_packages: {
+        Row: {
+          active: boolean
+          color: string | null
+          created_at: string
+          id: string
+          name: string
+          price: string
+          scope: string
+          sort_order: number
+          tier: string
+          units: string | null
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          color?: string | null
+          created_at?: string
+          id?: string
+          name: string
+          price: string
+          scope: string
+          sort_order?: number
+          tier: string
+          units?: string | null
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          color?: string | null
+          created_at?: string
+          id?: string
+          name?: string
+          price?: string
+          scope?: string
+          sort_order?: number
+          tier?: string
+          units?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      sponsor_partners: {
+        Row: {
+          active: boolean
+          created_at: string
+          id: string
+          logo_url: string | null
+          name: string
+          sort_order: number
+          updated_at: string
+          website: string | null
+        }
+        Insert: {
+          active?: boolean
+          created_at?: string
+          id?: string
+          logo_url?: string | null
+          name: string
+          sort_order?: number
+          updated_at?: string
+          website?: string | null
+        }
+        Update: {
+          active?: boolean
+          created_at?: string
+          id?: string
+          logo_url?: string | null
+          name?: string
+          sort_order?: number
+          updated_at?: string
+          website?: string | null
+        }
+        Relationships: []
+      }
       ticket_inquiries: {
         Row: {
           created_at: string
