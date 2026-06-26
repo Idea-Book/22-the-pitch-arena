@@ -1,5 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import { useAuth } from "@/hooks/use-auth";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 const NAV = [
   { to: "/", label: "Home" },
@@ -14,6 +17,7 @@ const NAV = [
 export function SiteNav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const { user, isStaff, isAdmin, loading } = useAuth();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -81,6 +85,19 @@ export function SiteNav() {
             <span className="size-1.5 rounded-full bg-[var(--crimson)] live-blink" />
             On Air
           </span>
+          {!loading && isStaff && (
+            <Link to="/admin" className="hidden md:inline-flex items-center bg-[var(--surface)] ring-1 ring-border px-3 py-1.5 text-[10px] font-mono uppercase tracking-[0.25em] hover:bg-[var(--surface-2)]">
+              {isAdmin ? "Admin" : "Mod"}
+            </Link>
+          )}
+          {!loading && (user ? (
+            <button
+              onClick={async () => { await supabase.auth.signOut(); toast.success("Signed out"); }}
+              className="hidden md:inline-flex items-center px-3 py-1.5 text-[10px] font-mono uppercase tracking-[0.25em] text-muted-foreground hover:text-foreground"
+            >Sign out</button>
+          ) : (
+            <Link to="/auth" className="hidden md:inline-flex items-center px-3 py-1.5 text-[10px] font-mono uppercase tracking-[0.25em] text-muted-foreground hover:text-foreground">Sign in</Link>
+          ))}
           <Link
             to="/apply"
             className="hidden sm:inline-flex items-center bg-foreground px-4 py-1.5 text-xs font-medium uppercase tracking-[0.18em] text-background transition-transform active:scale-95 hover:bg-[var(--silver)]"

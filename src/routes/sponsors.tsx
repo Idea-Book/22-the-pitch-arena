@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageHero } from "@/components/page-hero";
+import { SponsorInquiryForm } from "@/components/inquiry-form";
 
 export const Route = createFileRoute("/sponsors")({
   head: () => ({
@@ -42,15 +43,6 @@ const AUDIENCE = [
 const GEO = [
   ["Mumbai", 28], ["Bengaluru", 22], ["Delhi NCR", 17], ["Hyderabad", 9], ["Pune", 7], ["Chennai", 5], ["Tier-2+", 12],
 ];
-
-function Field({ label, type = "text", placeholder }: { label: string; type?: string; placeholder?: string }) {
-  return (
-    <div>
-      <label className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground mb-2 block">{label}</label>
-      <input type={type} placeholder={placeholder} className="w-full bg-[var(--surface)] border border-border px-4 py-3 text-sm focus:outline-none focus:ring-1 focus:ring-[var(--electric)]" />
-    </div>
-  );
-}
 
 function SponsorsPage() {
   return (
@@ -148,22 +140,7 @@ function SponsorsPage() {
         <div className="mx-auto max-w-3xl">
           <h2 className="font-display text-4xl md:text-5xl mb-2">Request the deck.</h2>
           <p className="text-muted-foreground mb-12">We respond within 48 hours with the S02 sponsorship deck, package availability and rate-card.</p>
-          <form className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Field label="Brand / Company" />
-            <Field label="Your Name" />
-            <Field label="Email" type="email" />
-            <Field label="Phone (with country code)" placeholder="+91 ..." />
-            <Field label="Budget range" placeholder="₹40 L — ₹18 Cr+" />
-            <Field label="Tier interest" placeholder="Title / Circuit / Round / Grant" />
-            <div className="md:col-span-2">
-              <label className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground mb-2 block">Partnership intent</label>
-              <textarea rows={4} className="w-full bg-[var(--surface)] border border-border px-4 py-3 text-sm focus:outline-none focus:ring-1 focus:ring-[var(--electric)]" />
-            </div>
-            <button type="button" className="md:col-span-2 justify-self-start bg-[var(--crimson)] text-white px-8 py-3 text-xs uppercase tracking-[0.22em] hover:bg-[var(--crimson)]/90 transition-colors glow-crimson">
-              <span className="size-1.5 rounded-full bg-white live-blink inline-block mr-3 align-middle" />
-              Send inquiry
-            </button>
-          </form>
+          <SponsorInquiryForm />
         </div>
       </section>
     </>

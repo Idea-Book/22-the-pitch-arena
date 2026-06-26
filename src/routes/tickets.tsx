@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageHero } from "@/components/page-hero";
+import { TicketInquiryForm } from "@/components/inquiry-form";
 
 export const Route = createFileRoute("/tickets")({
   head: () => ({
@@ -147,6 +148,15 @@ function TicketsPage() {
               </li>
             ))}
           </ul>
+        </div>
+      </section>
+
+      <section className="py-24 px-6 border-t border-border">
+        <div className="mx-auto max-w-4xl">
+          <div className="font-mono text-[10px] uppercase tracking-[0.4em] text-[var(--crimson)] mb-3">Box office · Private</div>
+          <h2 className="font-display text-3xl md:text-4xl mb-3">Hold your seat.</h2>
+          <p className="text-muted-foreground mb-10 max-w-xl">Tell us tier and round — we'll send a private booking link within 24 hours.</p>
+          <TicketInquiryForm />
         </div>
       </section>
     </>
