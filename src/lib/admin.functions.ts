@@ -244,10 +244,16 @@ export const adminListBans = createServerFn({ method: "GET" })
   .handler(async ({ context }) => {
     await assertStaff(context);
     const { data, error } = await context.supabase.from("user_bans")
-      .select("*, profiles!user_bans_user_id_fkey(display_name, handle)")
-      .order("created_at", { ascending: false });
+      .select("*").order("created_at", { ascending: false });
     if (error) throw new Error(error.message);
-    return data ?? [];
+    const rows = data ?? [];
+    const ids = Array.from(new Set(rows.map((r: any) => r.user_id).filter(Boolean)));
+    let profilesById = new Map<string, any>();
+    if (ids.length) {
+      const { data: profs } = await context.supabase.from("profiles").select("id, display_name, handle").in("id", ids);
+      profilesById = new Map((profs ?? []).map((p: any) => [p.id, p]));
+    }
+    return rows.map((r: any) => ({ ...r, profiles: profilesById.get(r.user_id) ?? null }));
   });
 
 export const adminLiftBan = createServerFn({ method: "POST" })
