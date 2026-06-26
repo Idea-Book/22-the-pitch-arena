@@ -1,6 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
 import { PageHero } from "@/components/page-hero";
 import { TicketInquiryForm } from "@/components/inquiry-form";
+
+type Tier = "Grandstand" | "Paddock" | "Paddock Club VIP";
+
 
 export const Route = createFileRoute("/tickets")({
   head: () => ({
