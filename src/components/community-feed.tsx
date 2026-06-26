@@ -3,6 +3,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import { toast } from "sonner";
 import { useAuth } from "@/hooks/use-auth";
+import { useRealtime } from "@/hooks/use-realtime";
 import { listPosts, listComments, listEpisodes } from "@/lib/content.functions";
 import { createPost, createComment, toggleReaction, submitReport, deleteOwnPost } from "@/lib/community.functions";
 import { postSchema } from "@/lib/schemas";
@@ -11,12 +12,18 @@ export function CommunityFeed() {
   const { user, loading } = useAuth();
   const [episodeId, setEpisodeId] = useState<string | "">("");
   const qc = useQueryClient();
-  const { data: episodes = [] } = useQuery({ queryKey: ["episodesAll"], queryFn: () => listEpisodes() });
-  const { data: posts = [], isLoading } = useQuery({
-    queryKey: ["posts", episodeId],
-    queryFn: () => listPosts({ data: { episode_id: episodeId || null, limit: 50 } }),
+  const { data: episodes = [] } = useQuery({
+    queryKey: ["episodesPublic"],
+    queryFn: () => listEpisodes(),
+    staleTime: 5 * 60_000,
   });
-  const invalidate = () => qc.invalidateQueries({ queryKey: ["posts"] });
+  const { data: posts = [], isLoading } = useQuery({
+    queryKey: ["communityPosts", episodeId],
+    queryFn: () => listPosts({ data: { episode_id: episodeId || null, limit: 50 } }),
+    staleTime: 30_000,
+  });
+  useRealtime("community_posts", [["communityPosts"], ["adminPosts"]]);
+  const invalidate = () => qc.invalidateQueries({ queryKey: ["communityPosts"] });
 
   return (
     <div className="grid lg:grid-cols-[1fr_320px] gap-10">
