@@ -161,14 +161,15 @@ function TicketsPage() {
         </div>
       </section>
 
-      <section className="py-24 px-6 border-t border-border">
+      <section id="book" className="py-24 px-6 border-t border-border scroll-mt-24">
         <div className="mx-auto max-w-4xl">
-          <div className="font-mono text-[10px] uppercase tracking-[0.4em] text-[var(--crimson)] mb-3">Box office · Private</div>
+          <div className="font-mono text-[10px] uppercase tracking-[0.4em] text-[var(--crimson)] mb-3">Box office · {tier}</div>
           <h2 className="font-display text-3xl md:text-4xl mb-3">Hold your seat.</h2>
-          <p className="text-muted-foreground mb-10 max-w-xl">Tell us tier and round — we'll send a private booking link within 24 hours.</p>
-          <TicketInquiryForm />
+          <p className="text-muted-foreground mb-10 max-w-xl">Tell us tier and round — we'll send a private booking + checkout link to your inbox within 24 hours. Payment is handled off-platform by our box-office team.</p>
+          <TicketInquiryForm key={tier} defaultTier={tier} />
         </div>
       </section>
+
     </>
   );
 }
