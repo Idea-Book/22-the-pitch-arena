@@ -178,7 +178,7 @@
   animation: pulse-dot 1.6s ease-in-out infinite;
 }
 
-/* ============== F1 RACE-NIGHT MOTION ============== */
+/* ============== F1 PITCH-NIGHT MOTION ============== */
 
 @keyframes speed-stripe {
   from { background-position: 0 0; }

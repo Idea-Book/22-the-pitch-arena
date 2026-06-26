@@ -76,7 +76,7 @@ function Home() {
         <div aria-hidden className="absolute bottom-0 inset-x-0 h-1 speed-stripe opacity-80" />
 
         <div className="relative z-10 mx-auto max-w-6xl px-6 reveal-up">
-          {/* Race header strip */}
+          {/* Pitch header strip */}
           <div className="mb-10 grid grid-cols-3 md:grid-cols-5 gap-px bg-border max-w-3xl mx-auto">
             {[
               ["ROUND", "01 / 16"],
@@ -169,7 +169,7 @@ function Home() {
         </div>
       </section>
 
-      {/* ============ EPISODE SHOWCASE — RACE WEEKEND ============ */}
+      {/* ============ EPISODE SHOWCASE — PITCH WEEKEND ============ */}
       <section className="py-28 px-6 border-b border-border">
         <div className="mx-auto max-w-7xl">
           <div className="mb-14 flex items-end justify-between flex-wrap gap-6">

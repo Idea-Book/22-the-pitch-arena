@@ -7,7 +7,7 @@ export const Route = createFileRoute("/episodes/$slug")({
   head: ({ params }) => ({
     meta: [
       { title: `Episode ${params.slug} — BKL Sharks` },
-      { name: "description", content: `Full recap, race-control timeline and panelist verdicts for BKL Sharks episode ${params.slug}.` },
+      { name: "description", content: `Full recap, pitch-control timeline and panelist verdicts for BKL Sharks episode ${params.slug}.` },
     ],
   }),
   loader: async ({ params, context }) => {

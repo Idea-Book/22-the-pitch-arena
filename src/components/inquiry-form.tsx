@@ -85,7 +85,7 @@ export function ApplicationForm() {
   const [done, setDone] = useState(false);
   const m = useMutation({
     mutationFn: (d: any) => submitApplication({ data: d }),
-    onSuccess: () => { setDone(true); toast.success("Application submitted to Race Control."); },
+    onSuccess: () => { setDone(true); toast.success("Application submitted to Pitch Control."); },
     onError: (e: Error) => toast.error(e.message),
   });
   function submit(e: React.FormEvent) {
@@ -95,7 +95,7 @@ export function ApplicationForm() {
     if (!p.success) { const x: any = {}; p.error.issues.forEach(i => x[i.path[0] as string] = i.message); setErrs(x); toast.error("Fix the highlighted fields"); return; }
     setErrs({}); m.mutate(p.data);
   }
-  if (done) return <Done title="Welcome to the funnel." sub="Race Control will review your submission. Top 200 get a shortlist call." />;
+  if (done) return <Done title="Welcome to the funnel." sub="Pitch Control will review your submission. Top 200 get a shortlist call." />;
   return (
     <form onSubmit={submit} className="grid md:grid-cols-2 gap-5">
       <Field label="Founder name" error={errs.founder_name}><input className={inputCls} value={v.founder_name} onChange={(e) => setV({ ...v, founder_name: e.target.value })} /></Field>

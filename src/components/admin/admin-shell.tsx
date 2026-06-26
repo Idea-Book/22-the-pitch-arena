@@ -25,7 +25,7 @@ export function AdminShell() {
         <div>
           <div className="font-mono text-[10px] uppercase tracking-[0.4em] text-[var(--crimson)] mb-3">Access denied</div>
           <h1 className="font-display text-4xl">Staff only.</h1>
-          <p className="text-sm text-muted-foreground mt-3 max-w-md">Your account doesn't have the admin or moderator role. Ask a Race Director to grant access.</p>
+          <p className="text-sm text-muted-foreground mt-3 max-w-md">Your account doesn't have the admin or moderator role. Ask a Pitch Director to grant access.</p>
         </div>
       </div>
     );
@@ -36,7 +36,7 @@ export function AdminShell() {
       <div className="mx-auto max-w-7xl px-6 py-8 grid lg:grid-cols-[220px_1fr] gap-8">
         <aside className="lg:sticky lg:top-28 self-start">
           <div className="mb-5">
-            <div className="font-mono text-[10px] uppercase tracking-[0.4em] text-[var(--crimson)]">Race Control</div>
+            <div className="font-mono text-[10px] uppercase tracking-[0.4em] text-[var(--crimson)]">Pitch Control</div>
             <h2 className="font-display text-2xl">Admin</h2>
           </div>
           <nav className="flex flex-col">
@@ -59,7 +59,7 @@ export function AdminHeader({ title, subtitle, actions }: { title: string; subti
   return (
     <header className="flex items-end justify-between gap-4 mb-8 pb-5 border-b border-border">
       <div>
-        <div className="font-mono text-[10px] uppercase tracking-[0.4em] text-[var(--crimson)]">Race Control</div>
+        <div className="font-mono text-[10px] uppercase tracking-[0.4em] text-[var(--crimson)]">Pitch Control</div>
         <h1 className="font-display text-4xl mt-1">{title}</h1>
         {subtitle && <p className="text-sm text-muted-foreground mt-1">{subtitle}</p>}
       </div>

@@ -31,7 +31,7 @@ function EpisodesAdmin() {
 
   return (
     <>
-      <AdminHeader title="Episodes" subtitle="Create, edit and delete race vault entries."
+      <AdminHeader title="Episodes" subtitle="Create, edit and delete pitch vault entries."
         actions={<button onClick={() => setEditing({ ...empty })} className="bg-foreground text-background px-4 py-2 text-[11px] font-mono uppercase tracking-[0.25em]">+ New episode</button>} />
 
       {editing && <EpisodeForm initial={editing} onCancel={() => setEditing(null)} onSave={(p) => save.mutate(p)} busy={save.isPending} />}

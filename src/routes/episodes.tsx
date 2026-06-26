@@ -7,7 +7,7 @@ import ep03 from "@/assets/ep-03.jpg";
 export const Route = createFileRoute("/episodes")({
   head: () => ({
     meta: [
-      { title: "Episodes — BKL Sharks Season 01 · Race Vault" },
+      { title: "Episodes — BKL Sharks Season 01 · Pitch Vault" },
       { name: "description", content: "All 16 rounds from BKL Sharks Season 01. Race vault with verdicts, lap times and viral moments." },
       { property: "og:title", content: "Episodes — BKL Sharks" },
       { property: "og:description", content: "Every breakdown. Every breakthrough." },
@@ -41,12 +41,12 @@ function EpisodesPage() {
   return (
     <>
       <PageHero
-        eyebrow="Season 01 · The Race Vault"
+        eyebrow="Season 01 · The Pitch Vault"
         title={<>Every breakdown. <span className="italic text-[var(--silver)]/70">Every breakthrough.</span></>}
         lede="Sixteen rounds. One hundred and forty-two founders. Eight survivors with term sheets. Watch the unedited tape from the arena floor."
       />
 
-      {/* RACE SUMMARY STRIP */}
+      {/* PITCH SUMMARY STRIP */}
       <section className="border-b border-border">
         <div className="mx-auto max-w-7xl grid grid-cols-2 md:grid-cols-5 gap-px bg-border">
           {STATS.map(([k, v]) => (
@@ -100,7 +100,7 @@ function EpisodesPage() {
           {/* LAP-TIMES TABLE */}
           <div className="mt-24">
             <div className="flex items-end justify-between mb-8 flex-wrap gap-4">
-              <h2 className="font-display text-3xl md:text-4xl">Race Vault · Lap-by-lap</h2>
+              <h2 className="font-display text-3xl md:text-4xl">Pitch Vault · Lap-by-lap</h2>
               <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">Sorted by air date · descending</span>
             </div>
             <div className="bg-[var(--surface)] ring-1 ring-border">

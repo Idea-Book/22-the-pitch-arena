@@ -8,8 +8,8 @@ import ep03 from "@/assets/ep-03.jpg";
 export const Route = createFileRoute("/community")({
   head: () => ({
     meta: [
-      { title: "Community — BKL Sharks Reels, Roasts & Race Radio" },
-      { name: "description", content: "Viral clips, founder rankings, roast reels, race radio transcripts and post-show analysis from the BKL Sharks audience." },
+      { title: "Community — BKL Sharks Reels, Roasts & Pitch Radio" },
+      { name: "description", content: "Viral clips, founder rankings, roast reels, pitch radio transcripts and post-show analysis from the BKL Sharks audience." },
       { property: "og:title", content: "Community — BKL Sharks" },
       { property: "og:description", content: "Where the show keeps going." },
     ],
@@ -106,12 +106,12 @@ function CommunityPage() {
         </div>
       </section>
 
-      {/* RACE RADIO */}
+      {/* PITCH RADIO */}
       <section className="py-24 px-6 border-b border-border">
         <div className="mx-auto max-w-5xl">
           <div className="flex items-end justify-between mb-8 flex-wrap gap-4">
             <div>
-              <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-[var(--crimson)] mb-3 block">Race Radio · Round 04</span>
+              <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-[var(--crimson)] mb-3 block">Pitch Radio · Round 04</span>
               <h2 className="font-display text-3xl md:text-4xl">Unedited audio · 7 min 11 sec</h2>
             </div>
             <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">

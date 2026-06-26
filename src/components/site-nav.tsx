@@ -33,7 +33,7 @@ export function SiteNav() {
         <div className="flex items-center h-full">
           <span className="shrink-0 h-full flex items-center gap-2 px-3 bg-black/30 font-mono text-[9px] uppercase tracking-[0.3em]">
             <span className="size-1.5 rounded-full bg-white live-blink" />
-            Race Control
+            Pitch Control
           </span>
           <div className="relative flex-1 overflow-hidden">
             <div className="flex gap-10 whitespace-nowrap ticker-fast font-mono text-[10px] uppercase tracking-[0.25em]">

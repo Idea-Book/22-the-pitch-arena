@@ -98,11 +98,11 @@ function TicketsPage() {
         </div>
       </section>
 
-      {/* SCHEDULE — RACE WEEKEND */}
+      {/* SCHEDULE — PITCH WEEKEND */}
       <section className="py-24 px-6 border-b border-border">
         <div className="mx-auto max-w-5xl">
           <div className="flex items-end justify-between mb-10 flex-wrap gap-4">
-            <h2 className="font-display text-3xl md:text-4xl">Race-night schedule</h2>
+            <h2 className="font-display text-3xl md:text-4xl">Pitch-night schedule</h2>
             <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">14 NOV · IST</span>
           </div>
           <ol className="bg-[var(--surface)] ring-1 ring-border">
