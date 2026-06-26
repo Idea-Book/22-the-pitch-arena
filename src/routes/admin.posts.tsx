@@ -96,7 +96,7 @@ function PostsAdmin() {
 function PostForm({ initial, onCancel, onSave, busy }: { initial: any; onCancel: () => void; onSave: (p: any) => void; busy: boolean }) {
   const [v, setV] = useState<any>(initial);
   const [errs, setErrs] = useState<Record<string, string>>({});
-  const { data: episodes = [] } = useQuery({ queryKey: ["episodesAll"], queryFn: () => listEpisodes() });
+  const { data: episodes = [] } = useQuery({ queryKey: ["episodesAdminAll"], queryFn: () => listEpisodes({ data: { all: true } }), staleTime: 5 * 60_000 });
   function set(k: string, val: any) { setV((p: any) => ({ ...p, [k]: val })); }
   function submit(e: React.FormEvent) {
     e.preventDefault();
