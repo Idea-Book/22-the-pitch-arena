@@ -146,3 +146,30 @@ function PostForm({ initial, onCancel, onSave, busy }: { initial: any; onCancel:
     </form>
   );
 }
+
+function PostsSkeleton() {
+  return (
+    <ul className="divide-y divide-border ring-1 ring-border mt-6" aria-busy="true" aria-live="polite">
+      {Array.from({ length: 4 }).map((_, i) => (
+        <li key={i} className="p-4 bg-background flex gap-4 items-start animate-pulse">
+          <div className="flex-1 min-w-0 space-y-3">
+            <div className="flex gap-3">
+              <div className="h-3 w-24 bg-[var(--surface-2)]" />
+              <div className="h-3 w-16 bg-[var(--surface-2)]" />
+              <div className="h-3 w-12 bg-[var(--surface-2)] ml-auto" />
+            </div>
+            <div className="h-3 w-[92%] bg-[var(--surface-2)]" />
+            <div className="h-3 w-[78%] bg-[var(--surface-2)]" />
+            <div className="h-3 w-[40%] bg-[var(--surface-2)]" />
+          </div>
+          <div className="flex flex-col gap-1 shrink-0">
+            <div className="h-6 w-16 bg-[var(--surface-2)]" />
+            <div className="h-6 w-16 bg-[var(--surface-2)]" />
+            <div className="h-6 w-16 bg-[var(--surface-2)]" />
+          </div>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
