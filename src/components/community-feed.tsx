@@ -3,6 +3,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import { toast } from "sonner";
 import { useAuth } from "@/hooks/use-auth";
+import { useRealtime } from "@/hooks/use-realtime";
 import { listPosts, listComments, listEpisodes } from "@/lib/content.functions";
 import { createPost, createComment, toggleReaction, submitReport, deleteOwnPost } from "@/lib/community.functions";
 import { postSchema } from "@/lib/schemas";
@@ -11,12 +12,18 @@ export function CommunityFeed() {
   const { user, loading } = useAuth();
   const [episodeId, setEpisodeId] = useState<string | "">("");
   const qc = useQueryClient();
-  const { data: episodes = [] } = useQuery({ queryKey: ["episodesAll"], queryFn: () => listEpisodes() });
-  const { data: posts = [], isLoading } = useQuery({
-    queryKey: ["posts", episodeId],
-    queryFn: () => listPosts({ data: { episode_id: episodeId || null, limit: 50 } }),
+  const { data: episodes = [] } = useQuery({
+    queryKey: ["episodesPublic"],
+    queryFn: () => listEpisodes(),
+    staleTime: 5 * 60_000,
   });
-  const invalidate = () => qc.invalidateQueries({ queryKey: ["posts"] });
+  const { data: posts = [], isLoading } = useQuery({
+    queryKey: ["communityPosts", episodeId],
+    queryFn: () => listPosts({ data: { episode_id: episodeId || null, limit: 50 } }),
+    staleTime: 30_000,
+  });
+  useRealtime("community_posts", [["communityPosts"], ["adminPosts"]]);
+  const invalidate = () => qc.invalidateQueries({ queryKey: ["communityPosts"] });
 
   return (
     <div className="grid lg:grid-cols-[1fr_320px] gap-10">
@@ -40,8 +47,8 @@ export function CommunityFeed() {
       </div>
       <aside className="text-sm text-muted-foreground space-y-4">
         <div className="bg-[var(--surface)] ring-1 ring-border p-5">
-          <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-[var(--crimson)] mb-2">Pitch radio</div>
-          <p className="text-xs leading-relaxed">Be sharp. Be specific. Roast the idea, not the human. Reports go straight to the mod queue.</p>
+          <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-[var(--crimson)] mb-2">Mod queue</div>
+          <p className="text-xs leading-relaxed">New posts land in the moderation queue. A mod approves them before they appear in the public feed. Reports notify mods instantly.</p>
         </div>
       </aside>
     </div>
@@ -54,7 +61,7 @@ function Composer({ episodes, onPosted }: { episodes: any[]; onPosted: () => voi
   const [err, setErr] = useState("");
   const m = useMutation({
     mutationFn: (d: any) => createPost({ data: d }),
-    onSuccess: () => { setBody(""); toast.success("Posted"); onPosted(); },
+    onSuccess: () => { setBody(""); toast.success("Submitted — pending mod review"); onPosted(); },
     onError: (e: Error) => toast.error(e.message),
   });
   function submit(e: React.FormEvent) {

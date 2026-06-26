@@ -10,22 +10,26 @@ import { episodeUpsertSchema } from "@/lib/schemas";
 export const Route = createFileRoute("/admin/episodes")({ component: EpisodesAdmin });
 
 const OUTCOMES = ["TERMINATED","TERM SHEET","VIRAL","STANDING OVATION","WALK-OFF"];
-const STATUSES = ["draft","scheduled","aired"];
-const empty = { slug: "", round_code: "", title: "", city: "", sector: "", air_date: "", lap_time: "", outcome: "", recap: "", hero_img: "", video_url: "", funded_label: "", status: "aired" };
+const STATUS_OPTIONS: { value: "draft"|"scheduled"|"aired"; label: string }[] = [
+  { value: "draft", label: "Draft (hidden)" },
+  { value: "scheduled", label: "Preview (staff only)" },
+  { value: "aired", label: "Published (public)" },
+];
+const empty = { slug: "", round_code: "", title: "", city: "", sector: "", air_date: "", lap_time: "", outcome: "", recap: "", hero_img: "", video_url: "", funded_label: "", status: "draft" };
 
 function EpisodesAdmin() {
   const qc = useQueryClient();
-  const { data = [] } = useQuery({ queryKey: ["episodesAll"], queryFn: () => listEpisodes() });
+  const { data = [] } = useQuery({ queryKey: ["episodesAdminAll"], queryFn: () => listEpisodes({ data: { all: true } }) });
   const [editing, setEditing] = useState<any | null>(null);
 
   const save = useMutation({
     mutationFn: (payload: any) => adminUpsertEpisode({ data: payload }),
-    onSuccess: () => { toast.success("Saved"); qc.invalidateQueries({ queryKey: ["episodesAll"] }); setEditing(null); },
+    onSuccess: () => { toast.success("Saved"); qc.invalidateQueries({ queryKey: ["episodesAdminAll"] }); setEditing(null); },
     onError: (e: Error) => toast.error(e.message),
   });
   const del = useMutation({
     mutationFn: (id: string) => adminDeleteEpisode({ data: { id } }),
-    onSuccess: () => { toast.success("Deleted"); qc.invalidateQueries({ queryKey: ["episodesAll"] }); },
+    onSuccess: () => { toast.success("Deleted"); qc.invalidateQueries({ queryKey: ["episodesAdminAll"] }); },
     onError: (e: Error) => toast.error(e.message),
   });
 
@@ -85,9 +89,9 @@ function EpisodeForm({ initial, onCancel, onSave, busy }: { initial: any; onCanc
           {OUTCOMES.map(o => <option key={o}>{o}</option>)}
         </select>
       </Field>
-      <Field label="Status">
+      <Field label="Status" hint="Draft & Preview stay hidden from the public Episodes page">
         <select className={inputCls} value={v.status} onChange={(e) => set("status", e.target.value)}>
-          {STATUSES.map(o => <option key={o}>{o}</option>)}
+          {STATUS_OPTIONS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
         </select>
       </Field>
       <Field label="Video URL (embed)" error={errs.video_url}><input className={inputCls} value={v.video_url ?? ""} onChange={(e) => set("video_url", e.target.value)} /></Field>

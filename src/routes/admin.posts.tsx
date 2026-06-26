@@ -1,11 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
 import { adminListPosts, adminSetPostStatus, adminUpsertPost, adminDeletePost } from "@/lib/admin.functions";
 import { listEpisodes } from "@/lib/content.functions";
 import { AdminHeader, Field, inputCls } from "@/components/admin/admin-shell";
+import { useRealtime } from "@/hooks/use-realtime";
 
 export const Route = createFileRoute("/admin/posts")({ component: PostsAdmin });
 
@@ -19,8 +20,11 @@ const empty = { body: "", media_url: "", episode_id: "", status: "live" as const
 
 function PostsAdmin() {
   const qc = useQueryClient();
-  const { data = [], isLoading } = useQuery({ queryKey: ["adminPosts"], queryFn: () => adminListPosts() });
+  const { data = [], isLoading } = useQuery({ queryKey: ["adminPosts"], queryFn: () => adminListPosts(), staleTime: 15_000 });
   const [editing, setEditing] = useState<any | null>(null);
+  const [filter, setFilter] = useState<"pending" | "live" | "removed" | "all">("pending");
+
+  useRealtime("community_posts", [["adminPosts"], ["communityPosts"]]);
 
   const invalidate = () => { qc.invalidateQueries({ queryKey: ["adminPosts"] }); qc.invalidateQueries({ queryKey: ["communityPosts"] }); };
   const setStatus = useMutation({
@@ -39,16 +43,33 @@ function PostsAdmin() {
     onError: (e: Error) => toast.error(e.message),
   });
 
+  const counts = useMemo(() => ({
+    pending: data.filter((p: any) => p.status === "pending").length,
+    live: data.filter((p: any) => p.status === "live").length,
+    removed: data.filter((p: any) => p.status === "removed").length,
+    all: data.length,
+  }), [data]);
+  const visible = filter === "all" ? data : data.filter((p: any) => p.status === filter);
+
   return (
     <>
-      <AdminHeader title="Community posts" subtitle="Create staff posts, edit any body, approve / hide / delete."
+      <AdminHeader title="Community posts" subtitle="Moderation queue — approve, hide or delete user submissions before they go public."
         actions={<button onClick={() => setEditing({ ...empty })} className="bg-foreground text-background px-4 py-2 text-[11px] font-mono uppercase tracking-[0.25em]">+ New post</button>} />
+
+      <div className="flex gap-2 mt-6 font-mono text-[10px] uppercase tracking-[0.25em] flex-wrap">
+        {(["pending","live","removed","all"] as const).map(k => (
+          <button key={k} onClick={() => setFilter(k)} className={`px-3 py-1.5 ring-1 ${filter === k ? "ring-foreground bg-foreground text-background" : "ring-border text-muted-foreground"}`}>
+            {k} <span className="ml-1 opacity-60">{counts[k]}</span>
+          </button>
+        ))}
+      </div>
 
       {editing && <PostForm initial={editing} onCancel={() => setEditing(null)} onSave={(p) => save.mutate(p)} busy={save.isPending} />}
 
-      {isLoading ? <p className="text-sm text-muted-foreground">Loading…</p> :
+      {isLoading ? <p className="text-sm text-muted-foreground mt-6">Loading…</p> :
+        visible.length === 0 ? <p className="text-sm text-muted-foreground mt-6">Nothing in this queue.</p> :
         <ul className="divide-y divide-border ring-1 ring-border mt-6">
-          {data.map((p: any) => (
+          {visible.map((p: any) => (
             <li key={p.id} className="p-4 bg-background flex gap-4 items-start">
               <div className="flex-1 min-w-0">
                 <div className="flex flex-wrap items-center gap-3">
@@ -75,7 +96,7 @@ function PostsAdmin() {
 function PostForm({ initial, onCancel, onSave, busy }: { initial: any; onCancel: () => void; onSave: (p: any) => void; busy: boolean }) {
   const [v, setV] = useState<any>(initial);
   const [errs, setErrs] = useState<Record<string, string>>({});
-  const { data: episodes = [] } = useQuery({ queryKey: ["episodesAll"], queryFn: () => listEpisodes() });
+  const { data: episodes = [] } = useQuery({ queryKey: ["episodesAdminAll"], queryFn: () => listEpisodes({ data: { all: true } }), staleTime: 5 * 60_000 });
   function set(k: string, val: any) { setV((p: any) => ({ ...p, [k]: val })); }
   function submit(e: React.FormEvent) {
     e.preventDefault();
