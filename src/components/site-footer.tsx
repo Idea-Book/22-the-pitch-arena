@@ -51,12 +51,20 @@ export function SiteFooter() {
           <FooterCol
             title="Brand"
             items={[
-              { to: "/sponsors", label: "Press Kit" },
-              { to: "/sponsors", label: "Partners" },
-              { to: "/community", label: "Creator Network" },
+              { to: "/press-kit", label: "Press Kit" },
+              { to: "/partners", label: "Partners" },
+              { to: "/creators", label: "Creator Network" },
             ]}
           />
         </div>
+
+        <div className="flex flex-wrap gap-5 text-[10px] uppercase tracking-[0.25em] text-muted-foreground/70 font-mono border-t border-border pt-6 mb-6">
+          <Link to="/legal/terms" className="hover:text-foreground transition-colors">Terms</Link>
+          <Link to="/legal/privacy" className="hover:text-foreground transition-colors">Privacy</Link>
+          <Link to="/legal/refunds" className="hover:text-foreground transition-colors">Refunds &amp; Cancellation</Link>
+          <a href="mailto:press@bklsharks.com" className="hover:text-foreground transition-colors">Press</a>
+          <a href="mailto:legal@bklsharks.com" className="hover:text-foreground transition-colors">Legal</a>
+
 
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between border-t border-border pt-8">
           <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground/60">
