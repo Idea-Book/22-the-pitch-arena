@@ -8,7 +8,7 @@ export const Route = createFileRoute("/episodes")({
   head: () => ({
     meta: [
       { title: "Episodes — BKL Sharks Season 01 · Pitch Vault" },
-      { name: "description", content: "All 16 rounds from BKL Sharks Season 01. Race vault with verdicts, lap times and viral moments." },
+      { name: "description", content: "All 16 rounds from BKL Sharks Season 01. Pitch vault with verdicts, lap times and viral moments." },
       { property: "og:title", content: "Episodes — BKL Sharks" },
       { property: "og:description", content: "Every breakdown. Every breakthrough." },
     ],

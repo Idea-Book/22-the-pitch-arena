@@ -53,7 +53,7 @@ function CommunityPage() {
       <PageHero
         eyebrow="The Feed · After-Show"
         title={<>Where the show <span className="italic text-[var(--silver)]/70">keeps going.</span></>}
-        lede="Viral reels, race-radio transcripts, audience reactions, post-show analysis and founder documentaries. The arena doesn't end when the lights come up — it explodes online."
+        lede="Viral reels, pitch-radio transcripts, audience reactions, post-show analysis and founder documentaries. The arena doesn't end when the lights come up — it explodes online."
       />
 
       {/* TRENDING NOW */}

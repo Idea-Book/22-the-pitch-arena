@@ -28,7 +28,7 @@ export function SiteNav() {
 
   return (
     <>
-      {/* RACE CONTROL TICKER */}
+      {/* PITCH CONTROL TICKER */}
       <div className="fixed top-0 inset-x-0 z-[60] h-7 bg-[var(--crimson)] text-white overflow-hidden border-b border-white/10">
         <div className="flex items-center h-full">
           <span className="shrink-0 h-full flex items-center gap-2 px-3 bg-black/30 font-mono text-[9px] uppercase tracking-[0.3em]">
