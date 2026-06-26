@@ -10,8 +10,12 @@ import { episodeUpsertSchema } from "@/lib/schemas";
 export const Route = createFileRoute("/admin/episodes")({ component: EpisodesAdmin });
 
 const OUTCOMES = ["TERMINATED","TERM SHEET","VIRAL","STANDING OVATION","WALK-OFF"];
-const STATUSES = ["draft","scheduled","aired"];
-const empty = { slug: "", round_code: "", title: "", city: "", sector: "", air_date: "", lap_time: "", outcome: "", recap: "", hero_img: "", video_url: "", funded_label: "", status: "aired" };
+const STATUS_OPTIONS: { value: "draft"|"scheduled"|"aired"; label: string }[] = [
+  { value: "draft", label: "Draft (hidden)" },
+  { value: "scheduled", label: "Preview (staff only)" },
+  { value: "aired", label: "Published (public)" },
+];
+const empty = { slug: "", round_code: "", title: "", city: "", sector: "", air_date: "", lap_time: "", outcome: "", recap: "", hero_img: "", video_url: "", funded_label: "", status: "draft" };
 
 function EpisodesAdmin() {
   const qc = useQueryClient();
