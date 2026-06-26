@@ -29,8 +29,15 @@ function PostsAdmin() {
   const invalidate = () => { qc.invalidateQueries({ queryKey: ["adminPosts"] }); qc.invalidateQueries({ queryKey: ["communityPosts"] }); };
   const setStatus = useMutation({
     mutationFn: (v: { id: string; status: "live" | "removed" | "pending" }) => adminSetPostStatus({ data: v }),
-    onSuccess: () => { toast.success("Updated"); invalidate(); },
-    onError: (e: Error) => toast.error(e.message),
+    onMutate: async (v) => {
+      await qc.cancelQueries({ queryKey: ["adminPosts"] });
+      const prev = qc.getQueryData<any[]>(["adminPosts"]);
+      qc.setQueryData<any[]>(["adminPosts"], (old) => (old ?? []).map((p) => p.id === v.id ? { ...p, status: v.status } : p));
+      return { prev };
+    },
+    onError: (e: Error, _v, ctx) => { if (ctx?.prev) qc.setQueryData(["adminPosts"], ctx.prev); toast.error(e.message); },
+    onSuccess: () => toast.success("Updated"),
+    onSettled: () => invalidate(),
   });
   const save = useMutation({
     mutationFn: (p: any) => adminUpsertPost({ data: p }),
@@ -39,9 +46,17 @@ function PostsAdmin() {
   });
   const del = useMutation({
     mutationFn: (id: string) => adminDeletePost({ data: { id } }),
-    onSuccess: () => { toast.success("Deleted"); invalidate(); },
-    onError: (e: Error) => toast.error(e.message),
+    onMutate: async (id) => {
+      await qc.cancelQueries({ queryKey: ["adminPosts"] });
+      const prev = qc.getQueryData<any[]>(["adminPosts"]);
+      qc.setQueryData<any[]>(["adminPosts"], (old) => (old ?? []).filter((p) => p.id !== id));
+      return { prev };
+    },
+    onError: (e: Error, _id, ctx) => { if (ctx?.prev) qc.setQueryData(["adminPosts"], ctx.prev); toast.error(e.message); },
+    onSuccess: () => toast.success("Deleted"),
+    onSettled: () => invalidate(),
   });
+
 
   const counts = useMemo(() => ({
     pending: data.filter((p: any) => p.status === "pending").length,
