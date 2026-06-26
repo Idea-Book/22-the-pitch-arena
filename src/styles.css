@@ -177,3 +177,79 @@
 @utility pulse-dot {
   animation: pulse-dot 1.6s ease-in-out infinite;
 }
+
+/* ============== F1 RACE-NIGHT MOTION ============== */
+
+@keyframes speed-stripe {
+  from { background-position: 0 0; }
+  to { background-position: 40px 0; }
+}
+@utility speed-stripe {
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--crimson) 0 16px,
+    transparent 16px 40px
+  );
+  background-size: 40px 100%;
+  animation: speed-stripe 0.9s linear infinite;
+}
+
+@keyframes checker-scroll {
+  from { background-position: 0 0; }
+  to { background-position: 32px 0; }
+}
+@utility checker {
+  background-image:
+    linear-gradient(45deg, var(--foreground) 25%, transparent 25%),
+    linear-gradient(-45deg, var(--foreground) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, var(--foreground) 75%),
+    linear-gradient(-45deg, transparent 75%, var(--foreground) 75%);
+  background-size: 16px 16px;
+  background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+  animation: checker-scroll 1.4s linear infinite;
+}
+
+@keyframes live-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0.25; }
+}
+@utility live-blink {
+  animation: live-blink 1s steps(2, end) infinite;
+}
+
+@keyframes ticker-fast {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@utility ticker-fast {
+  animation: ticker-fast 22s linear infinite;
+}
+
+@utility grid-lines {
+  background-image:
+    linear-gradient(to right, oklch(1 0 0 / 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(1 0 0 / 0.04) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+@utility racing-edge {
+  box-shadow:
+    inset 4px 0 0 0 var(--crimson),
+    inset 0 -1px 0 0 var(--border);
+}
+
+@utility glow-crimson {
+  box-shadow: 0 0 0 1px var(--crimson), 0 10px 60px -10px oklch(0.55 0.19 25 / 0.65);
+}
+
+@utility glow-gold {
+  box-shadow: 0 0 0 1px var(--gold), 0 10px 60px -10px oklch(0.78 0.13 85 / 0.55);
+}
+
+@keyframes count-rise {
+  from { transform: translateY(40%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+@utility count-rise {
+  animation: count-rise 0.9s cubic-bezier(0.19, 1, 0.22, 1) both;
+}

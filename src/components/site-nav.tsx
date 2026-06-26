@@ -23,16 +23,44 @@ export function SiteNav() {
   }, []);
 
   return (
+    <>
+      {/* RACE CONTROL TICKER */}
+      <div className="fixed top-0 inset-x-0 z-[60] h-7 bg-[var(--crimson)] text-white overflow-hidden border-b border-white/10">
+        <div className="flex items-center h-full">
+          <span className="shrink-0 h-full flex items-center gap-2 px-3 bg-black/30 font-mono text-[9px] uppercase tracking-[0.3em]">
+            <span className="size-1.5 rounded-full bg-white live-blink" />
+            Race Control
+          </span>
+          <div className="relative flex-1 overflow-hidden">
+            <div className="flex gap-10 whitespace-nowrap ticker-fast font-mono text-[10px] uppercase tracking-[0.25em]">
+              {[...Array(2)].map((_, k) => (
+                <span key={k} className="flex gap-10 pr-10">
+                  <span>S02 · LIGHTS OUT 14 NOV · MUMBAI</span>
+                  <span className="text-white/70">▲ AARAV IYER P1 · GRIDSPARK ₹4.2 CR CLOSED</span>
+                  <span>● LIVE QUALI · DELHI 19:30 IST</span>
+                  <span className="text-white/70">▼ KABIR VERMA WALK-OFF · LAP 7</span>
+                  <span>● 12 SHARKS · 16 ROUNDS · 1 STAGE</span>
+                  <span className="text-white/70">▲ MEERA NAIR FASTEST CLOSE · 04:11</span>
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
     <nav
-      className={`fixed top-0 z-50 w-full transition-all duration-500 ${
+      className={`fixed top-7 z-50 w-full transition-all duration-500 ${
         scrolled
           ? "bg-background/70 backdrop-blur-xl border-b border-border"
           : "bg-transparent border-b border-transparent"
       }`}
     >
       <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-6">
-        <Link to="/" className="font-display text-xl tracking-tight">
-          THE ARENA
+        <Link to="/" className="flex items-center gap-2.5 group">
+          <span aria-hidden className="inline-flex items-center justify-center size-6 bg-[var(--crimson)] text-white font-mono text-[10px] font-bold rounded-sm group-hover:rotate-[8deg] transition-transform">B</span>
+          <span className="font-display text-xl tracking-tight">
+            BKL <span className="text-[var(--crimson)]">SHARKS</span>
+          </span>
         </Link>
 
         <div className="hidden gap-7 text-[13px] text-muted-foreground md:flex">
@@ -49,6 +77,10 @@ export function SiteNav() {
         </div>
 
         <div className="flex items-center gap-3">
+          <span className="hidden lg:flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
+            <span className="size-1.5 rounded-full bg-[var(--crimson)] live-blink" />
+            On Air
+          </span>
           <Link
             to="/apply"
             className="hidden sm:inline-flex items-center bg-foreground px-4 py-1.5 text-xs font-medium uppercase tracking-[0.18em] text-background transition-transform active:scale-95 hover:bg-[var(--silver)]"
@@ -83,5 +115,6 @@ export function SiteNav() {
         </div>
       )}
     </nav>
+    </>
   );
 }
