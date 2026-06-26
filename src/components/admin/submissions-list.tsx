@@ -40,7 +40,7 @@ export function SubmissionsList({ table, title, subtitle, columns, expand }: {
       {isLoading ? <p className="text-sm text-muted-foreground">Loading…</p> :
         filtered.length === 0 ? <p className="text-sm text-muted-foreground">No entries.</p> :
         <ul className="divide-y divide-border ring-1 ring-border">
-          {filtered.map((r: any) => <Row key={r.id} r={r} columns={columns} expand={expand} onStatus={(status) => upd.mutate({ id: r.id, status })} busy={upd.isPending} />)}
+          {filtered.map((r: any) => <Row key={r.id} r={r} columns={columns} expand={expand} onStatus={(status: Status) => upd.mutate({ id: r.id, status })} busy={upd.isPending} />)}
         </ul>}
     </>
   );
