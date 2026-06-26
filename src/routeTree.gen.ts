@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as PanelistsRouteImport } from './routes/panelists'
+import { Route as FoundersRouteImport } from './routes/founders'
 import { Route as EpisodesRouteImport } from './routes/episodes'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -22,6 +23,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const PanelistsRoute = PanelistsRouteImport.update({
   id: '/panelists',
   path: '/panelists',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FoundersRoute = FoundersRouteImport.update({
+  id: '/founders',
+  path: '/founders',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EpisodesRoute = EpisodesRouteImport.update({
@@ -38,12 +44,14 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/episodes': typeof EpisodesRoute
+  '/founders': typeof FoundersRoute
   '/panelists': typeof PanelistsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/episodes': typeof EpisodesRoute
+  '/founders': typeof FoundersRoute
   '/panelists': typeof PanelistsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
 }
@@ -51,20 +59,28 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/episodes': typeof EpisodesRoute
+  '/founders': typeof FoundersRoute
   '/panelists': typeof PanelistsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/episodes' | '/panelists' | '/sitemap.xml'
+  fullPaths: '/' | '/episodes' | '/founders' | '/panelists' | '/sitemap.xml'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/episodes' | '/panelists' | '/sitemap.xml'
-  id: '__root__' | '/' | '/episodes' | '/panelists' | '/sitemap.xml'
+  to: '/' | '/episodes' | '/founders' | '/panelists' | '/sitemap.xml'
+  id:
+    | '__root__'
+    | '/'
+    | '/episodes'
+    | '/founders'
+    | '/panelists'
+    | '/sitemap.xml'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   EpisodesRoute: typeof EpisodesRoute
+  FoundersRoute: typeof FoundersRoute
   PanelistsRoute: typeof PanelistsRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
 }
@@ -83,6 +99,13 @@ declare module '@tanstack/react-router' {
       path: '/panelists'
       fullPath: '/panelists'
       preLoaderRoute: typeof PanelistsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/founders': {
+      id: '/founders'
+      path: '/founders'
+      fullPath: '/founders'
+      preLoaderRoute: typeof FoundersRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/episodes': {
@@ -105,6 +128,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   EpisodesRoute: EpisodesRoute,
+  FoundersRoute: FoundersRoute,
   PanelistsRoute: PanelistsRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
 }
