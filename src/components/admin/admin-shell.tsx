@@ -3,17 +3,18 @@ import { useAuth } from "@/hooks/use-auth";
 
 type Section = { to: string; label: string; admin?: boolean };
 const SECTIONS: Section[] = [
-  { to: "/admin", label: "Dashboard", staff: true },
-  { to: "/admin/reports", label: "Reports", staff: true },
-  { to: "/admin/posts", label: "Posts", staff: true },
-  { to: "/admin/episodes", label: "Episodes", staff: true },
-  { to: "/admin/panelists", label: "Panelists", staff: true },
-  { to: "/admin/founders", label: "Founders", staff: true },
-  { to: "/admin/applications", label: "Applications", staff: true },
-  { to: "/admin/tickets", label: "Tickets", staff: true },
-  { to: "/admin/sponsors", label: "Sponsors", staff: true },
+  { to: "/admin", label: "Dashboard" },
+  { to: "/admin/reports", label: "Reports" },
+  { to: "/admin/posts", label: "Community posts" },
+  { to: "/admin/episodes", label: "Episodes" },
+  { to: "/admin/panelists", label: "Panelists" },
+  { to: "/admin/founders", label: "Founders" },
+  { to: "/admin/sponsor-content", label: "Sponsor info" },
+  { to: "/admin/applications", label: "Applications" },
+  { to: "/admin/tickets", label: "Tickets" },
+  { to: "/admin/sponsors", label: "Sponsor inquiries" },
   { to: "/admin/users", label: "Users", admin: true },
-] as any;
+];
 
 export function AdminShell() {
   const { isAdmin, isStaff, loading } = useAuth();
