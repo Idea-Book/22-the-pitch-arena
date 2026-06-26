@@ -61,7 +61,7 @@ function Composer({ episodes, onPosted }: { episodes: any[]; onPosted: () => voi
   const [err, setErr] = useState("");
   const m = useMutation({
     mutationFn: (d: any) => createPost({ data: d }),
-    onSuccess: () => { setBody(""); toast.success("Posted"); onPosted(); },
+    onSuccess: () => { setBody(""); toast.success("Submitted — pending mod review"); onPosted(); },
     onError: (e: Error) => toast.error(e.message),
   });
   function submit(e: React.FormEvent) {
