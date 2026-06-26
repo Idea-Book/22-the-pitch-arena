@@ -65,6 +65,20 @@ function AuthPage() {
     navigate({ to: redirect ?? "/" });
   }
 
+  const provisionDemo = useServerFn(ensureDemoAdmin);
+  async function demoAdmin() {
+    setBusy(true);
+    try {
+      const creds = await provisionDemo({ data: undefined as never });
+      const { error } = await supabase.auth.signInWithPassword({ email: creds.email, password: creds.password });
+      if (error) throw error;
+      toast.success("Signed in as Demo Admin → Pitch Control unlocked.");
+      navigate({ to: "/admin" });
+    } catch (err: any) {
+      toast.error(err?.message ?? "Demo sign-in failed.");
+    } finally { setBusy(false); }
+  }
+
   return (
     <div className="min-h-screen pt-32 pb-20 px-6">
       <div className="mx-auto max-w-md">
