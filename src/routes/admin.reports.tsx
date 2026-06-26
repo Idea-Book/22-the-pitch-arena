@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import { adminListReports, adminResolveReport } from "@/lib/admin.functions";
 import { AdminHeader } from "@/components/admin/admin-shell";
 
-export const Route = createFileRoute("/_authenticated/admin/reports")({
+export const Route = createFileRoute("/admin/reports")({
   component: ReportsPage,
 });
 

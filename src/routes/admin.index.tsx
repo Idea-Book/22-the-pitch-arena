@@ -3,7 +3,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { adminStats } from "@/lib/admin.functions";
 import { AdminHeader } from "@/components/admin/admin-shell";
 
-export const Route = createFileRoute("/_authenticated/admin/")({
+export const Route = createFileRoute("/admin/")({
   component: Dashboard,
 });
 

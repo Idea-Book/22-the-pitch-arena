@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import { adminListUsers, adminSetRole, adminListBans, adminBanUser, adminLiftBan } from "@/lib/admin.functions";
 import { AdminHeader } from "@/components/admin/admin-shell";
 
-export const Route = createFileRoute("/_authenticated/admin/users")({ component: UsersPage });
+export const Route = createFileRoute("/admin/users")({ component: UsersPage });
 
 function UsersPage() {
   const qc = useQueryClient();

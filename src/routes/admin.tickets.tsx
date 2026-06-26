@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SubmissionsList } from "@/components/admin/submissions-list";
 
-export const Route = createFileRoute("/_authenticated/admin/tickets")({
+export const Route = createFileRoute("/admin/tickets")({
   component: () => <SubmissionsList
     table="ticket_inquiries"
     title="Ticket inquiries"

@@ -7,7 +7,7 @@ import { adminUpsertEpisode, adminDeleteEpisode } from "@/lib/admin.functions";
 import { AdminHeader, Field, inputCls } from "@/components/admin/admin-shell";
 import { episodeUpsertSchema } from "@/lib/schemas";
 
-export const Route = createFileRoute("/_authenticated/admin/episodes")({ component: EpisodesAdmin });
+export const Route = createFileRoute("/admin/episodes")({ component: EpisodesAdmin });
 
 const OUTCOMES = ["TERMINATED","TERM SHEET","VIRAL","STANDING OVATION","WALK-OFF"];
 const STATUSES = ["draft","scheduled","aired"];

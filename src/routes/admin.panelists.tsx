@@ -7,7 +7,7 @@ import { adminUpsertPanelist, adminDeletePanelist } from "@/lib/admin.functions"
 import { AdminHeader, Field, inputCls } from "@/components/admin/admin-shell";
 import { panelistUpsertSchema } from "@/lib/schemas";
 
-export const Route = createFileRoute("/_authenticated/admin/panelists")({ component: PanelistsAdmin });
+export const Route = createFileRoute("/admin/panelists")({ component: PanelistsAdmin });
 
 const empty = { slug: "", name: "", tag: "", aka: "", firm: "", city: "", bio: "", quote: "", headshot: "", roast_meter: 50, appetite: "", record_wins: 0, record_kos: 0, aum: "", years: 0, deals: 0 };
 

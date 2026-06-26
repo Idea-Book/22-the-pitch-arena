@@ -7,7 +7,7 @@ import { adminUpsertFounder, adminDeleteFounder } from "@/lib/admin.functions";
 import { AdminHeader, Field, inputCls } from "@/components/admin/admin-shell";
 import { founderUpsertSchema } from "@/lib/schemas";
 
-export const Route = createFileRoute("/_authenticated/admin/founders")({ component: FoundersAdmin });
+export const Route = createFileRoute("/admin/founders")({ component: FoundersAdmin });
 
 const STATUS = ["active","eliminated","champion","withdrew"];
 const empty = { slug: "", name: "", startup: "", sector: "", city: "", stage: "", ask: "", valuation: "", traction: "", bio: "", headshot: "", position: 0, position_delta: "—", heat: 50, funded_label: "", status: "active" };
