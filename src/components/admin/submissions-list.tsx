@@ -61,7 +61,7 @@ function Row({ r, columns, expand, onStatus, busy }: any) {
         </div>
         <span className={`font-mono text-[10px] uppercase tracking-[0.25em] px-2 py-0.5 ring-1 ring-border ${r.status === "accepted" ? "text-[var(--gold)]" : r.status === "rejected" ? "text-[var(--crimson)]" : ""}`}>{r.status}</span>
         <div className="flex gap-1">
-          {(["reviewing","accepted","rejected","archived"] as Status[]).map((s: Status) => (
+          {["reviewing","accepted","rejected","archived"].map((s) => (
             <button key={s} disabled={busy || r.status === s} onClick={() => onStatus(s)} className="ring-1 ring-border px-2 py-1 text-[10px] font-mono uppercase tracking-[0.2em] disabled:opacity-30 hover:bg-[var(--surface)]">{s}</button>
           ))}
         </div>
