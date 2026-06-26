@@ -44,15 +44,6 @@ const GEO = [
   ["Mumbai", 28], ["Bengaluru", 22], ["Delhi NCR", 17], ["Hyderabad", 9], ["Pune", 7], ["Chennai", 5], ["Tier-2+", 12],
 ];
 
-function Field({ label, type = "text", placeholder }: { label: string; type?: string; placeholder?: string }) {
-  return (
-    <div>
-      <label className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground mb-2 block">{label}</label>
-      <input type={type} placeholder={placeholder} className="w-full bg-[var(--surface)] border border-border px-4 py-3 text-sm focus:outline-none focus:ring-1 focus:ring-[var(--electric)]" />
-    </div>
-  );
-}
-
 function SponsorsPage() {
   return (
     <>
