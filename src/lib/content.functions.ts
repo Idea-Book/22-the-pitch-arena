@@ -95,3 +95,19 @@ export const listComments = createServerFn({ method: "GET" })
     if (error) throw new Error(error.message);
     return rows ?? [];
   });
+
+export const listSponsorPackages = createServerFn({ method: "GET" }).handler(async () => {
+  const { getPublicSupabase } = await import("./supabase-public.server");
+  const sb = getPublicSupabase();
+  const { data, error } = await sb.from("sponsor_packages").select("*").eq("active", true).order("sort_order");
+  if (error) throw new Error(error.message);
+  return data ?? [];
+});
+
+export const listSponsorPartners = createServerFn({ method: "GET" }).handler(async () => {
+  const { getPublicSupabase } = await import("./supabase-public.server");
+  const sb = getPublicSupabase();
+  const { data, error } = await sb.from("sponsor_partners").select("*").eq("active", true).order("sort_order");
+  if (error) throw new Error(error.message);
+  return data ?? [];
+});
