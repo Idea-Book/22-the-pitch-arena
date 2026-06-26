@@ -15,7 +15,7 @@ const empty = { slug: "", round_code: "", title: "", city: "", sector: "", air_d
 
 function EpisodesAdmin() {
   const qc = useQueryClient();
-  const { data = [] } = useQuery({ queryKey: ["episodesAll"], queryFn: () => listEpisodes() });
+  const { data = [] } = useQuery({ queryKey: ["episodesAdminAll"], queryFn: () => listEpisodes({ data: { all: true } }) });
   const [editing, setEditing] = useState<any | null>(null);
 
   const save = useMutation({
