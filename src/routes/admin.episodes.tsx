@@ -20,12 +20,12 @@ function EpisodesAdmin() {
 
   const save = useMutation({
     mutationFn: (payload: any) => adminUpsertEpisode({ data: payload }),
-    onSuccess: () => { toast.success("Saved"); qc.invalidateQueries({ queryKey: ["episodesAll"] }); setEditing(null); },
+    onSuccess: () => { toast.success("Saved"); qc.invalidateQueries({ queryKey: ["episodesAdminAll"] }); setEditing(null); },
     onError: (e: Error) => toast.error(e.message),
   });
   const del = useMutation({
     mutationFn: (id: string) => adminDeleteEpisode({ data: { id } }),
-    onSuccess: () => { toast.success("Deleted"); qc.invalidateQueries({ queryKey: ["episodesAll"] }); },
+    onSuccess: () => { toast.success("Deleted"); qc.invalidateQueries({ queryKey: ["episodesAdminAll"] }); },
     onError: (e: Error) => toast.error(e.message),
   });
 
