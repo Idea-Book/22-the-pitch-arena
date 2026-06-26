@@ -64,6 +64,9 @@ export function SiteFooter() {
           <Link to="/legal/refunds" className="hover:text-foreground transition-colors">Refunds &amp; Cancellation</Link>
           <a href="mailto:press@bklsharks.com" className="hover:text-foreground transition-colors">Press</a>
           <a href="mailto:legal@bklsharks.com" className="hover:text-foreground transition-colors">Legal</a>
+        </div>
+
+
 
 
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between border-t border-border pt-8">
