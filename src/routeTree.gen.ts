@@ -10,12 +10,18 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as PanelistsRouteImport } from './routes/panelists'
 import { Route as EpisodesRouteImport } from './routes/episodes'
 import { Route as IndexRouteImport } from './routes/index'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PanelistsRoute = PanelistsRouteImport.update({
+  id: '/panelists',
+  path: '/panelists',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EpisodesRoute = EpisodesRouteImport.update({
@@ -32,30 +38,34 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/episodes': typeof EpisodesRoute
+  '/panelists': typeof PanelistsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/episodes': typeof EpisodesRoute
+  '/panelists': typeof PanelistsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/episodes': typeof EpisodesRoute
+  '/panelists': typeof PanelistsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/episodes' | '/sitemap.xml'
+  fullPaths: '/' | '/episodes' | '/panelists' | '/sitemap.xml'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/episodes' | '/sitemap.xml'
-  id: '__root__' | '/' | '/episodes' | '/sitemap.xml'
+  to: '/' | '/episodes' | '/panelists' | '/sitemap.xml'
+  id: '__root__' | '/' | '/episodes' | '/panelists' | '/sitemap.xml'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   EpisodesRoute: typeof EpisodesRoute
+  PanelistsRoute: typeof PanelistsRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
 }
 
@@ -66,6 +76,13 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/panelists': {
+      id: '/panelists'
+      path: '/panelists'
+      fullPath: '/panelists'
+      preLoaderRoute: typeof PanelistsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/episodes': {
@@ -88,6 +105,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   EpisodesRoute: EpisodesRoute,
+  PanelistsRoute: PanelistsRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
 }
 export const routeTree = rootRouteImport
