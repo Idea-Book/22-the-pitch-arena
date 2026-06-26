@@ -31,7 +31,13 @@ function EpisodeDetail() {
   const { episode, panelists, founders } = data;
   const hero = episodeImage(episode.slug);
   const recap = (episode.recap ?? "").split(/\n+/).filter(Boolean);
-  const timeline = (episode.race_control as any[] | null) ?? [];
+  // Race-control timeline is synthesized from panelist verdicts + investments
+  const timeline = panelists
+    .filter((row: any) => row.panelists && (row.verdict || row.investment_amount))
+    .map((row: any, i: number) => ({
+      t: `Lap ${String((i + 1) * 2).padStart(2, "0")}:00`,
+      note: `${row.panelists.name} · ${row.verdict ?? "called it"}${row.investment_amount ? ` · ₹${Number(row.investment_amount).toLocaleString("en-IN")}` : ""}`,
+    }));
 
   return (
     <section className="pt-24 pb-24">
