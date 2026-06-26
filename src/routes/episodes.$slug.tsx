@@ -7,7 +7,7 @@ export const Route = createFileRoute("/episodes/$slug")({
   head: ({ params }) => ({
     meta: [
       { title: `Episode ${params.slug} — BKL Sharks` },
-      { name: "description", content: `Full recap, race-control timeline and panelist verdicts for BKL Sharks episode ${params.slug}.` },
+      { name: "description", content: `Full recap, pitch-control timeline and panelist verdicts for BKL Sharks episode ${params.slug}.` },
     ],
   }),
   loader: async ({ params, context }) => {
@@ -31,7 +31,7 @@ function EpisodeDetail() {
   const { episode, panelists, founders } = data;
   const hero = episodeImage(episode.slug);
   const recap = (episode.recap ?? "").split(/\n+/).filter(Boolean);
-  // Race-control timeline is synthesized from panelist verdicts + investments
+  // Pitch-control timeline is synthesized from panelist verdicts + investments
   const timeline = panelists
     .filter((row: any) => row.panelists && (row.verdict || row.investment_amount))
     .map((row: any, i: number) => ({
@@ -143,7 +143,7 @@ function EpisodeDetail() {
           </div>
 
           <div>
-            <h2 className="font-display text-2xl mb-5">Race-control timeline</h2>
+            <h2 className="font-display text-2xl mb-5">Pitch-control timeline</h2>
             {timeline.length === 0 ? (
               <p className="text-sm text-muted-foreground">No timeline cues logged.</p>
             ) : (
