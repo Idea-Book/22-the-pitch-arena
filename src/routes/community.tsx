@@ -153,6 +153,20 @@ function CommunityPage() {
           </ul>
         </div>
       </section>
+
+      {/* LIVE COMMUNITY FEED */}
+      <section id="feed" className="py-24 px-6 border-t border-border">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-10">
+            <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-[var(--crimson)] mb-3 block">
+              <span className="inline-block size-1.5 rounded-full bg-[var(--crimson)] live-blink mr-2 align-middle" />Live feed
+            </span>
+            <h2 className="font-display text-3xl md:text-4xl">Take the mic.</h2>
+            <p className="text-muted-foreground mt-2 max-w-xl">Post hot takes, tag them to episodes, react and reply. Mods are watching.</p>
+          </div>
+          <CommunityFeed />
+        </div>
+      </section>
     </>
   );
 }
