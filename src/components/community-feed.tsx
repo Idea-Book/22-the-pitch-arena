@@ -47,8 +47,8 @@ export function CommunityFeed() {
       </div>
       <aside className="text-sm text-muted-foreground space-y-4">
         <div className="bg-[var(--surface)] ring-1 ring-border p-5">
-          <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-[var(--crimson)] mb-2">Pitch radio</div>
-          <p className="text-xs leading-relaxed">Be sharp. Be specific. Roast the idea, not the human. Reports go straight to the mod queue.</p>
+          <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-[var(--crimson)] mb-2">Mod queue</div>
+          <p className="text-xs leading-relaxed">New posts land in the moderation queue. A mod approves them before they appear in the public feed. Reports notify mods instantly.</p>
         </div>
       </aside>
     </div>
