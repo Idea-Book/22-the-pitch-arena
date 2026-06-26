@@ -12,9 +12,13 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as TicketsRouteImport } from './routes/tickets'
 import { Route as SponsorsRouteImport } from './routes/sponsors'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as PressKitRouteImport } from './routes/press-kit'
+import { Route as PartnersRouteImport } from './routes/partners'
 import { Route as PanelistsRouteImport } from './routes/panelists'
+import { Route as LegalRouteImport } from './routes/legal'
 import { Route as FoundersRouteImport } from './routes/founders'
 import { Route as EpisodesRouteImport } from './routes/episodes'
+import { Route as CreatorsRouteImport } from './routes/creators'
 import { Route as CommunityRouteImport } from './routes/community'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ApplyRouteImport } from './routes/apply'
@@ -22,6 +26,9 @@ import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as PanelistsSlugRouteImport } from './routes/panelists.$slug'
+import { Route as LegalTermsRouteImport } from './routes/legal.terms'
+import { Route as LegalRefundsRouteImport } from './routes/legal.refunds'
+import { Route as LegalPrivacyRouteImport } from './routes/legal.privacy'
 import { Route as FoundersSlugRouteImport } from './routes/founders.$slug'
 import { Route as EpisodesSlugRouteImport } from './routes/episodes.$slug'
 import { Route as AdminUsersRouteImport } from './routes/admin.users'
@@ -50,9 +57,24 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PressKitRoute = PressKitRouteImport.update({
+  id: '/press-kit',
+  path: '/press-kit',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PartnersRoute = PartnersRouteImport.update({
+  id: '/partners',
+  path: '/partners',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PanelistsRoute = PanelistsRouteImport.update({
   id: '/panelists',
   path: '/panelists',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LegalRoute = LegalRouteImport.update({
+  id: '/legal',
+  path: '/legal',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FoundersRoute = FoundersRouteImport.update({
@@ -63,6 +85,11 @@ const FoundersRoute = FoundersRouteImport.update({
 const EpisodesRoute = EpisodesRouteImport.update({
   id: '/episodes',
   path: '/episodes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CreatorsRoute = CreatorsRouteImport.update({
+  id: '/creators',
+  path: '/creators',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CommunityRoute = CommunityRouteImport.update({
@@ -99,6 +126,21 @@ const PanelistsSlugRoute = PanelistsSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
   getParentRoute: () => PanelistsRoute,
+} as any)
+const LegalTermsRoute = LegalTermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => LegalRoute,
+} as any)
+const LegalRefundsRoute = LegalRefundsRouteImport.update({
+  id: '/refunds',
+  path: '/refunds',
+  getParentRoute: () => LegalRoute,
+} as any)
+const LegalPrivacyRoute = LegalPrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => LegalRoute,
 } as any)
 const FoundersSlugRoute = FoundersSlugRouteImport.update({
   id: '/$slug',
@@ -167,9 +209,13 @@ export interface FileRoutesByFullPath {
   '/apply': typeof ApplyRoute
   '/auth': typeof AuthRoute
   '/community': typeof CommunityRoute
+  '/creators': typeof CreatorsRoute
   '/episodes': typeof EpisodesRouteWithChildren
   '/founders': typeof FoundersRouteWithChildren
+  '/legal': typeof LegalRouteWithChildren
   '/panelists': typeof PanelistsRouteWithChildren
+  '/partners': typeof PartnersRoute
+  '/press-kit': typeof PressKitRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sponsors': typeof SponsorsRoute
   '/tickets': typeof TicketsRoute
@@ -185,6 +231,9 @@ export interface FileRoutesByFullPath {
   '/admin/users': typeof AdminUsersRoute
   '/episodes/$slug': typeof EpisodesSlugRoute
   '/founders/$slug': typeof FoundersSlugRoute
+  '/legal/privacy': typeof LegalPrivacyRoute
+  '/legal/refunds': typeof LegalRefundsRoute
+  '/legal/terms': typeof LegalTermsRoute
   '/panelists/$slug': typeof PanelistsSlugRoute
   '/admin/': typeof AdminIndexRoute
 }
@@ -193,9 +242,13 @@ export interface FileRoutesByTo {
   '/apply': typeof ApplyRoute
   '/auth': typeof AuthRoute
   '/community': typeof CommunityRoute
+  '/creators': typeof CreatorsRoute
   '/episodes': typeof EpisodesRouteWithChildren
   '/founders': typeof FoundersRouteWithChildren
+  '/legal': typeof LegalRouteWithChildren
   '/panelists': typeof PanelistsRouteWithChildren
+  '/partners': typeof PartnersRoute
+  '/press-kit': typeof PressKitRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sponsors': typeof SponsorsRoute
   '/tickets': typeof TicketsRoute
@@ -211,6 +264,9 @@ export interface FileRoutesByTo {
   '/admin/users': typeof AdminUsersRoute
   '/episodes/$slug': typeof EpisodesSlugRoute
   '/founders/$slug': typeof FoundersSlugRoute
+  '/legal/privacy': typeof LegalPrivacyRoute
+  '/legal/refunds': typeof LegalRefundsRoute
+  '/legal/terms': typeof LegalTermsRoute
   '/panelists/$slug': typeof PanelistsSlugRoute
   '/admin': typeof AdminIndexRoute
 }
@@ -221,9 +277,13 @@ export interface FileRoutesById {
   '/apply': typeof ApplyRoute
   '/auth': typeof AuthRoute
   '/community': typeof CommunityRoute
+  '/creators': typeof CreatorsRoute
   '/episodes': typeof EpisodesRouteWithChildren
   '/founders': typeof FoundersRouteWithChildren
+  '/legal': typeof LegalRouteWithChildren
   '/panelists': typeof PanelistsRouteWithChildren
+  '/partners': typeof PartnersRoute
+  '/press-kit': typeof PressKitRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sponsors': typeof SponsorsRoute
   '/tickets': typeof TicketsRoute
@@ -239,6 +299,9 @@ export interface FileRoutesById {
   '/admin/users': typeof AdminUsersRoute
   '/episodes/$slug': typeof EpisodesSlugRoute
   '/founders/$slug': typeof FoundersSlugRoute
+  '/legal/privacy': typeof LegalPrivacyRoute
+  '/legal/refunds': typeof LegalRefundsRoute
+  '/legal/terms': typeof LegalTermsRoute
   '/panelists/$slug': typeof PanelistsSlugRoute
   '/admin/': typeof AdminIndexRoute
 }
@@ -250,9 +313,13 @@ export interface FileRouteTypes {
     | '/apply'
     | '/auth'
     | '/community'
+    | '/creators'
     | '/episodes'
     | '/founders'
+    | '/legal'
     | '/panelists'
+    | '/partners'
+    | '/press-kit'
     | '/sitemap.xml'
     | '/sponsors'
     | '/tickets'
@@ -268,6 +335,9 @@ export interface FileRouteTypes {
     | '/admin/users'
     | '/episodes/$slug'
     | '/founders/$slug'
+    | '/legal/privacy'
+    | '/legal/refunds'
+    | '/legal/terms'
     | '/panelists/$slug'
     | '/admin/'
   fileRoutesByTo: FileRoutesByTo
@@ -276,9 +346,13 @@ export interface FileRouteTypes {
     | '/apply'
     | '/auth'
     | '/community'
+    | '/creators'
     | '/episodes'
     | '/founders'
+    | '/legal'
     | '/panelists'
+    | '/partners'
+    | '/press-kit'
     | '/sitemap.xml'
     | '/sponsors'
     | '/tickets'
@@ -294,6 +368,9 @@ export interface FileRouteTypes {
     | '/admin/users'
     | '/episodes/$slug'
     | '/founders/$slug'
+    | '/legal/privacy'
+    | '/legal/refunds'
+    | '/legal/terms'
     | '/panelists/$slug'
     | '/admin'
   id:
@@ -303,9 +380,13 @@ export interface FileRouteTypes {
     | '/apply'
     | '/auth'
     | '/community'
+    | '/creators'
     | '/episodes'
     | '/founders'
+    | '/legal'
     | '/panelists'
+    | '/partners'
+    | '/press-kit'
     | '/sitemap.xml'
     | '/sponsors'
     | '/tickets'
@@ -321,6 +402,9 @@ export interface FileRouteTypes {
     | '/admin/users'
     | '/episodes/$slug'
     | '/founders/$slug'
+    | '/legal/privacy'
+    | '/legal/refunds'
+    | '/legal/terms'
     | '/panelists/$slug'
     | '/admin/'
   fileRoutesById: FileRoutesById
@@ -331,9 +415,13 @@ export interface RootRouteChildren {
   ApplyRoute: typeof ApplyRoute
   AuthRoute: typeof AuthRoute
   CommunityRoute: typeof CommunityRoute
+  CreatorsRoute: typeof CreatorsRoute
   EpisodesRoute: typeof EpisodesRouteWithChildren
   FoundersRoute: typeof FoundersRouteWithChildren
+  LegalRoute: typeof LegalRouteWithChildren
   PanelistsRoute: typeof PanelistsRouteWithChildren
+  PartnersRoute: typeof PartnersRoute
+  PressKitRoute: typeof PressKitRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SponsorsRoute: typeof SponsorsRoute
   TicketsRoute: typeof TicketsRoute
@@ -362,11 +450,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/press-kit': {
+      id: '/press-kit'
+      path: '/press-kit'
+      fullPath: '/press-kit'
+      preLoaderRoute: typeof PressKitRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/partners': {
+      id: '/partners'
+      path: '/partners'
+      fullPath: '/partners'
+      preLoaderRoute: typeof PartnersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/panelists': {
       id: '/panelists'
       path: '/panelists'
       fullPath: '/panelists'
       preLoaderRoute: typeof PanelistsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/legal': {
+      id: '/legal'
+      path: '/legal'
+      fullPath: '/legal'
+      preLoaderRoute: typeof LegalRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/founders': {
@@ -381,6 +490,13 @@ declare module '@tanstack/react-router' {
       path: '/episodes'
       fullPath: '/episodes'
       preLoaderRoute: typeof EpisodesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/creators': {
+      id: '/creators'
+      path: '/creators'
+      fullPath: '/creators'
+      preLoaderRoute: typeof CreatorsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/community': {
@@ -431,6 +547,27 @@ declare module '@tanstack/react-router' {
       fullPath: '/panelists/$slug'
       preLoaderRoute: typeof PanelistsSlugRouteImport
       parentRoute: typeof PanelistsRoute
+    }
+    '/legal/terms': {
+      id: '/legal/terms'
+      path: '/terms'
+      fullPath: '/legal/terms'
+      preLoaderRoute: typeof LegalTermsRouteImport
+      parentRoute: typeof LegalRoute
+    }
+    '/legal/refunds': {
+      id: '/legal/refunds'
+      path: '/refunds'
+      fullPath: '/legal/refunds'
+      preLoaderRoute: typeof LegalRefundsRouteImport
+      parentRoute: typeof LegalRoute
+    }
+    '/legal/privacy': {
+      id: '/legal/privacy'
+      path: '/privacy'
+      fullPath: '/legal/privacy'
+      preLoaderRoute: typeof LegalPrivacyRouteImport
+      parentRoute: typeof LegalRoute
     }
     '/founders/$slug': {
       id: '/founders/$slug'
@@ -573,6 +710,20 @@ const FoundersRouteWithChildren = FoundersRoute._addFileChildren(
   FoundersRouteChildren,
 )
 
+interface LegalRouteChildren {
+  LegalPrivacyRoute: typeof LegalPrivacyRoute
+  LegalRefundsRoute: typeof LegalRefundsRoute
+  LegalTermsRoute: typeof LegalTermsRoute
+}
+
+const LegalRouteChildren: LegalRouteChildren = {
+  LegalPrivacyRoute: LegalPrivacyRoute,
+  LegalRefundsRoute: LegalRefundsRoute,
+  LegalTermsRoute: LegalTermsRoute,
+}
+
+const LegalRouteWithChildren = LegalRoute._addFileChildren(LegalRouteChildren)
+
 interface PanelistsRouteChildren {
   PanelistsSlugRoute: typeof PanelistsSlugRoute
 }
@@ -591,9 +742,13 @@ const rootRouteChildren: RootRouteChildren = {
   ApplyRoute: ApplyRoute,
   AuthRoute: AuthRoute,
   CommunityRoute: CommunityRoute,
+  CreatorsRoute: CreatorsRoute,
   EpisodesRoute: EpisodesRouteWithChildren,
   FoundersRoute: FoundersRouteWithChildren,
+  LegalRoute: LegalRouteWithChildren,
   PanelistsRoute: PanelistsRouteWithChildren,
+  PartnersRoute: PartnersRoute,
+  PressKitRoute: PressKitRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SponsorsRoute: SponsorsRoute,
   TicketsRoute: TicketsRoute,

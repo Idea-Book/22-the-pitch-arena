@@ -29,8 +29,15 @@ function PostsAdmin() {
   const invalidate = () => { qc.invalidateQueries({ queryKey: ["adminPosts"] }); qc.invalidateQueries({ queryKey: ["communityPosts"] }); };
   const setStatus = useMutation({
     mutationFn: (v: { id: string; status: "live" | "removed" | "pending" }) => adminSetPostStatus({ data: v }),
-    onSuccess: () => { toast.success("Updated"); invalidate(); },
-    onError: (e: Error) => toast.error(e.message),
+    onMutate: async (v) => {
+      await qc.cancelQueries({ queryKey: ["adminPosts"] });
+      const prev = qc.getQueryData<any[]>(["adminPosts"]);
+      qc.setQueryData<any[]>(["adminPosts"], (old) => (old ?? []).map((p) => p.id === v.id ? { ...p, status: v.status } : p));
+      return { prev };
+    },
+    onError: (e: Error, _v, ctx) => { if (ctx?.prev) qc.setQueryData(["adminPosts"], ctx.prev); toast.error(e.message); },
+    onSuccess: () => toast.success("Updated"),
+    onSettled: () => invalidate(),
   });
   const save = useMutation({
     mutationFn: (p: any) => adminUpsertPost({ data: p }),
@@ -39,9 +46,17 @@ function PostsAdmin() {
   });
   const del = useMutation({
     mutationFn: (id: string) => adminDeletePost({ data: { id } }),
-    onSuccess: () => { toast.success("Deleted"); invalidate(); },
-    onError: (e: Error) => toast.error(e.message),
+    onMutate: async (id) => {
+      await qc.cancelQueries({ queryKey: ["adminPosts"] });
+      const prev = qc.getQueryData<any[]>(["adminPosts"]);
+      qc.setQueryData<any[]>(["adminPosts"], (old) => (old ?? []).filter((p) => p.id !== id));
+      return { prev };
+    },
+    onError: (e: Error, _id, ctx) => { if (ctx?.prev) qc.setQueryData(["adminPosts"], ctx.prev); toast.error(e.message); },
+    onSuccess: () => toast.success("Deleted"),
+    onSettled: () => invalidate(),
   });
+
 
   const counts = useMemo(() => ({
     pending: data.filter((p: any) => p.status === "pending").length,
@@ -66,9 +81,10 @@ function PostsAdmin() {
 
       {editing && <PostForm initial={editing} onCancel={() => setEditing(null)} onSave={(p) => save.mutate(p)} busy={save.isPending} />}
 
-      {isLoading ? <p className="text-sm text-muted-foreground mt-6">Loading…</p> :
+      {isLoading ? <PostsSkeleton /> :
         visible.length === 0 ? <p className="text-sm text-muted-foreground mt-6">Nothing in this queue.</p> :
         <ul className="divide-y divide-border ring-1 ring-border mt-6">
+
           {visible.map((p: any) => (
             <li key={p.id} className="p-4 bg-background flex gap-4 items-start">
               <div className="flex-1 min-w-0">
@@ -130,3 +146,30 @@ function PostForm({ initial, onCancel, onSave, busy }: { initial: any; onCancel:
     </form>
   );
 }
+
+function PostsSkeleton() {
+  return (
+    <ul className="divide-y divide-border ring-1 ring-border mt-6" aria-busy="true" aria-live="polite">
+      {Array.from({ length: 4 }).map((_, i) => (
+        <li key={i} className="p-4 bg-background flex gap-4 items-start animate-pulse">
+          <div className="flex-1 min-w-0 space-y-3">
+            <div className="flex gap-3">
+              <div className="h-3 w-24 bg-[var(--surface-2)]" />
+              <div className="h-3 w-16 bg-[var(--surface-2)]" />
+              <div className="h-3 w-12 bg-[var(--surface-2)] ml-auto" />
+            </div>
+            <div className="h-3 w-[92%] bg-[var(--surface-2)]" />
+            <div className="h-3 w-[78%] bg-[var(--surface-2)]" />
+            <div className="h-3 w-[40%] bg-[var(--surface-2)]" />
+          </div>
+          <div className="flex flex-col gap-1 shrink-0">
+            <div className="h-6 w-16 bg-[var(--surface-2)]" />
+            <div className="h-6 w-16 bg-[var(--surface-2)]" />
+            <div className="h-6 w-16 bg-[var(--surface-2)]" />
+          </div>
+        </li>
+      ))}
+    </ul>
+  );
+}
+

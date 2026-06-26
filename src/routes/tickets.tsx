@@ -1,6 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
 import { PageHero } from "@/components/page-hero";
 import { TicketInquiryForm } from "@/components/inquiry-form";
+
+type Tier = "Grandstand" | "Paddock" | "Paddock Club VIP";
+
 
 export const Route = createFileRoute("/tickets")({
   head: () => ({
@@ -51,7 +55,13 @@ const FAQ = [
 ];
 
 function TicketsPage() {
+  const [tier, setTier] = useState<Tier>("Paddock");
+  function book(t: Tier) {
+    setTier(t);
+    setTimeout(() => document.getElementById("book")?.scrollIntoView({ behavior: "smooth", block: "start" }), 30);
+  }
   return (
+
     <>
       <PageHero
         eyebrow="Live Taping · NMACC Mumbai · 14 Nov · 19:00 IST"
@@ -84,7 +94,7 @@ function TicketsPage() {
                   </li>
                 ))}
               </ul>
-              <button className={`w-full py-3 text-xs uppercase tracking-[0.22em] transition-colors ${t.featured ? "bg-[var(--crimson)] text-white hover:bg-[var(--crimson)]/90" : "bg-foreground text-background hover:bg-[var(--silver)]"}`}>{t.cta}</button>
+              <button onClick={() => book(t.name as Tier)} className={`w-full py-3 text-xs uppercase tracking-[0.22em] transition-colors ${t.featured ? "bg-[var(--crimson)] text-white hover:bg-[var(--crimson)]/90" : "bg-foreground text-background hover:bg-[var(--silver)]"}`}>{t.cta}</button>
             </article>
           ))}
         </div>
@@ -151,14 +161,15 @@ function TicketsPage() {
         </div>
       </section>
 
-      <section className="py-24 px-6 border-t border-border">
+      <section id="book" className="py-24 px-6 border-t border-border scroll-mt-24">
         <div className="mx-auto max-w-4xl">
-          <div className="font-mono text-[10px] uppercase tracking-[0.4em] text-[var(--crimson)] mb-3">Box office · Private</div>
+          <div className="font-mono text-[10px] uppercase tracking-[0.4em] text-[var(--crimson)] mb-3">Box office · {tier}</div>
           <h2 className="font-display text-3xl md:text-4xl mb-3">Hold your seat.</h2>
-          <p className="text-muted-foreground mb-10 max-w-xl">Tell us tier and round — we'll send a private booking link within 24 hours.</p>
-          <TicketInquiryForm />
+          <p className="text-muted-foreground mb-10 max-w-xl">Tell us tier and round — we'll send a private booking + checkout link to your inbox within 24 hours. Payment is handled off-platform by our box-office team.</p>
+          <TicketInquiryForm key={tier} defaultTier={tier} />
         </div>
       </section>
+
     </>
   );
 }

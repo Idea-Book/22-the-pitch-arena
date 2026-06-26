@@ -16,8 +16,9 @@ function Field({ label, error, children }: { label: string; error?: string; chil
   );
 }
 
-export function TicketInquiryForm() {
-  const [v, setV] = useState({ name: "", email: "", phone: "", tier: "Paddock" as const, seats: 2, episode_round: "R01", notes: "" });
+export function TicketInquiryForm({ defaultTier = "Paddock", defaultRound = "R01" }: { defaultTier?: "Grandstand" | "Paddock" | "Paddock Club VIP"; defaultRound?: string } = {}) {
+  const [v, setV] = useState({ name: "", email: "", phone: "", tier: defaultTier, seats: 2, episode_round: defaultRound, notes: "" });
+
   const [errs, setErrs] = useState<Record<string, string>>({});
   const [done, setDone] = useState(false);
   const m = useMutation({
