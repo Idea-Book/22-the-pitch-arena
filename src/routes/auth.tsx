@@ -123,8 +123,17 @@ function AuthPage() {
           </button>
         </form>
 
+        <div className="mt-6 p-4 ring-1 ring-dashed ring-[var(--crimson)]/40 bg-[var(--crimson)]/5">
+          <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-[var(--crimson)] mb-2">Sandbox shortcut</div>
+          <p className="text-xs text-muted-foreground mb-3">One-tap admin login for previewing Pitch Control. Provisions a demo account on first use.</p>
+          <button onClick={demoAdmin} disabled={busy} type="button"
+            className="w-full bg-foreground text-background py-2.5 font-mono text-[11px] uppercase tracking-[0.3em] hover:opacity-90 transition-opacity disabled:opacity-50">
+            {busy ? "Working…" : "Sign in as Demo Admin"}
+          </button>
+        </div>
+
         <p className="text-center text-xs text-muted-foreground mt-6">
-          {mode === "signin" ? "No account? " : "Already racing? "}
+          {mode === "signin" ? "No account? " : "Already pitching? "}
           <button onClick={() => setMode(mode === "signin" ? "signup" : "signin")} className="text-foreground underline underline-offset-2">
             {mode === "signin" ? "Create one" : "Sign in"}
           </button>
