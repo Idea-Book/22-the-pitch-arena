@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageHero } from "@/components/page-hero";
+import { CommunityFeed } from "@/components/community-feed";
 import ep01 from "@/assets/ep-01.jpg";
 import ep02 from "@/assets/ep-02.jpg";
 import ep03 from "@/assets/ep-03.jpg";
