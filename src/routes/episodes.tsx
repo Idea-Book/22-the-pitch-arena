@@ -150,6 +150,18 @@ function EpisodesPage() {
             </div>
           )}
 
+          {paged.hasNextPage && (
+            <div className="mt-10 text-center">
+              <button
+                onClick={() => paged.fetchNextPage()}
+                disabled={paged.isFetchingNextPage}
+                className="px-6 py-3 ring-1 ring-border hover:bg-[var(--surface)] font-mono text-[11px] uppercase tracking-[0.3em] disabled:opacity-50"
+              >
+                {paged.isFetchingNextPage ? "Loading…" : "Load more rounds"}
+              </button>
+            </div>
+          )}
+
           <div className="mt-24">
             <div className="flex items-end justify-between mb-8 flex-wrap gap-4">
               <h2 className="font-display text-3xl md:text-4xl">Pitch Vault · Lap-by-lap</h2>
