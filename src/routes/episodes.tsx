@@ -179,7 +179,7 @@ function EpisodesPage() {
                 <div className="col-span-2 text-right">Deployed</div>
               </div>
               <ul>
-                {data.map((e: any) => (
+                {all.map((e: any) => (
                   <li key={e.id} className="grid grid-cols-12 gap-4 px-5 py-4 border-b border-border items-center hover:bg-[var(--surface-2)] transition-colors group">
                     <div className="col-span-1 font-mono text-xs text-muted-foreground">{e.round_code}</div>
                     <div className="col-span-1 font-mono text-xs">{e.lap_time ?? "—"}</div>
