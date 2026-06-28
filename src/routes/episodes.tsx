@@ -1,8 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useInfiniteQuery } from "@tanstack/react-query";
 import { useState, useMemo } from "react";
 import { PageHero } from "@/components/page-hero";
-import { listEpisodes } from "@/lib/content.functions";
+import { listEpisodes, listEpisodesPaged } from "@/lib/content.functions";
 import { useRealtime } from "@/hooks/use-realtime";
 import ep01 from "@/assets/ep-01.jpg";
 import ep02 from "@/assets/ep-02.jpg";
@@ -46,31 +46,41 @@ const COLOR: Record<string, string> = {
 };
 
 function EpisodesPage() {
-  const { data = [] } = useQuery({
+  const { data: all = [] } = useQuery({
     queryKey: ["episodesPublic"],
     queryFn: () => listEpisodes(),
     staleTime: 60_000,
   });
-  useRealtime("episodes", [["episodesPublic"], ["episodesAdminAll"]]);
+  useRealtime("episodes", [["episodesPublic"], ["episodesAdminAll"], ["episodesPaged"]]);
+
+  const paged = useInfiniteQuery({
+    queryKey: ["episodesPaged"],
+    queryFn: ({ pageParam }) => listEpisodesPaged({ data: { cursor: pageParam ?? null, limit: 9 } }),
+    initialPageParam: null as string | null,
+    getNextPageParam: (last) => last.nextCursor,
+    staleTime: 30_000,
+  });
+  const pagedItems = useMemo(() => paged.data?.pages.flatMap((p) => p.items) ?? [], [paged.data]);
 
   const [active, setActive] = useState<string>("All Rounds");
   const filtered = useMemo(() => {
     const f = FILTERS.find((x) => x.label === active);
-    if (!f?.match) return data;
-    return data.filter((e: any) => e.outcome === f.match);
-  }, [active, data]);
+    if (!f?.match) return pagedItems;
+    return pagedItems.filter((e: any) => e.outcome === f.match);
+  }, [active, pagedItems]);
 
   const stats = useMemo<[string, string][]>(() => {
-    const total = data.length;
-    const termSheets = data.filter((e: any) => e.outcome === "TERM SHEET").length;
+    const total = all.length;
+    const termSheets = all.filter((e: any) => e.outcome === "TERM SHEET").length;
     return [
       [String(total), "Rounds"],
       [String(termSheets), "Term sheets"],
-      [String(data.filter((e: any) => e.outcome === "VIRAL").length), "Viral cuts"],
-      [String(data.filter((e: any) => e.outcome === "WALK-OFF").length), "Walk-offs"],
-      [String(data.filter((e: any) => e.outcome === "STANDING OVATION").length), "Ovations"],
+      [String(all.filter((e: any) => e.outcome === "VIRAL").length), "Viral cuts"],
+      [String(all.filter((e: any) => e.outcome === "WALK-OFF").length), "Walk-offs"],
+      [String(all.filter((e: any) => e.outcome === "STANDING OVATION").length), "Ovations"],
     ];
-  }, [data]);
+  }, [all]);
+
 
   return (
     <>
