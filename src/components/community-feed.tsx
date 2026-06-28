@@ -1,10 +1,10 @@
-import { useState } from "react";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useState, useMemo } from "react";
+import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import { toast } from "sonner";
 import { useAuth } from "@/hooks/use-auth";
 import { useRealtime } from "@/hooks/use-realtime";
-import { listPosts, listComments, listEpisodes } from "@/lib/content.functions";
+import { listPostsPaged, listComments, listEpisodes } from "@/lib/content.functions";
 import { createPost, createComment, toggleReaction, submitReport, deleteOwnPost } from "@/lib/community.functions";
 import { postSchema } from "@/lib/schemas";
 
@@ -17,11 +17,15 @@ export function CommunityFeed() {
     queryFn: () => listEpisodes(),
     staleTime: 5 * 60_000,
   });
-  const { data: posts = [], isLoading } = useQuery({
+  const feed = useInfiniteQuery({
     queryKey: ["communityPosts", episodeId],
-    queryFn: () => listPosts({ data: { episode_id: episodeId || null, limit: 50 } }),
+    queryFn: ({ pageParam }) =>
+      listPostsPaged({ data: { episode_id: episodeId || null, cursor: pageParam ?? null, limit: 15 } }),
+    initialPageParam: null as string | null,
+    getNextPageParam: (last) => last.nextCursor,
     staleTime: 30_000,
   });
+  const posts = useMemo(() => feed.data?.pages.flatMap((p) => p.items) ?? [], [feed.data]);
   useRealtime("community_posts", [["communityPosts"], ["adminPosts"]]);
   const invalidate = () => qc.invalidateQueries({ queryKey: ["communityPosts"] });
 
@@ -41,9 +45,22 @@ export function CommunityFeed() {
           ))}
         </div>
 
-        {loading || isLoading ? <p className="text-sm text-muted-foreground">Loading…</p> :
+        {loading || feed.isLoading ? <p className="text-sm text-muted-foreground">Loading…</p> :
           posts.length === 0 ? <p className="text-sm text-muted-foreground">No posts yet. Be the first.</p> :
-          <ul className="space-y-4">{posts.map((p: any) => <PostCard key={p.id} p={p} currentUserId={user?.id} onChange={invalidate} />)}</ul>}
+          <>
+            <ul className="space-y-4">{posts.map((p: any) => <PostCard key={p.id} p={p} currentUserId={user?.id} onChange={invalidate} />)}</ul>
+            {feed.hasNextPage && (
+              <div className="mt-6 text-center">
+                <button
+                  onClick={() => feed.fetchNextPage()}
+                  disabled={feed.isFetchingNextPage}
+                  className="px-5 py-2.5 ring-1 ring-border hover:bg-background font-mono text-[10px] uppercase tracking-[0.3em] disabled:opacity-50"
+                >
+                  {feed.isFetchingNextPage ? "Loading…" : "Load more posts"}
+                </button>
+              </div>
+            )}
+          </>}
       </div>
       <aside className="text-sm text-muted-foreground space-y-4">
         <div className="bg-[var(--surface)] ring-1 ring-border p-5">
@@ -54,6 +71,7 @@ export function CommunityFeed() {
     </div>
   );
 }
+
 
 function Composer({ episodes, onPosted }: { episodes: any[]; onPosted: () => void }) {
   const [body, setBody] = useState("");

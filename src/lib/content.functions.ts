@@ -16,6 +16,29 @@ export const listEpisodes = createServerFn({ method: "GET" })
     return rows ?? [];
   });
 
+const pagedEpisodesInput = z.object({
+  cursor: z.string().nullable().optional(),
+  limit: z.number().int().min(1).max(60).optional(),
+}).optional();
+export const listEpisodesPaged = createServerFn({ method: "GET" })
+  .inputValidator((v) => pagedEpisodesInput.parse(v ?? {}))
+  .handler(async ({ data }) => {
+    const { getPublicSupabase } = await import("./supabase-public.server");
+    const sb = getPublicSupabase();
+    const limit = data?.limit ?? 12;
+    let q = sb.from("episodes").select("*").eq("status", "aired")
+      .order("air_date", { ascending: false, nullsFirst: false })
+      .limit(limit + 1);
+    if (data?.cursor) q = q.lt("air_date", data.cursor);
+    const { data: rows, error } = await q;
+    if (error) throw new Error(error.message);
+    const items = rows ?? [];
+    const hasMore = items.length > limit;
+    const sliced = hasMore ? items.slice(0, limit) : items;
+    const nextCursor = hasMore ? (sliced[sliced.length - 1] as any).air_date : null;
+    return { items: sliced, nextCursor };
+  });
+
 export const getEpisode = createServerFn({ method: "GET" })
   .inputValidator((v) => slugInput.parse(v))
   .handler(async ({ data }) => {
@@ -87,6 +110,33 @@ export const listPosts = createServerFn({ method: "GET" })
     const { data: rows, error } = await q;
     if (error) throw new Error(error.message);
     return rows ?? [];
+  });
+
+const pagedPostsInput = z.object({
+  episode_id: z.string().uuid().optional().nullable(),
+  cursor: z.string().nullable().optional(),
+  limit: z.number().int().min(1).max(50).optional(),
+}).optional();
+export const listPostsPaged = createServerFn({ method: "GET" })
+  .inputValidator((v) => pagedPostsInput.parse(v ?? {}))
+  .handler(async ({ data }) => {
+    const { getPublicSupabase } = await import("./supabase-public.server");
+    const sb = getPublicSupabase();
+    const limit = data?.limit ?? 15;
+    let q = sb.from("community_posts")
+      .select("id, body, media_url, status, reaction_count, comment_count, created_at, episode_id, author_id, profiles!community_posts_author_id_fkey(display_name, handle, avatar_url), episodes(slug, title, round_code)")
+      .eq("status", "live")
+      .order("created_at", { ascending: false })
+      .limit(limit + 1);
+    if (data?.episode_id) q = q.eq("episode_id", data.episode_id);
+    if (data?.cursor) q = q.lt("created_at", data.cursor);
+    const { data: rows, error } = await q;
+    if (error) throw new Error(error.message);
+    const items = rows ?? [];
+    const hasMore = items.length > limit;
+    const sliced = hasMore ? items.slice(0, limit) : items;
+    const nextCursor = hasMore ? (sliced[sliced.length - 1] as any).created_at : null;
+    return { items: sliced, nextCursor };
   });
 
 export const listComments = createServerFn({ method: "GET" })
