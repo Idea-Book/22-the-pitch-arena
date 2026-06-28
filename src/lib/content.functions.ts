@@ -3,17 +3,27 @@ import { z } from "zod";
 
 const slugInput = z.object({ slug: z.string().trim().min(1).max(80) });
 
-const listEpisodesInput = z.object({ all: z.boolean().optional() }).optional();
+const listEpisodesInput = z.object({
+  all: z.boolean().optional(),
+  cursor: z.string().datetime().nullable().optional(),
+  limit: z.number().int().min(1).max(60).optional(),
+}).optional();
 export const listEpisodes = createServerFn({ method: "GET" })
   .inputValidator((v) => listEpisodesInput.parse(v ?? {}))
   .handler(async ({ data }) => {
     const { getPublicSupabase } = await import("./supabase-public.server");
     const sb = getPublicSupabase();
-    let q = sb.from("episodes").select("*").order("air_date", { ascending: false });
+    const limit = data?.limit ?? 12;
+    let q = sb.from("episodes").select("*").order("air_date", { ascending: false }).limit(limit + 1);
     if (!data?.all) q = q.eq("status", "aired");
+    if (data?.cursor) q = q.lt("air_date", data.cursor);
     const { data: rows, error } = await q;
     if (error) throw new Error(error.message);
-    return rows ?? [];
+    const items = rows ?? [];
+    const hasMore = items.length > limit;
+    const sliced = hasMore ? items.slice(0, limit) : items;
+    const nextCursor = hasMore ? (sliced[sliced.length - 1] as any).air_date : null;
+    return { items: sliced, nextCursor };
   });
 
 export const getEpisode = createServerFn({ method: "GET" })
