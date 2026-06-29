@@ -4,7 +4,7 @@ import { PageHero } from "@/components/page-hero";
 export const Route = createFileRoute("/press-kit")({
   head: () => ({
     meta: [
-      { title: "Press Kit — BKL Sharks Mumbai" },
+      { title: "Press Kit — BKL Sharks Delhi · Premiere Episode" },
       { name: "description", content: "Download logos, founder photos, episode stills, fact sheet and brand guidelines for BKL Sharks." },
       { property: "og:title", content: "BKL Sharks · Press Kit" },
       { property: "og:description", content: "Logos, episode stills, fact sheet and brand guidelines." },
@@ -15,8 +15,8 @@ export const Route = createFileRoute("/press-kit")({
 
 const ASSETS = [
   { kind: "Logos", items: ["Wordmark · SVG · light", "Wordmark · SVG · dark", "Avatar mark · PNG · 2048"] },
-  { kind: "Photography", items: ["Shark headshots · 12 files", "Episode stills S02 · 84 files", "Venue beauty shots · NMACC · 28 files"] },
-  { kind: "Fact sheet", items: ["S02 production booklet · PDF", "Founder funnel stats · PDF", "Audience demographics · PDF"] },
+  { kind: "Photography", items: ["Shark headshots · 12 files", "Episode 01 stills · 84 files", "Venue beauty shots · Siri Fort, Delhi · 28 files"] },
+  { kind: "Fact sheet", items: ["Episode 01 production booklet · PDF", "Founder funnel stats · PDF", "Audience demographics · PDF"] },
   { kind: "Brand guide", items: ["Colour tokens · JSON", "Typography spec · PDF", "Voice &amp; tone · PDF"] },
 ];
 
@@ -24,7 +24,7 @@ function PressKit() {
   return (
     <>
       <PageHero
-        eyebrow="Press &amp; Media · S02"
+        eyebrow="Press &amp; Media · Episode 01 Premiere"
         title={<>The kit. <span className="italic text-[var(--silver)]/70">No watermarks.</span></>}
         lede="Everything you need to write the story. Free to use with attribution. Embargo windows noted per asset."
       />

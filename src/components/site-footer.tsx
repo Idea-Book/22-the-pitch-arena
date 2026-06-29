@@ -22,12 +22,12 @@ export function SiteFooter() {
               </span>
             </Link>
             <p className="text-sm text-muted-foreground max-w-[36ch] leading-relaxed mb-6">
-              India's most uncensored founder bloodsport. Built in Mumbai. Aimed at
+              India's most uncensored founder bloodsport. Built in Delhi. Aimed at
               the world. No edits. No safety nets. <span className="italic">No prisoners.</span>
             </p>
             <div className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
               <span className="size-2 rounded-full bg-[var(--crimson)] live-blink" />
-              S02 · LIGHTS OUT · NOV 14 · NMACC
+              S01 · EP01 PREMIERE · 05 SEP · SIRI FORT · DELHI
             </div>
           </div>
 

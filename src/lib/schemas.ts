@@ -26,18 +26,23 @@ export const reportSchema = z.object({
 });
 
 export const applicationSchema = z.object({
-  founder_name: z.string().trim().min(2).max(120),
-  email: z.string().trim().email().max(255),
-  phone: z.string().trim().min(7).max(20).optional().or(z.literal("")),
-  startup_name: z.string().trim().min(2).max(120),
+  founder_name: z.string().trim().min(2, "Founder name is required").max(120),
+  email: z.string().trim().email("Enter a valid email").max(255),
+  phone: z.string().trim().min(7, "Enter a valid phone").max(20).optional().or(z.literal("")),
+  startup_name: z.string().trim().min(2, "Startup name is required").max(120),
   sector: z.string().trim().max(60).optional().or(z.literal("")),
   city: z.string().trim().max(60).optional().or(z.literal("")),
   stage: z.string().trim().max(40).optional().or(z.literal("")),
   mrr: z.coerce.number().min(0).optional().nullable(),
+  monthly_revenue: z.coerce.number().min(0, "Revenue cannot be negative").optional().nullable(),
+  burn_rate: z.coerce.number().min(0, "Burn cannot be negative").optional().nullable(),
   ask_amount: z.coerce.number().min(0).optional().nullable(),
   valuation: z.coerce.number().min(0).optional().nullable(),
+  product_service: z.string().trim().min(10, "Describe your product/service in at least 10 characters").max(600),
+  product_stage: z.enum(["ideation", "mvp", "traction"], { message: "Pick a product stage" }),
+  customer_segment: z.enum(["b2b", "b2c", "b2b2c"], { message: "Pick a customer segment" }),
   pitch: z.string().trim().min(40, "Tell us at least a paragraph").max(2000),
-  deck_url: z.string().url().optional().or(z.literal("")),
+  deck_url: z.string().url("Enter a valid URL").optional().or(z.literal("")),
 });
 export type ApplicationInput = z.infer<typeof applicationSchema>;
 

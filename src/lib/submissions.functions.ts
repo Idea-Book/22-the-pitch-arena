@@ -11,6 +11,11 @@ export const submitApplication = createServerFn({ method: "POST" })
       startup_name: data.startup_name, sector: data.sector || null, city: data.city || null,
       stage: data.stage || null, mrr: data.mrr ?? null, ask_amount: data.ask_amount ?? null,
       valuation: data.valuation ?? null, pitch: data.pitch, deck_url: data.deck_url || null,
+      monthly_revenue: data.monthly_revenue ?? null,
+      burn_rate: data.burn_rate ?? null,
+      product_service: data.product_service,
+      product_stage: data.product_stage,
+      customer_segment: data.customer_segment,
     });
     if (error) throw new Error(error.message);
     return { ok: true };

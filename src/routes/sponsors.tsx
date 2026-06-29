@@ -107,7 +107,7 @@ function SponsorsPage() {
       {/* PACKAGES */}
       <section className="py-24 px-6 border-b border-border">
         <div className="mx-auto max-w-6xl">
-          <h2 className="font-display text-4xl md:text-5xl mb-12">Sponsorship packages · S02</h2>
+          <h2 className="font-display text-4xl md:text-5xl mb-12">Sponsorship packages · Episode 01</h2>
           <ul className="divide-y divide-border border-y border-border">
             {PACKAGES.map((p) => (
               <li key={p.name} className="grid grid-cols-12 gap-6 py-8 group hover:bg-[var(--surface)] px-6 -mx-6 transition-colors">
@@ -128,8 +128,8 @@ function SponsorsPage() {
       <section className="py-20 px-6 border-b border-border">
         <div className="mx-auto max-w-7xl">
           <div className="flex items-end justify-between mb-10 flex-wrap gap-4">
-            <h2 className="font-display text-3xl md:text-4xl">Brands who showed up to S01</h2>
-            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">Renewals open · S02</span>
+            <h2 className="font-display text-3xl md:text-4xl">Brands on the premiere wall</h2>
+            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">Slots open · Episode 01</span>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-px bg-border">
             {PARTNERS.map((p) => (
@@ -145,7 +145,7 @@ function SponsorsPage() {
       <section className="py-24 px-6">
         <div className="mx-auto max-w-3xl">
           <h2 className="font-display text-4xl md:text-5xl mb-2">Request the deck.</h2>
-          <p className="text-muted-foreground mb-12">We respond within 48 hours with the S02 sponsorship deck, package availability and rate-card.</p>
+          <p className="text-muted-foreground mb-12">We respond within 48 hours with the Episode 01 sponsorship deck, package availability and rate-card.</p>
           <SponsorInquiryForm />
         </div>
       </section>

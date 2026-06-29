@@ -15,9 +15,9 @@ export const Route = createFileRoute("/creators")({
 
 const PERKS = [
   { kicker: "Footage", h: "48h early embargo", p: "Get the rough cut, B-roll and full panelist sound bites 48 hours before public drop." },
-  { kicker: "Slot", h: "Reaction-cam booking", p: "Reserve a Floor seat with on-camera reaction permissions for any S02 taping." },
+  { kicker: "Slot", h: "Reaction-cam booking", p: "Reserve a Floor seat with on-camera reaction permissions for any Episode 01 taping." },
   { kicker: "Revenue", h: "Clip rev-share", p: "50/50 on any clip that crosses 100k views across YouTube Shorts, Reels, X." },
-  { kicker: "Access", h: "Founder &amp; shark DMs", p: "Verified DMs into our roster of S01 + S02 founders and panelists." },
+  { kicker: "Access", h: "Founder &amp; shark DMs", p: "Verified DMs into our roster of Episode 01 founders and panelists." },
 ];
 
 function Creators() {

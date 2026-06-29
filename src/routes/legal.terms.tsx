@@ -11,7 +11,7 @@ export const Route = createFileRoute("/legal/terms")({
   component: () => (
     <LegalPage eyebrow="Legal · Effective 26 June 2026" title="Terms of Service" lede="Plain-English rules for everything we run — the live show, the community, the apply funnel, the merch drops.">
       <Section title="1. Who we are">
-        BKL Sharks Media Pvt. Ltd. ("we", "us", "BKL Sharks") is a registered Indian media company headquartered in Mumbai, India. We produce the live pitch show BKL Sharks at NMACC and operate the website bklsharks.com (the "Service").
+        BKL Sharks Media Pvt. Ltd. ("we", "us", "BKL Sharks") is a registered Indian media company headquartered in New Delhi, India. We produce the live pitch show BKL Sharks at Siri Fort Auditorium and operate the website bklsharks.com (the "Service").
       </Section>
       <Section title="2. Using the Service">
         By using the Service you agree to these Terms. You must be 18+ to apply to pitch or post in the community. We may suspend accounts that violate these Terms or our Community Guidelines without notice.
@@ -26,7 +26,7 @@ export const Route = createFileRoute("/legal/terms")({
         The Service is provided "as is". To the maximum extent permitted by Indian law, our aggregate liability for any claim is capped at ₹10,000 or the amount you paid us in the last 12 months — whichever is higher.
       </Section>
       <Section title="6. Governing law">
-        These Terms are governed by the laws of India. Exclusive jurisdiction lies with the courts of Mumbai.
+        These Terms are governed by the laws of India. Exclusive jurisdiction lies with the courts of New Delhi.
       </Section>
       <Section title="7. Contact">legal@bklsharks.com</Section>
     </LegalPage>
