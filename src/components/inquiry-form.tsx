@@ -80,7 +80,11 @@ export function SponsorInquiryForm() {
 export function ApplicationForm() {
   const [v, setV] = useState({
     founder_name: "", email: "", phone: "", startup_name: "", sector: "", city: "", stage: "Seed",
-    mrr: "" as any, ask_amount: "" as any, valuation: "" as any, pitch: "", deck_url: "",
+    mrr: "" as any, monthly_revenue: "" as any, burn_rate: "" as any,
+    ask_amount: "" as any, valuation: "" as any,
+    product_service: "", product_stage: "mvp" as "ideation" | "mvp" | "traction",
+    customer_segment: "b2c" as "b2b" | "b2c" | "b2b2c",
+    pitch: "", deck_url: "",
   });
   const [errs, setErrs] = useState<Record<string, string>>({});
   const [done, setDone] = useState(false);
@@ -91,7 +95,14 @@ export function ApplicationForm() {
   });
   function submit(e: React.FormEvent) {
     e.preventDefault();
-    const clean: any = { ...v, mrr: v.mrr === "" ? null : Number(v.mrr), ask_amount: v.ask_amount === "" ? null : Number(v.ask_amount), valuation: v.valuation === "" ? null : Number(v.valuation) };
+    const clean: any = {
+      ...v,
+      mrr: v.mrr === "" ? null : Number(v.mrr),
+      monthly_revenue: v.monthly_revenue === "" ? null : Number(v.monthly_revenue),
+      burn_rate: v.burn_rate === "" ? null : Number(v.burn_rate),
+      ask_amount: v.ask_amount === "" ? null : Number(v.ask_amount),
+      valuation: v.valuation === "" ? null : Number(v.valuation),
+    };
     const p = applicationSchema.safeParse(clean);
     if (!p.success) { const x: any = {}; p.error.issues.forEach(i => x[i.path[0] as string] = i.message); setErrs(x); toast.error("Fix the highlighted fields"); return; }
     setErrs({}); m.mutate(p.data);
@@ -106,10 +117,27 @@ export function ApplicationForm() {
       <Field label="Sector"><input className={inputCls} value={v.sector} onChange={(e) => setV({ ...v, sector: e.target.value })} /></Field>
       <Field label="City"><input className={inputCls} value={v.city} onChange={(e) => setV({ ...v, city: e.target.value })} /></Field>
       <Field label="Stage"><select className={inputCls} value={v.stage} onChange={(e) => setV({ ...v, stage: e.target.value })}>{["Pre-seed","Seed","Series A","Series B+"].map(s => <option key={s}>{s}</option>)}</select></Field>
+      <Field label="Product stage" error={errs.product_stage}>
+        <select className={inputCls} value={v.product_stage} onChange={(e) => setV({ ...v, product_stage: e.target.value as any })}>
+          <option value="ideation">Ideation</option>
+          <option value="mvp">MVP</option>
+          <option value="traction">Traction</option>
+        </select>
+      </Field>
+      <Field label="Customer segment" error={errs.customer_segment}>
+        <select className={inputCls} value={v.customer_segment} onChange={(e) => setV({ ...v, customer_segment: e.target.value as any })}>
+          <option value="b2b">B2B</option>
+          <option value="b2c">B2C</option>
+          <option value="b2b2c">B2B2C</option>
+        </select>
+      </Field>
       <Field label="MRR (₹)"><input type="number" min={0} className={inputCls} value={v.mrr} onChange={(e) => setV({ ...v, mrr: e.target.value })} /></Field>
+      <Field label="Monthly revenue (₹)" error={errs.monthly_revenue}><input type="number" min={0} className={inputCls} value={v.monthly_revenue} onChange={(e) => setV({ ...v, monthly_revenue: e.target.value })} /></Field>
+      <Field label="Burn rate · monthly (₹)" error={errs.burn_rate}><input type="number" min={0} className={inputCls} value={v.burn_rate} onChange={(e) => setV({ ...v, burn_rate: e.target.value })} /></Field>
       <Field label="Ask (₹)"><input type="number" min={0} className={inputCls} value={v.ask_amount} onChange={(e) => setV({ ...v, ask_amount: e.target.value })} /></Field>
       <Field label="Valuation (₹)"><input type="number" min={0} className={inputCls} value={v.valuation} onChange={(e) => setV({ ...v, valuation: e.target.value })} /></Field>
       <div className="md:col-span-2"><Field label="Deck URL" error={errs.deck_url}><input className={inputCls} value={v.deck_url} onChange={(e) => setV({ ...v, deck_url: e.target.value })} placeholder="https://" /></Field></div>
+      <div className="md:col-span-2"><Field label="Product / service · what you build & for whom" error={errs.product_service}><textarea rows={3} className={inputCls} value={v.product_service} onChange={(e) => setV({ ...v, product_service: e.target.value })} placeholder="One paragraph: what the product does, the wedge, and who pays for it." /></Field></div>
       <div className="md:col-span-2"><Field label="Pitch (40 – 2000 chars)" error={errs.pitch}><textarea rows={8} className={inputCls} value={v.pitch} onChange={(e) => setV({ ...v, pitch: e.target.value })} /></Field></div>
       <button disabled={m.isPending} className="md:col-span-2 bg-[var(--crimson)] text-white py-4 font-mono text-xs uppercase tracking-[0.25em] disabled:opacity-50 glow-crimson">{m.isPending ? "Submitting…" : "Submit to the Arena →"}</button>
     </form>
