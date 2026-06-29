@@ -34,7 +34,7 @@ const PANELISTS = [
 
 const PHASES = [
   { n: "01", title: "Application", body: "Top 1% only. Psychometric screen, three reference calls, traction proof. The deck is the easy part.", time: "T-21 DAYS" },
-  { n: "02", title: "The Holding Room", body: "48 hours of complete isolation in the NMACC paddock. No phones. No team. Cameras roll the whole time.", time: "T-48 HRS" },
+  { n: "02", title: "The Holding Room", body: "48 hours of complete isolation in the Siri Fort paddock. No phones. No team. Cameras roll the whole time.", time: "T-48 HRS" },
   { n: "03", title: "Lights Out", body: "Ten minutes under one spotlight. Six sharks. 1,800 live in the room and 4.2M streaming in real time.", time: "T-0" },
   { n: "04", title: "The Verdict", body: "Wire on stage in 11 minutes — or the walk of shame down the tunnel. No follow-ups. No middle ground.", time: "T+11 MIN" },
 ];
@@ -80,9 +80,9 @@ function Home() {
           <div className="mb-10 grid grid-cols-3 md:grid-cols-5 gap-px bg-border max-w-3xl mx-auto">
             {[
               ["ROUND", "01 / 16"],
-              ["CIRCUIT", "NMACC · BOM"],
-              ["LIGHTS OUT", "14 NOV 19:00"],
-              ["WEATHER", "DRY · HOT"],
+              ["CIRCUIT", "SIRI FORT · DEL"],
+              ["LIGHTS OUT", "05 SEP 19:00"],
+              ["BROADCAST", "OTT + YOUTUBE"],
               ["GRID", "12 SHARKS"],
             ].map(([k, v]) => (
               <div key={k} className="bg-background/70 backdrop-blur-md px-3 py-2 text-center">
@@ -95,7 +95,7 @@ function Home() {
           <div className="text-center">
             <span className="font-mono text-[10px] uppercase tracking-[0.5em] text-[var(--crimson)] mb-6 block">
               <span className="inline-block size-1.5 rounded-full bg-[var(--crimson)] live-blink align-middle mr-2" />
-              Season 02 · Premieres 14 November · Mumbai
+              Season 01 · Episode 01 · Premieres 05 September · Live on OTT &amp; YouTube · New Delhi
             </span>
             <h1 className="font-display text-[clamp(3.5rem,12vw,11rem)] leading-[0.88] tracking-tight text-balance">
               Build.
@@ -382,11 +382,11 @@ function Home() {
                 Be in the room when it breaks.
               </h3>
               <p className="text-muted-foreground max-w-md leading-relaxed mb-6">
-                Floor seats, paddock club, founder mixer access at NMACC Mumbai.
+                Floor seats, paddock club, founder mixer access at Siri Fort, New Delhi.
                 1,800 seats. 1,200 released. The room makes the show.
               </p>
               <span className="inline-flex items-center text-xs uppercase tracking-[0.25em] group-hover:translate-x-1 transition-transform">
-                Book from ₹2,499 →
+                Premiere from ₹499 →
               </span>
             </div>
           </Link>

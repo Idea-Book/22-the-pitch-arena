@@ -39,9 +39,9 @@ export function SiteNav() {
             <div className="flex gap-10 whitespace-nowrap ticker-fast font-mono text-[10px] uppercase tracking-[0.25em]">
               {[...Array(2)].map((_, k) => (
                 <span key={k} className="flex gap-10 pr-10">
-                  <span>S02 · LIGHTS OUT 14 NOV · MUMBAI</span>
+                  <span>S01 · EP01 PREMIERE · 05 SEP · SIRI FORT · DELHI</span>
                   <span className="text-white/70">▲ AARAV IYER P1 · GRIDSPARK ₹4.2 CR CLOSED</span>
-                  <span>● LIVE QUALI · DELHI 19:30 IST</span>
+                  <span>● LIVE ON JIOCINEMA + YOUTUBE · 19:00 IST</span>
                   <span className="text-white/70">▼ KABIR VERMA WALK-OFF · LAP 7</span>
                   <span>● 12 SHARKS · 16 ROUNDS · 1 STAGE</span>
                   <span className="text-white/70">▲ MEERA NAIR FASTEST CLOSE · 04:11</span>
