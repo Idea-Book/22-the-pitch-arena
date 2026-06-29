@@ -9,24 +9,24 @@ type Tier = "Grandstand" | "Paddock" | "Paddock Club VIP";
 export const Route = createFileRoute("/tickets")({
   head: () => ({
     meta: [
-      { title: "Tickets — Be in the Paddock | BKL Sharks Mumbai" },
-      { name: "description", content: "Grandstand, Paddock and Paddock Club VIP access to BKL Sharks live taping. NMACC Mumbai · 14 November · Lights out 19:00 IST." },
-      { property: "og:title", content: "Tickets — BKL Sharks Mumbai" },
-      { property: "og:description", content: "Grandstand, Paddock and VIP access." },
+      { title: "Tickets — Be in the Paddock | BKL Sharks Delhi · Premiere Episode" },
+      { name: "description", content: "Grandstand, Paddock and Paddock Club VIP access to the BKL Sharks premiere — first ever live show on OTT & YouTube. Siri Fort Auditorium, New Delhi · 5 September · Lights out 19:00 IST." },
+      { property: "og:title", content: "Tickets — BKL Sharks Premiere · Delhi" },
+      { property: "og:description", content: "First-ever live show on OTT & YouTube. Grandstand from ₹499." },
     ],
   }),
   component: TicketsPage,
 });
 
 const TIERS = [
-  { name: "Grandstand", price: "₹2,499", accent: "text-foreground", featured: false,
+  { name: "Grandstand", price: "₹499", strike: "₹2,499", accent: "text-foreground", featured: false,
     items: ["Full venue view from rear stand", "Live audience vote panel", "Round-program booklet", "Post-show meme-wall entry"],
     cta: "Book Grandstand" },
-  { name: "Paddock", price: "₹7,999", accent: "text-[var(--crimson)]", featured: true,
-    items: ["On-camera floor seat", "Founder mixer entry", "Reaction-cam feature on JioCinema", "Signed S01 program · numbered"],
+  { name: "Paddock", price: "₹2,499", strike: "₹4,999", accent: "text-[var(--crimson)]", featured: true,
+    items: ["On-camera floor seat", "Founder mixer entry", "Reaction-cam feature on JioCinema + YouTube", "Signed Premiere program · numbered"],
     cta: "Book Paddock" },
-  { name: "Paddock Club VIP", price: "₹28,500", accent: "text-[var(--gold)]", featured: false,
-    items: ["Backstage tunnel access", "Pre-show meet with all 5 sharks", "Investor lounge entry", "After-party at Soho House Mumbai"],
+  { name: "Paddock Club VIP", price: "₹4,999", strike: "₹9,999", accent: "text-[var(--gold)]", featured: false,
+    items: ["Backstage tunnel access", "Pre-show meet with all 5 sharks", "Investor lounge entry", "After-party at The Lodhi · Delhi"],
     cta: "Book Paddock Club" },
 ];
 
@@ -34,7 +34,7 @@ const SCHEDULE = [
   { time: "16:00", phase: "Gates Open", note: "Lobby activation · sponsor wall · founder photo ops" },
   { time: "17:30", phase: "Founder Walk", note: "All 12 founders walk the tunnel · cameras live" },
   { time: "18:30", phase: "Driver Parade", note: "Sharks introduced to the room · audience vote opens" },
-  { time: "19:00", phase: "Lights Out", note: "Round 01 begins · first founder under the spotlight" },
+  { time: "19:00", phase: "Lights Out", note: "Episode 01 begins · first founder under the spotlight · live on OTT + YouTube" },
   { time: "21:45", phase: "Verdict", note: "Final votes · live cheque ceremony" },
   { time: "22:30", phase: "After Party", note: "Paddock Club only · founders + sharks + press" },
 ];
@@ -47,11 +47,12 @@ const VENUE = [
 ];
 
 const FAQ = [
-  ["Where is the venue?", "Nita Mukesh Ambani Cultural Centre (NMACC), BKC, Mumbai. The Grand Theatre, Level 3."],
+  ["Where is the venue?", "Siri Fort Auditorium, August Kranti Marg, New Delhi. Auditorium I, Level 1."],
+  ["When does it go live?", "Premiere Episode 01 streams live on JioCinema and the BKL Sharks YouTube channel from 19:00 IST on 5 September."],
   ["What's the dress code?", "Smart-casual. Paddock Club: black tie optional. No bright colours on Floor — you'll be on camera."],
   ["Can I bring my phone?", "Phones are pouched on entry to prevent leaks. You get them back at intermission."],
   ["Are tickets refundable?", "Non-refundable. Transferable up to 72 hours before lights out via the BKL Sharks app."],
-  ["Will I be on TV?", "If you're seated Paddock or VIP, statistically yes. By entering, you grant on-air consent."],
+  ["Will I be on TV?", "If you're seated Paddock or VIP, statistically yes. By entering, you grant on-air consent for OTT & YouTube broadcast."],
 ];
 
 function TicketsPage() {
@@ -64,7 +65,7 @@ function TicketsPage() {
 
     <>
       <PageHero
-        eyebrow="Live Taping · NMACC Mumbai · 14 Nov · 19:00 IST"
+        eyebrow="Premiere Episode · Live on OTT + YouTube · Siri Fort, New Delhi · 5 Sep · 19:00 IST"
         title={<>Be in the room <span className="italic text-[var(--silver)]/70">when it breaks.</span></>}
         lede="Eighteen hundred seats. Twelve hundred released to the public. The room makes the show — your reactions go on camera."
       >
@@ -85,8 +86,11 @@ function TicketsPage() {
             <article key={t.name} className={`relative p-10 ring-1 flex flex-col ${t.featured ? "bg-[var(--surface-2)] ring-[var(--crimson)]/40 glow-crimson" : "bg-[var(--surface)] ring-border"}`}>
               {t.featured && <span className="absolute -top-3 left-10 font-mono text-[9px] uppercase tracking-[0.3em] bg-[var(--crimson)] text-white px-2 py-1">Selling Fastest</span>}
               <span className={`font-mono text-[10px] uppercase tracking-[0.3em] ${t.accent} mb-4`}>{t.name}</span>
-              <div className="font-display text-5xl md:text-6xl mb-1">{t.price}</div>
-              <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground mb-8">+ 18% GST</div>
+              <div className="flex items-baseline gap-3 mb-1">
+                <div className="font-display text-5xl md:text-6xl">{t.price}</div>
+                <div className="font-mono text-sm text-muted-foreground line-through">{t.strike}</div>
+              </div>
+              <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-[var(--gold)] mb-8">Premiere launch price · + 18% GST</div>
               <ul className="space-y-3 text-sm text-muted-foreground mb-10 flex-1">
                 {t.items.map((i) => (
                   <li key={i} className="flex gap-3">
