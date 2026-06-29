@@ -82,7 +82,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "BKL Sharks — Build. Kill. Launch." },
-      { name: "description", content: "India's most uncensored startup arena. 12 sharks. 16 rounds. One stage. Founders pitch under live pressure on JioCinema. No edits." },
+      { name: "description", content: "India's most uncensored startup arena. 12 sharks. 16 rounds. One stage. Founders pitch under live pressure — premieres on JioCinema &amp; YouTube. No edits." },
       { name: "author", content: "BKL Sharks" },
       { property: "og:title", content: "BKL Sharks — Build. Kill. Launch." },
       { property: "og:description", content: "India's most uncensored founder bloodsport." },
