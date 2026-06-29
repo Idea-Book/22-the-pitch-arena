@@ -117,7 +117,7 @@ function TicketsPage() {
         <div className="mx-auto max-w-5xl">
           <div className="flex items-end justify-between mb-10 flex-wrap gap-4">
             <h2 className="font-display text-3xl md:text-4xl">Pitch-night schedule</h2>
-            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">14 NOV · IST</span>
+            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">05 SEP · IST</span>
           </div>
           <ol className="bg-[var(--surface)] ring-1 ring-border">
             {SCHEDULE.map((s, i) => (
@@ -134,7 +134,7 @@ function TicketsPage() {
       {/* SEAT MAP placeholder */}
       <section className="py-24 px-6 border-b border-border">
         <div className="mx-auto max-w-5xl">
-          <h2 className="font-display text-3xl md:text-4xl mb-10">The Circuit · NMACC Grand Theatre</h2>
+          <h2 className="font-display text-3xl md:text-4xl mb-10">The Circuit · Siri Fort Auditorium, New Delhi</h2>
           <div className="aspect-[16/9] bg-[var(--surface)] ring-1 ring-border relative overflow-hidden grid-lines">
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="text-center">
@@ -144,7 +144,7 @@ function TicketsPage() {
                 <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">One spotlight · Five sharks · 1,800 witnesses</div>
               </div>
             </div>
-            <div className="absolute bottom-4 left-4 font-mono text-[9px] tracking-[0.3em] text-muted-foreground">N · NMACC · MUMBAI</div>
+            <div className="absolute bottom-4 left-4 font-mono text-[9px] tracking-[0.3em] text-muted-foreground">N · SIRI FORT · NEW DELHI</div>
             <div className="absolute top-4 right-4 font-mono text-[9px] tracking-[0.3em] text-[var(--crimson)]"><span className="size-1.5 rounded-full bg-[var(--crimson)] inline-block live-blink mr-2 align-middle" />62% SOLD</div>
           </div>
         </div>
