@@ -5,16 +5,16 @@ export const Route = createFileRoute("/partners")({
   head: () => ({
     meta: [
       { title: "Partners — Brands &amp; Media · BKL Sharks" },
-      { name: "description", content: "Brand, media and ecosystem partners powering BKL Sharks Season 02." },
+      { name: "description", content: "Brand, media and ecosystem partners powering BKL Sharks Episode 01 — first live show on OTT &amp; YouTube." },
       { property: "og:title", content: "BKL Sharks · Partners" },
-      { property: "og:description", content: "Brand, media and ecosystem partners powering S02." },
+      { property: "og:description", content: "Brand, media and ecosystem partners powering Episode 01." },
     ],
   }),
   component: Partners,
 });
 
 const TIERS = [
-  { tag: "Title Partner", names: ["JioCinema"] },
+  { tag: "Title Partner", names: ["JioCinema", "YouTube"] },
   { tag: "Presenting Partner", names: ["HDFC Bank", "Zerodha"] },
   { tag: "Round Partner", names: ["Apex Ventures", "Lighthouse Capital", "Tigerline", "Forge Studio"] },
   { tag: "Founder Bay", names: ["AWS Startups", "Notion", "Linear", "Figma", "Slack", "Razorpay"] },
@@ -25,7 +25,7 @@ function Partners() {
   return (
     <>
       <PageHero
-        eyebrow="Partners · S02"
+        eyebrow="Partners · Episode 01 Premiere"
         title={<>The grid <span className="italic text-[var(--silver)]/70">behind the spotlight.</span></>}
         lede="Brands and platforms underwriting India's most uncensored pitch show."
       >
