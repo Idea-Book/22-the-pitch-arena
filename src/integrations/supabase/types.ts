@@ -17,15 +17,20 @@ export type Database = {
       applications: {
         Row: {
           ask_amount: number | null
+          burn_rate: number | null
           city: string | null
           created_at: string
+          customer_segment: string | null
           deck_url: string | null
           email: string
           founder_name: string
           id: string
+          monthly_revenue: number | null
           mrr: number | null
           phone: string | null
           pitch: string
+          product_service: string | null
+          product_stage: string | null
           reviewed_by: string | null
           reviewer_notes: string | null
           sector: string | null
@@ -36,15 +41,20 @@ export type Database = {
         }
         Insert: {
           ask_amount?: number | null
+          burn_rate?: number | null
           city?: string | null
           created_at?: string
+          customer_segment?: string | null
           deck_url?: string | null
           email: string
           founder_name: string
           id?: string
+          monthly_revenue?: number | null
           mrr?: number | null
           phone?: string | null
           pitch: string
+          product_service?: string | null
+          product_stage?: string | null
           reviewed_by?: string | null
           reviewer_notes?: string | null
           sector?: string | null
@@ -55,15 +65,20 @@ export type Database = {
         }
         Update: {
           ask_amount?: number | null
+          burn_rate?: number | null
           city?: string | null
           created_at?: string
+          customer_segment?: string | null
           deck_url?: string | null
           email?: string
           founder_name?: string
           id?: string
+          monthly_revenue?: number | null
           mrr?: number | null
           phone?: string | null
           pitch?: string
+          product_service?: string | null
+          product_stage?: string | null
           reviewed_by?: string | null
           reviewer_notes?: string | null
           sector?: string | null
