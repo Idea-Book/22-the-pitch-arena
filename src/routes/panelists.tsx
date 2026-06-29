@@ -3,6 +3,8 @@ import { PageHero } from "@/components/page-hero";
 import panel01 from "@/assets/panel-01.jpg";
 import panel02 from "@/assets/panel-02.jpg";
 import panel03 from "@/assets/panel-03.jpg";
+import panel04 from "@/assets/panel-04.jpg";
+import panel05 from "@/assets/panel-05.jpg";
 
 export const Route = createFileRoute("/panelists")({
   head: () => ({
@@ -36,13 +38,13 @@ const PANELISTS = [
     bio: "Founded a quick-commerce unicorn at 26. Sold at 31. Now hunts for the next one — and is brutal about it.",
   },
   {
-    img: panel01, name: "Nikhil Joshi", tag: "The Closer", aka: "MUM · #04",
+    img: panel04, name: "Nikhil Joshi", tag: "The Closer", aka: "DEL · #04",
     quote: "Show me the door you walk through when the round doesn't close. That's the founder I back.",
     roast: 91, appetite: "Fintech · Payments", record: "11W / 5 KO", aum: "₹1,700 Cr", years: "20", deals: "38",
     bio: "Ex-RBI working group, two payments exits. Closes deals on stage in under 11 minutes — or not at all.",
   },
   {
-    img: panel02, name: "Dr. Aisha Khan", tag: "The Algorithm", aka: "HYD · #05",
+    img: panel05, name: "Dr. Aisha Khan", tag: "The Algorithm", aka: "HYD · #05",
     quote: "Every founder lies on revenue. The unit economics don't. I'll wait while you do the math.",
     roast: 74, appetite: "Deep Tech · Healthtech", record: "7W / 3 KO", aum: "₹1,200 Cr", years: "15", deals: "22",
     bio: "PhD in computational biology. Built two healthtech companies. Has the calmest voice in the worst moments.",

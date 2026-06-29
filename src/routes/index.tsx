@@ -6,6 +6,8 @@ import ep03 from "@/assets/ep-03.jpg";
 import panel01 from "@/assets/panel-01.jpg";
 import panel02 from "@/assets/panel-02.jpg";
 import panel03 from "@/assets/panel-03.jpg";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const _unused = [panel01, panel02, panel03];
 import journey from "@/assets/journey.jpg";
 
 export const Route = createFileRoute("/")({
