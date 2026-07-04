@@ -650,6 +650,75 @@ export type Database = {
         }
         Relationships: []
       }
+      talent_applications: {
+        Row: {
+          availability: string | null
+          bio: string | null
+          city: string | null
+          created_at: string
+          email: string
+          expertise: string | null
+          firm: string | null
+          full_name: string
+          headline: string | null
+          id: string
+          links: string | null
+          phone: string | null
+          portfolio_url: string | null
+          role: Database["public"]["Enums"]["talent_role"]
+          sectors: string | null
+          showreel_url: string | null
+          status: string
+          ticket_size: string | null
+          updated_at: string
+          why_join: string | null
+        }
+        Insert: {
+          availability?: string | null
+          bio?: string | null
+          city?: string | null
+          created_at?: string
+          email: string
+          expertise?: string | null
+          firm?: string | null
+          full_name: string
+          headline?: string | null
+          id?: string
+          links?: string | null
+          phone?: string | null
+          portfolio_url?: string | null
+          role: Database["public"]["Enums"]["talent_role"]
+          sectors?: string | null
+          showreel_url?: string | null
+          status?: string
+          ticket_size?: string | null
+          updated_at?: string
+          why_join?: string | null
+        }
+        Update: {
+          availability?: string | null
+          bio?: string | null
+          city?: string | null
+          created_at?: string
+          email?: string
+          expertise?: string | null
+          firm?: string | null
+          full_name?: string
+          headline?: string | null
+          id?: string
+          links?: string | null
+          phone?: string | null
+          portfolio_url?: string | null
+          role?: Database["public"]["Enums"]["talent_role"]
+          sectors?: string | null
+          showreel_url?: string | null
+          status?: string
+          ticket_size?: string | null
+          updated_at?: string
+          why_join?: string | null
+        }
+        Relationships: []
+      }
       ticket_inquiries: {
         Row: {
           created_at: string
@@ -771,6 +840,7 @@ export type Database = {
         | "accepted"
         | "rejected"
         | "archived"
+      talent_role: "creator" | "panelist" | "investor"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -919,6 +989,7 @@ export const Constants = {
         "rejected",
         "archived",
       ],
+      talent_role: ["creator", "panelist", "investor"],
     },
   },
 } as const

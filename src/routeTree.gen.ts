@@ -16,6 +16,7 @@ import { Route as PressKitRouteImport } from './routes/press-kit'
 import { Route as PartnersRouteImport } from './routes/partners'
 import { Route as PanelistsRouteImport } from './routes/panelists'
 import { Route as LegalRouteImport } from './routes/legal'
+import { Route as JoinRouteImport } from './routes/join'
 import { Route as FoundersRouteImport } from './routes/founders'
 import { Route as EpisodesRouteImport } from './routes/episodes'
 import { Route as CreatorsRouteImport } from './routes/creators'
@@ -75,6 +76,11 @@ const PanelistsRoute = PanelistsRouteImport.update({
 const LegalRoute = LegalRouteImport.update({
   id: '/legal',
   path: '/legal',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const JoinRoute = JoinRouteImport.update({
+  id: '/join',
+  path: '/join',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FoundersRoute = FoundersRouteImport.update({
@@ -212,6 +218,7 @@ export interface FileRoutesByFullPath {
   '/creators': typeof CreatorsRoute
   '/episodes': typeof EpisodesRouteWithChildren
   '/founders': typeof FoundersRouteWithChildren
+  '/join': typeof JoinRoute
   '/legal': typeof LegalRouteWithChildren
   '/panelists': typeof PanelistsRouteWithChildren
   '/partners': typeof PartnersRoute
@@ -245,6 +252,7 @@ export interface FileRoutesByTo {
   '/creators': typeof CreatorsRoute
   '/episodes': typeof EpisodesRouteWithChildren
   '/founders': typeof FoundersRouteWithChildren
+  '/join': typeof JoinRoute
   '/legal': typeof LegalRouteWithChildren
   '/panelists': typeof PanelistsRouteWithChildren
   '/partners': typeof PartnersRoute
@@ -280,6 +288,7 @@ export interface FileRoutesById {
   '/creators': typeof CreatorsRoute
   '/episodes': typeof EpisodesRouteWithChildren
   '/founders': typeof FoundersRouteWithChildren
+  '/join': typeof JoinRoute
   '/legal': typeof LegalRouteWithChildren
   '/panelists': typeof PanelistsRouteWithChildren
   '/partners': typeof PartnersRoute
@@ -316,6 +325,7 @@ export interface FileRouteTypes {
     | '/creators'
     | '/episodes'
     | '/founders'
+    | '/join'
     | '/legal'
     | '/panelists'
     | '/partners'
@@ -349,6 +359,7 @@ export interface FileRouteTypes {
     | '/creators'
     | '/episodes'
     | '/founders'
+    | '/join'
     | '/legal'
     | '/panelists'
     | '/partners'
@@ -383,6 +394,7 @@ export interface FileRouteTypes {
     | '/creators'
     | '/episodes'
     | '/founders'
+    | '/join'
     | '/legal'
     | '/panelists'
     | '/partners'
@@ -418,6 +430,7 @@ export interface RootRouteChildren {
   CreatorsRoute: typeof CreatorsRoute
   EpisodesRoute: typeof EpisodesRouteWithChildren
   FoundersRoute: typeof FoundersRouteWithChildren
+  JoinRoute: typeof JoinRoute
   LegalRoute: typeof LegalRouteWithChildren
   PanelistsRoute: typeof PanelistsRouteWithChildren
   PartnersRoute: typeof PartnersRoute
@@ -476,6 +489,13 @@ declare module '@tanstack/react-router' {
       path: '/legal'
       fullPath: '/legal'
       preLoaderRoute: typeof LegalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/join': {
+      id: '/join'
+      path: '/join'
+      fullPath: '/join'
+      preLoaderRoute: typeof JoinRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/founders': {
@@ -745,6 +765,7 @@ const rootRouteChildren: RootRouteChildren = {
   CreatorsRoute: CreatorsRoute,
   EpisodesRoute: EpisodesRouteWithChildren,
   FoundersRoute: FoundersRouteWithChildren,
+  JoinRoute: JoinRoute,
   LegalRoute: LegalRouteWithChildren,
   PanelistsRoute: PanelistsRouteWithChildren,
   PartnersRoute: PartnersRoute,
