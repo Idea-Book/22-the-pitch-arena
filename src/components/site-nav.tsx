@@ -12,6 +12,7 @@ const NAV = [
   { to: "/tickets", label: "Tickets" },
   { to: "/sponsors", label: "Sponsors" },
   { to: "/community", label: "Community" },
+  { to: "/join", label: "Join" },
 ] as const;
 
 export function SiteNav() {
