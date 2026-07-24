@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery, useInfiniteQuery } from "@tanstack/react-query";
 import { useState, useMemo } from "react";
 import { PageHero } from "@/components/page-hero";
-import { fetchEpisodesClient, fetchEpisodesPagedClient } from "@/lib/content.client";
+import { fetchEpisodesClient, fetchEpisodesPagedClient } from "@/lib/content.browser";
 import { useRealtime } from "@/hooks/use-realtime";
 import ep01 from "@/assets/ep-01.jpg";
 import ep02 from "@/assets/ep-02.jpg";
