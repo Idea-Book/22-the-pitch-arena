@@ -66,12 +66,23 @@ function AuthPage() {
   }
 
   const provisionDemo = useServerFn(ensureDemoAdmin);
+  const DEMO_EMAIL = "demo-admin@bklsharks.app";
+  const DEMO_PASSWORD = "DemoAdmin#2026";
   async function demoAdmin() {
     setBusy(true);
     try {
-      const creds = await provisionDemo({ data: undefined as never });
-      const { error } = await supabase.auth.signInWithPassword({ email: creds.email, password: creds.password });
-      if (error) throw error;
+      // Fast path: user is pre-seeded via migration, sign in directly (works on any host).
+      let { error } = await supabase.auth.signInWithPassword({ email: DEMO_EMAIL, password: DEMO_PASSWORD });
+      if (error) {
+        // Fallback: provision via server function (only works on hosts with SSR runtime).
+        try {
+          const creds = await provisionDemo({ data: undefined as never });
+          const retry = await supabase.auth.signInWithPassword({ email: creds.email, password: creds.password });
+          if (retry.error) throw retry.error;
+        } catch {
+          throw error;
+        }
+      }
       toast.success("Signed in as Demo Admin → Pitch Control unlocked.");
       navigate({ to: "/admin" });
     } catch (err: any) {

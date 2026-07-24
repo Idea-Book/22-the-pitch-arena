@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery, useInfiniteQuery } from "@tanstack/react-query";
 import { useState, useMemo } from "react";
 import { PageHero } from "@/components/page-hero";
-import { listEpisodes, listEpisodesPaged } from "@/lib/content.functions";
+import { fetchEpisodesClient, fetchEpisodesPagedClient } from "@/lib/content.client";
 import { useRealtime } from "@/hooks/use-realtime";
 import ep01 from "@/assets/ep-01.jpg";
 import ep02 from "@/assets/ep-02.jpg";
@@ -20,7 +20,7 @@ export const Route = createFileRoute("/episodes")({
   loader: ({ context }) =>
     context.queryClient.ensureQueryData({
       queryKey: ["episodesPublic"],
-      queryFn: () => listEpisodes(),
+      queryFn: () => fetchEpisodesClient(),
       staleTime: 60_000,
     }),
   component: EpisodesPage,
@@ -48,14 +48,14 @@ const COLOR: Record<string, string> = {
 function EpisodesPage() {
   const { data: all = [] } = useQuery({
     queryKey: ["episodesPublic"],
-    queryFn: () => listEpisodes(),
+    queryFn: () => fetchEpisodesClient(),
     staleTime: 60_000,
   });
   useRealtime("episodes", [["episodesPublic"], ["episodesAdminAll"], ["episodesPaged"]]);
 
   const paged = useInfiniteQuery({
     queryKey: ["episodesPaged"],
-    queryFn: ({ pageParam }) => listEpisodesPaged({ data: { cursor: pageParam ?? null, limit: 9 } }),
+    queryFn: ({ pageParam }) => fetchEpisodesPagedClient({ cursor: pageParam ?? null, limit: 9 }),
     initialPageParam: null as string | null,
     getNextPageParam: (last) => last.nextCursor,
     staleTime: 30_000,
