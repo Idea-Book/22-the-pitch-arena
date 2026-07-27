@@ -17,6 +17,7 @@ import { Route as PartnersRouteImport } from './routes/partners'
 import { Route as PanelistsRouteImport } from './routes/panelists'
 import { Route as LegalRouteImport } from './routes/legal'
 import { Route as JoinRouteImport } from './routes/join'
+import { Route as HealthRouteImport } from './routes/health'
 import { Route as FoundersRouteImport } from './routes/founders'
 import { Route as EpisodesRouteImport } from './routes/episodes'
 import { Route as CreatorsRouteImport } from './routes/creators'
@@ -82,6 +83,11 @@ const LegalRoute = LegalRouteImport.update({
 const JoinRoute = JoinRouteImport.update({
   id: '/join',
   path: '/join',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HealthRoute = HealthRouteImport.update({
+  id: '/health',
+  path: '/health',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FoundersRoute = FoundersRouteImport.update({
@@ -224,6 +230,7 @@ export interface FileRoutesByFullPath {
   '/creators': typeof CreatorsRoute
   '/episodes': typeof EpisodesRouteWithChildren
   '/founders': typeof FoundersRouteWithChildren
+  '/health': typeof HealthRoute
   '/join': typeof JoinRoute
   '/legal': typeof LegalRouteWithChildren
   '/panelists': typeof PanelistsRouteWithChildren
@@ -259,6 +266,7 @@ export interface FileRoutesByTo {
   '/creators': typeof CreatorsRoute
   '/episodes': typeof EpisodesRouteWithChildren
   '/founders': typeof FoundersRouteWithChildren
+  '/health': typeof HealthRoute
   '/join': typeof JoinRoute
   '/legal': typeof LegalRouteWithChildren
   '/panelists': typeof PanelistsRouteWithChildren
@@ -296,6 +304,7 @@ export interface FileRoutesById {
   '/creators': typeof CreatorsRoute
   '/episodes': typeof EpisodesRouteWithChildren
   '/founders': typeof FoundersRouteWithChildren
+  '/health': typeof HealthRoute
   '/join': typeof JoinRoute
   '/legal': typeof LegalRouteWithChildren
   '/panelists': typeof PanelistsRouteWithChildren
@@ -334,6 +343,7 @@ export interface FileRouteTypes {
     | '/creators'
     | '/episodes'
     | '/founders'
+    | '/health'
     | '/join'
     | '/legal'
     | '/panelists'
@@ -369,6 +379,7 @@ export interface FileRouteTypes {
     | '/creators'
     | '/episodes'
     | '/founders'
+    | '/health'
     | '/join'
     | '/legal'
     | '/panelists'
@@ -405,6 +416,7 @@ export interface FileRouteTypes {
     | '/creators'
     | '/episodes'
     | '/founders'
+    | '/health'
     | '/join'
     | '/legal'
     | '/panelists'
@@ -442,6 +454,7 @@ export interface RootRouteChildren {
   CreatorsRoute: typeof CreatorsRoute
   EpisodesRoute: typeof EpisodesRouteWithChildren
   FoundersRoute: typeof FoundersRouteWithChildren
+  HealthRoute: typeof HealthRoute
   JoinRoute: typeof JoinRoute
   LegalRoute: typeof LegalRouteWithChildren
   PanelistsRoute: typeof PanelistsRouteWithChildren
@@ -509,6 +522,13 @@ declare module '@tanstack/react-router' {
       path: '/join'
       fullPath: '/join'
       preLoaderRoute: typeof JoinRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/health': {
+      id: '/health'
+      path: '/health'
+      fullPath: '/health'
+      preLoaderRoute: typeof HealthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/founders': {
@@ -785,6 +805,7 @@ const rootRouteChildren: RootRouteChildren = {
   CreatorsRoute: CreatorsRoute,
   EpisodesRoute: EpisodesRouteWithChildren,
   FoundersRoute: FoundersRouteWithChildren,
+  HealthRoute: HealthRoute,
   JoinRoute: JoinRoute,
   LegalRoute: LegalRouteWithChildren,
   PanelistsRoute: PanelistsRouteWithChildren,
@@ -798,3 +819,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
