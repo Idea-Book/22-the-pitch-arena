@@ -1,6 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { requireAppAuth as requireSupabaseAuth } from "./app-auth-middleware";
 import { episodeUpsertSchema, panelistUpsertSchema, founderUpsertSchema, sponsorPackageSchema, sponsorPartnerSchema } from "./schemas";
 
 async function assertStaff(ctx: { supabase: any; userId: string }) {
@@ -21,7 +21,8 @@ export const adminStats = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
     await assertStaff(context);
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { getAppAdmin } = await import("./app-admin.server");
+    const supabaseAdmin: any = getAppAdmin();
     const tables = ["community_posts", "post_comments", "reports", "applications", "ticket_inquiries", "sponsor_inquiries", "episodes", "panelists", "founders", "profiles"];
     const counts: Record<string, number> = {};
     await Promise.all(tables.map(async (t) => {
@@ -341,7 +342,8 @@ export const adminListUsers = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
     await assertAdmin(context);
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { getAppAdmin } = await import("./app-admin.server");
+    const supabaseAdmin: any = getAppAdmin();
     const [{ data: profiles }, { data: roles }] = await Promise.all([
       supabaseAdmin.from("profiles").select("id, display_name, handle, avatar_url, created_at").order("created_at", { ascending: false }).limit(500),
       supabaseAdmin.from("user_roles").select("user_id, role"),
@@ -363,7 +365,8 @@ export const adminSetRole = createServerFn({ method: "POST" })
   }).parse(v))
   .handler(async ({ data, context }) => {
     await assertAdmin(context);
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { getAppAdmin } = await import("./app-admin.server");
+    const supabaseAdmin: any = getAppAdmin();
     if (data.grant) {
       const { error } = await supabaseAdmin.from("user_roles").upsert({ user_id: data.user_id, role: data.role }, { onConflict: "user_id,role" });
       if (error) throw new Error(error.message);
