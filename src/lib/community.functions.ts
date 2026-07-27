@@ -1,5 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
-import { requireAppAuth as requireSupabaseAuth } from "@/lib/app-auth-middleware";
+import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { postSchema, commentSchema, reactionSchema, reportSchema } from "./schemas";
 
 export const createPost = createServerFn({ method: "POST" })

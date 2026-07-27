@@ -17,7 +17,6 @@ import { Route as PartnersRouteImport } from './routes/partners'
 import { Route as PanelistsRouteImport } from './routes/panelists'
 import { Route as LegalRouteImport } from './routes/legal'
 import { Route as JoinRouteImport } from './routes/join'
-import { Route as HealthRouteImport } from './routes/health'
 import { Route as FoundersRouteImport } from './routes/founders'
 import { Route as EpisodesRouteImport } from './routes/episodes'
 import { Route as CreatorsRouteImport } from './routes/creators'
@@ -43,7 +42,6 @@ import { Route as AdminPanelistsRouteImport } from './routes/admin.panelists'
 import { Route as AdminFoundersRouteImport } from './routes/admin.founders'
 import { Route as AdminEpisodesRouteImport } from './routes/admin.episodes'
 import { Route as AdminApplicationsRouteImport } from './routes/admin.applications'
-import { Route as ApiPublicHealthRouteImport } from './routes/api/public/health'
 
 const TicketsRoute = TicketsRouteImport.update({
   id: '/tickets',
@@ -83,11 +81,6 @@ const LegalRoute = LegalRouteImport.update({
 const JoinRoute = JoinRouteImport.update({
   id: '/join',
   path: '/join',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const HealthRoute = HealthRouteImport.update({
-  id: '/health',
-  path: '/health',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FoundersRoute = FoundersRouteImport.update({
@@ -215,11 +208,6 @@ const AdminApplicationsRoute = AdminApplicationsRouteImport.update({
   path: '/applications',
   getParentRoute: () => AdminRoute,
 } as any)
-const ApiPublicHealthRoute = ApiPublicHealthRouteImport.update({
-  id: '/api/public/health',
-  path: '/api/public/health',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -230,7 +218,6 @@ export interface FileRoutesByFullPath {
   '/creators': typeof CreatorsRoute
   '/episodes': typeof EpisodesRouteWithChildren
   '/founders': typeof FoundersRouteWithChildren
-  '/health': typeof HealthRoute
   '/join': typeof JoinRoute
   '/legal': typeof LegalRouteWithChildren
   '/panelists': typeof PanelistsRouteWithChildren
@@ -256,7 +243,6 @@ export interface FileRoutesByFullPath {
   '/legal/terms': typeof LegalTermsRoute
   '/panelists/$slug': typeof PanelistsSlugRoute
   '/admin/': typeof AdminIndexRoute
-  '/api/public/health': typeof ApiPublicHealthRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -266,7 +252,6 @@ export interface FileRoutesByTo {
   '/creators': typeof CreatorsRoute
   '/episodes': typeof EpisodesRouteWithChildren
   '/founders': typeof FoundersRouteWithChildren
-  '/health': typeof HealthRoute
   '/join': typeof JoinRoute
   '/legal': typeof LegalRouteWithChildren
   '/panelists': typeof PanelistsRouteWithChildren
@@ -292,7 +277,6 @@ export interface FileRoutesByTo {
   '/legal/terms': typeof LegalTermsRoute
   '/panelists/$slug': typeof PanelistsSlugRoute
   '/admin': typeof AdminIndexRoute
-  '/api/public/health': typeof ApiPublicHealthRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -304,7 +288,6 @@ export interface FileRoutesById {
   '/creators': typeof CreatorsRoute
   '/episodes': typeof EpisodesRouteWithChildren
   '/founders': typeof FoundersRouteWithChildren
-  '/health': typeof HealthRoute
   '/join': typeof JoinRoute
   '/legal': typeof LegalRouteWithChildren
   '/panelists': typeof PanelistsRouteWithChildren
@@ -330,7 +313,6 @@ export interface FileRoutesById {
   '/legal/terms': typeof LegalTermsRoute
   '/panelists/$slug': typeof PanelistsSlugRoute
   '/admin/': typeof AdminIndexRoute
-  '/api/public/health': typeof ApiPublicHealthRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -343,7 +325,6 @@ export interface FileRouteTypes {
     | '/creators'
     | '/episodes'
     | '/founders'
-    | '/health'
     | '/join'
     | '/legal'
     | '/panelists'
@@ -369,7 +350,6 @@ export interface FileRouteTypes {
     | '/legal/terms'
     | '/panelists/$slug'
     | '/admin/'
-    | '/api/public/health'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -379,7 +359,6 @@ export interface FileRouteTypes {
     | '/creators'
     | '/episodes'
     | '/founders'
-    | '/health'
     | '/join'
     | '/legal'
     | '/panelists'
@@ -405,7 +384,6 @@ export interface FileRouteTypes {
     | '/legal/terms'
     | '/panelists/$slug'
     | '/admin'
-    | '/api/public/health'
   id:
     | '__root__'
     | '/'
@@ -416,7 +394,6 @@ export interface FileRouteTypes {
     | '/creators'
     | '/episodes'
     | '/founders'
-    | '/health'
     | '/join'
     | '/legal'
     | '/panelists'
@@ -442,7 +419,6 @@ export interface FileRouteTypes {
     | '/legal/terms'
     | '/panelists/$slug'
     | '/admin/'
-    | '/api/public/health'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -454,7 +430,6 @@ export interface RootRouteChildren {
   CreatorsRoute: typeof CreatorsRoute
   EpisodesRoute: typeof EpisodesRouteWithChildren
   FoundersRoute: typeof FoundersRouteWithChildren
-  HealthRoute: typeof HealthRoute
   JoinRoute: typeof JoinRoute
   LegalRoute: typeof LegalRouteWithChildren
   PanelistsRoute: typeof PanelistsRouteWithChildren
@@ -463,7 +438,6 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SponsorsRoute: typeof SponsorsRoute
   TicketsRoute: typeof TicketsRoute
-  ApiPublicHealthRoute: typeof ApiPublicHealthRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -522,13 +496,6 @@ declare module '@tanstack/react-router' {
       path: '/join'
       fullPath: '/join'
       preLoaderRoute: typeof JoinRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/health': {
-      id: '/health'
-      path: '/health'
-      fullPath: '/health'
-      preLoaderRoute: typeof HealthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/founders': {
@@ -706,13 +673,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminApplicationsRouteImport
       parentRoute: typeof AdminRoute
     }
-    '/api/public/health': {
-      id: '/api/public/health'
-      path: '/api/public/health'
-      fullPath: '/api/public/health'
-      preLoaderRoute: typeof ApiPublicHealthRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
@@ -805,7 +765,6 @@ const rootRouteChildren: RootRouteChildren = {
   CreatorsRoute: CreatorsRoute,
   EpisodesRoute: EpisodesRouteWithChildren,
   FoundersRoute: FoundersRouteWithChildren,
-  HealthRoute: HealthRoute,
   JoinRoute: JoinRoute,
   LegalRoute: LegalRouteWithChildren,
   PanelistsRoute: PanelistsRouteWithChildren,
@@ -814,8 +773,17 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SponsorsRoute: SponsorsRoute,
   TicketsRoute: TicketsRoute,
-  ApiPublicHealthRoute: ApiPublicHealthRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
