@@ -349,11 +349,12 @@ export const adminListUsers = createServerFn({ method: "GET" })
       supabaseAdmin.from("user_roles").select("user_id, role"),
     ]);
     const rolesByUser = new Map<string, string[]>();
-    for (const r of roles ?? []) {
+    for (const r of (roles ?? []) as any[]) {
       const arr = rolesByUser.get(r.user_id) ?? [];
       arr.push(r.role); rolesByUser.set(r.user_id, arr);
     }
-    return (profiles ?? []).map((p) => ({ ...p, roles: rolesByUser.get(p.id) ?? [] }));
+    return ((profiles ?? []) as any[]).map((p: any) => ({ ...p, roles: rolesByUser.get(p.id) ?? [] }));
+
   });
 
 export const adminSetRole = createServerFn({ method: "POST" })
