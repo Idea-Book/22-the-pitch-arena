@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageHero } from "@/components/page-hero";
 import panel01 from "@/assets/panel-01.jpg";
 import panel02 from "@/assets/panel-02.jpg";
@@ -148,6 +148,25 @@ function PanelistsPage() {
           ))}
         </div>
       </section>
+
+      <section className="border-t border-border py-16 px-6 bg-[var(--surface)]">
+        <div className="mx-auto max-w-7xl flex flex-wrap items-end justify-between gap-6">
+          <div>
+            <div className="font-mono text-[10px] uppercase tracking-[0.35em] text-[var(--crimson)]">Panel referrals</div>
+            <h2 className="font-display text-4xl mt-2 max-w-[20ch]">Know someone sharper? Nominate them.</h2>
+            <p className="text-sm text-muted-foreground mt-3 max-w-lg">
+              Panelists and industry insiders can put forward the next shark. Four guest chairs remain for S01 EP01.
+            </p>
+          </div>
+          <Link
+            to="/invite-panelist"
+            className="bg-[var(--crimson)] text-white px-8 py-4 font-mono text-[11px] uppercase tracking-[0.3em] hover:bg-foreground hover:text-background transition-colors"
+          >
+            Nominate a shark →
+          </Link>
+        </div>
+      </section>
     </>
+
   );
 }

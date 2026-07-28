@@ -337,6 +337,116 @@ export type Database = {
         }
         Relationships: []
       }
+      panelist_invitations: {
+        Row: {
+          aum: string | null
+          availability: string | null
+          bio: string | null
+          city: string | null
+          created_at: string
+          created_panelist_id: string | null
+          expertise: string | null
+          firm: string | null
+          headshot_url: string | null
+          id: string
+          linkedin_url: string | null
+          nominator_email: string
+          nominator_is_panelist: boolean
+          nominator_name: string
+          nominator_role: string | null
+          nominee_email: string
+          nominee_name: string
+          nominee_phone: string | null
+          notable_deals: string | null
+          quote: string | null
+          relationship: string | null
+          reviewed_by: string | null
+          reviewer_notes: string | null
+          sectors: string | null
+          status: Database["public"]["Enums"]["submission_status"]
+          ticket_size: string | null
+          title: string | null
+          updated_at: string
+          website_url: string | null
+          why_fit: string
+          years_experience: number | null
+        }
+        Insert: {
+          aum?: string | null
+          availability?: string | null
+          bio?: string | null
+          city?: string | null
+          created_at?: string
+          created_panelist_id?: string | null
+          expertise?: string | null
+          firm?: string | null
+          headshot_url?: string | null
+          id?: string
+          linkedin_url?: string | null
+          nominator_email: string
+          nominator_is_panelist?: boolean
+          nominator_name: string
+          nominator_role?: string | null
+          nominee_email: string
+          nominee_name: string
+          nominee_phone?: string | null
+          notable_deals?: string | null
+          quote?: string | null
+          relationship?: string | null
+          reviewed_by?: string | null
+          reviewer_notes?: string | null
+          sectors?: string | null
+          status?: Database["public"]["Enums"]["submission_status"]
+          ticket_size?: string | null
+          title?: string | null
+          updated_at?: string
+          website_url?: string | null
+          why_fit: string
+          years_experience?: number | null
+        }
+        Update: {
+          aum?: string | null
+          availability?: string | null
+          bio?: string | null
+          city?: string | null
+          created_at?: string
+          created_panelist_id?: string | null
+          expertise?: string | null
+          firm?: string | null
+          headshot_url?: string | null
+          id?: string
+          linkedin_url?: string | null
+          nominator_email?: string
+          nominator_is_panelist?: boolean
+          nominator_name?: string
+          nominator_role?: string | null
+          nominee_email?: string
+          nominee_name?: string
+          nominee_phone?: string | null
+          notable_deals?: string | null
+          quote?: string | null
+          relationship?: string | null
+          reviewed_by?: string | null
+          reviewer_notes?: string | null
+          sectors?: string | null
+          status?: Database["public"]["Enums"]["submission_status"]
+          ticket_size?: string | null
+          title?: string | null
+          updated_at?: string
+          website_url?: string | null
+          why_fit?: string
+          years_experience?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "panelist_invitations_created_panelist_id_fkey"
+            columns: ["created_panelist_id"]
+            isOneToOne: false
+            referencedRelation: "panelists"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       panelists: {
         Row: {
           aka: string | null

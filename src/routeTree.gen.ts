@@ -17,6 +17,7 @@ import { Route as PartnersRouteImport } from './routes/partners'
 import { Route as PanelistsRouteImport } from './routes/panelists'
 import { Route as LegalRouteImport } from './routes/legal'
 import { Route as JoinRouteImport } from './routes/join'
+import { Route as InvitePanelistRouteImport } from './routes/invite-panelist'
 import { Route as FoundersRouteImport } from './routes/founders'
 import { Route as EpisodesRouteImport } from './routes/episodes'
 import { Route as CreatorsRouteImport } from './routes/creators'
@@ -39,6 +40,7 @@ import { Route as AdminSponsorContentRouteImport } from './routes/admin.sponsor-
 import { Route as AdminReportsRouteImport } from './routes/admin.reports'
 import { Route as AdminPostsRouteImport } from './routes/admin.posts'
 import { Route as AdminPanelistsRouteImport } from './routes/admin.panelists'
+import { Route as AdminInvitationsRouteImport } from './routes/admin.invitations'
 import { Route as AdminFoundersRouteImport } from './routes/admin.founders'
 import { Route as AdminEpisodesRouteImport } from './routes/admin.episodes'
 import { Route as AdminApplicationsRouteImport } from './routes/admin.applications'
@@ -81,6 +83,11 @@ const LegalRoute = LegalRouteImport.update({
 const JoinRoute = JoinRouteImport.update({
   id: '/join',
   path: '/join',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InvitePanelistRoute = InvitePanelistRouteImport.update({
+  id: '/invite-panelist',
+  path: '/invite-panelist',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FoundersRoute = FoundersRouteImport.update({
@@ -193,6 +200,11 @@ const AdminPanelistsRoute = AdminPanelistsRouteImport.update({
   path: '/panelists',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminInvitationsRoute = AdminInvitationsRouteImport.update({
+  id: '/invitations',
+  path: '/invitations',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminFoundersRoute = AdminFoundersRouteImport.update({
   id: '/founders',
   path: '/founders',
@@ -218,6 +230,7 @@ export interface FileRoutesByFullPath {
   '/creators': typeof CreatorsRoute
   '/episodes': typeof EpisodesRouteWithChildren
   '/founders': typeof FoundersRouteWithChildren
+  '/invite-panelist': typeof InvitePanelistRoute
   '/join': typeof JoinRoute
   '/legal': typeof LegalRouteWithChildren
   '/panelists': typeof PanelistsRouteWithChildren
@@ -229,6 +242,7 @@ export interface FileRoutesByFullPath {
   '/admin/applications': typeof AdminApplicationsRoute
   '/admin/episodes': typeof AdminEpisodesRoute
   '/admin/founders': typeof AdminFoundersRoute
+  '/admin/invitations': typeof AdminInvitationsRoute
   '/admin/panelists': typeof AdminPanelistsRoute
   '/admin/posts': typeof AdminPostsRoute
   '/admin/reports': typeof AdminReportsRoute
@@ -252,6 +266,7 @@ export interface FileRoutesByTo {
   '/creators': typeof CreatorsRoute
   '/episodes': typeof EpisodesRouteWithChildren
   '/founders': typeof FoundersRouteWithChildren
+  '/invite-panelist': typeof InvitePanelistRoute
   '/join': typeof JoinRoute
   '/legal': typeof LegalRouteWithChildren
   '/panelists': typeof PanelistsRouteWithChildren
@@ -263,6 +278,7 @@ export interface FileRoutesByTo {
   '/admin/applications': typeof AdminApplicationsRoute
   '/admin/episodes': typeof AdminEpisodesRoute
   '/admin/founders': typeof AdminFoundersRoute
+  '/admin/invitations': typeof AdminInvitationsRoute
   '/admin/panelists': typeof AdminPanelistsRoute
   '/admin/posts': typeof AdminPostsRoute
   '/admin/reports': typeof AdminReportsRoute
@@ -288,6 +304,7 @@ export interface FileRoutesById {
   '/creators': typeof CreatorsRoute
   '/episodes': typeof EpisodesRouteWithChildren
   '/founders': typeof FoundersRouteWithChildren
+  '/invite-panelist': typeof InvitePanelistRoute
   '/join': typeof JoinRoute
   '/legal': typeof LegalRouteWithChildren
   '/panelists': typeof PanelistsRouteWithChildren
@@ -299,6 +316,7 @@ export interface FileRoutesById {
   '/admin/applications': typeof AdminApplicationsRoute
   '/admin/episodes': typeof AdminEpisodesRoute
   '/admin/founders': typeof AdminFoundersRoute
+  '/admin/invitations': typeof AdminInvitationsRoute
   '/admin/panelists': typeof AdminPanelistsRoute
   '/admin/posts': typeof AdminPostsRoute
   '/admin/reports': typeof AdminReportsRoute
@@ -325,6 +343,7 @@ export interface FileRouteTypes {
     | '/creators'
     | '/episodes'
     | '/founders'
+    | '/invite-panelist'
     | '/join'
     | '/legal'
     | '/panelists'
@@ -336,6 +355,7 @@ export interface FileRouteTypes {
     | '/admin/applications'
     | '/admin/episodes'
     | '/admin/founders'
+    | '/admin/invitations'
     | '/admin/panelists'
     | '/admin/posts'
     | '/admin/reports'
@@ -359,6 +379,7 @@ export interface FileRouteTypes {
     | '/creators'
     | '/episodes'
     | '/founders'
+    | '/invite-panelist'
     | '/join'
     | '/legal'
     | '/panelists'
@@ -370,6 +391,7 @@ export interface FileRouteTypes {
     | '/admin/applications'
     | '/admin/episodes'
     | '/admin/founders'
+    | '/admin/invitations'
     | '/admin/panelists'
     | '/admin/posts'
     | '/admin/reports'
@@ -394,6 +416,7 @@ export interface FileRouteTypes {
     | '/creators'
     | '/episodes'
     | '/founders'
+    | '/invite-panelist'
     | '/join'
     | '/legal'
     | '/panelists'
@@ -405,6 +428,7 @@ export interface FileRouteTypes {
     | '/admin/applications'
     | '/admin/episodes'
     | '/admin/founders'
+    | '/admin/invitations'
     | '/admin/panelists'
     | '/admin/posts'
     | '/admin/reports'
@@ -430,6 +454,7 @@ export interface RootRouteChildren {
   CreatorsRoute: typeof CreatorsRoute
   EpisodesRoute: typeof EpisodesRouteWithChildren
   FoundersRoute: typeof FoundersRouteWithChildren
+  InvitePanelistRoute: typeof InvitePanelistRoute
   JoinRoute: typeof JoinRoute
   LegalRoute: typeof LegalRouteWithChildren
   PanelistsRoute: typeof PanelistsRouteWithChildren
@@ -496,6 +521,13 @@ declare module '@tanstack/react-router' {
       path: '/join'
       fullPath: '/join'
       preLoaderRoute: typeof JoinRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/invite-panelist': {
+      id: '/invite-panelist'
+      path: '/invite-panelist'
+      fullPath: '/invite-panelist'
+      preLoaderRoute: typeof InvitePanelistRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/founders': {
@@ -652,6 +684,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminPanelistsRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/invitations': {
+      id: '/admin/invitations'
+      path: '/invitations'
+      fullPath: '/admin/invitations'
+      preLoaderRoute: typeof AdminInvitationsRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/founders': {
       id: '/admin/founders'
       path: '/founders'
@@ -680,6 +719,7 @@ interface AdminRouteChildren {
   AdminApplicationsRoute: typeof AdminApplicationsRoute
   AdminEpisodesRoute: typeof AdminEpisodesRoute
   AdminFoundersRoute: typeof AdminFoundersRoute
+  AdminInvitationsRoute: typeof AdminInvitationsRoute
   AdminPanelistsRoute: typeof AdminPanelistsRoute
   AdminPostsRoute: typeof AdminPostsRoute
   AdminReportsRoute: typeof AdminReportsRoute
@@ -694,6 +734,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminApplicationsRoute: AdminApplicationsRoute,
   AdminEpisodesRoute: AdminEpisodesRoute,
   AdminFoundersRoute: AdminFoundersRoute,
+  AdminInvitationsRoute: AdminInvitationsRoute,
   AdminPanelistsRoute: AdminPanelistsRoute,
   AdminPostsRoute: AdminPostsRoute,
   AdminReportsRoute: AdminReportsRoute,
@@ -765,6 +806,7 @@ const rootRouteChildren: RootRouteChildren = {
   CreatorsRoute: CreatorsRoute,
   EpisodesRoute: EpisodesRouteWithChildren,
   FoundersRoute: FoundersRouteWithChildren,
+  InvitePanelistRoute: InvitePanelistRoute,
   JoinRoute: JoinRoute,
   LegalRoute: LegalRouteWithChildren,
   PanelistsRoute: PanelistsRouteWithChildren,
@@ -777,13 +819,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

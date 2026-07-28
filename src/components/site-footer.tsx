@@ -46,6 +46,7 @@ export function SiteFooter() {
               { to: "/apply", label: "Apply to Pitch" },
               { to: "/tickets", label: "Tickets" },
               { to: "/sponsors", label: "Sponsorship" },
+              { to: "/invite-panelist", label: "Nominate a Shark" },
             ]}
           />
           <FooterCol
