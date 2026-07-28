@@ -13,6 +13,7 @@ const SECTIONS: Section[] = [
   { to: "/admin/applications", label: "Applications" },
   { to: "/admin/tickets", label: "Tickets" },
   { to: "/admin/sponsors", label: "Sponsor inquiries" },
+  { to: "/admin/invitations", label: "Panel invites" },
   { to: "/admin/users", label: "Users", admin: true },
 ];
 
