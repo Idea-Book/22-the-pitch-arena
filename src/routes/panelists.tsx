@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageHero } from "@/components/page-hero";
 import panel01 from "@/assets/panel-01.jpg";
 import panel02 from "@/assets/panel-02.jpg";
