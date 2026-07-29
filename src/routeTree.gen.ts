@@ -37,6 +37,7 @@ import { Route as AdminUsersRouteImport } from './routes/admin.users'
 import { Route as AdminTicketsRouteImport } from './routes/admin.tickets'
 import { Route as AdminSponsorsRouteImport } from './routes/admin.sponsors'
 import { Route as AdminSponsorContentRouteImport } from './routes/admin.sponsor-content'
+import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
 import { Route as AdminReportsRouteImport } from './routes/admin.reports'
 import { Route as AdminPostsRouteImport } from './routes/admin.posts'
 import { Route as AdminPanelistsRouteImport } from './routes/admin.panelists'
@@ -44,6 +45,7 @@ import { Route as AdminInvitationsRouteImport } from './routes/admin.invitations
 import { Route as AdminFoundersRouteImport } from './routes/admin.founders'
 import { Route as AdminEpisodesRouteImport } from './routes/admin.episodes'
 import { Route as AdminApplicationsRouteImport } from './routes/admin.applications'
+import { Route as AdminAnalyticsRouteImport } from './routes/admin.analytics'
 
 const TicketsRoute = TicketsRouteImport.update({
   id: '/tickets',
@@ -185,6 +187,11 @@ const AdminSponsorContentRoute = AdminSponsorContentRouteImport.update({
   path: '/sponsor-content',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminSettingsRoute = AdminSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminReportsRoute = AdminReportsRouteImport.update({
   id: '/reports',
   path: '/reports',
@@ -220,6 +227,11 @@ const AdminApplicationsRoute = AdminApplicationsRouteImport.update({
   path: '/applications',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminAnalyticsRoute = AdminAnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => AdminRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -239,6 +251,7 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sponsors': typeof SponsorsRoute
   '/tickets': typeof TicketsRoute
+  '/admin/analytics': typeof AdminAnalyticsRoute
   '/admin/applications': typeof AdminApplicationsRoute
   '/admin/episodes': typeof AdminEpisodesRoute
   '/admin/founders': typeof AdminFoundersRoute
@@ -246,6 +259,7 @@ export interface FileRoutesByFullPath {
   '/admin/panelists': typeof AdminPanelistsRoute
   '/admin/posts': typeof AdminPostsRoute
   '/admin/reports': typeof AdminReportsRoute
+  '/admin/settings': typeof AdminSettingsRoute
   '/admin/sponsor-content': typeof AdminSponsorContentRoute
   '/admin/sponsors': typeof AdminSponsorsRoute
   '/admin/tickets': typeof AdminTicketsRoute
@@ -275,6 +289,7 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sponsors': typeof SponsorsRoute
   '/tickets': typeof TicketsRoute
+  '/admin/analytics': typeof AdminAnalyticsRoute
   '/admin/applications': typeof AdminApplicationsRoute
   '/admin/episodes': typeof AdminEpisodesRoute
   '/admin/founders': typeof AdminFoundersRoute
@@ -282,6 +297,7 @@ export interface FileRoutesByTo {
   '/admin/panelists': typeof AdminPanelistsRoute
   '/admin/posts': typeof AdminPostsRoute
   '/admin/reports': typeof AdminReportsRoute
+  '/admin/settings': typeof AdminSettingsRoute
   '/admin/sponsor-content': typeof AdminSponsorContentRoute
   '/admin/sponsors': typeof AdminSponsorsRoute
   '/admin/tickets': typeof AdminTicketsRoute
@@ -313,6 +329,7 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sponsors': typeof SponsorsRoute
   '/tickets': typeof TicketsRoute
+  '/admin/analytics': typeof AdminAnalyticsRoute
   '/admin/applications': typeof AdminApplicationsRoute
   '/admin/episodes': typeof AdminEpisodesRoute
   '/admin/founders': typeof AdminFoundersRoute
@@ -320,6 +337,7 @@ export interface FileRoutesById {
   '/admin/panelists': typeof AdminPanelistsRoute
   '/admin/posts': typeof AdminPostsRoute
   '/admin/reports': typeof AdminReportsRoute
+  '/admin/settings': typeof AdminSettingsRoute
   '/admin/sponsor-content': typeof AdminSponsorContentRoute
   '/admin/sponsors': typeof AdminSponsorsRoute
   '/admin/tickets': typeof AdminTicketsRoute
@@ -352,6 +370,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/sponsors'
     | '/tickets'
+    | '/admin/analytics'
     | '/admin/applications'
     | '/admin/episodes'
     | '/admin/founders'
@@ -359,6 +378,7 @@ export interface FileRouteTypes {
     | '/admin/panelists'
     | '/admin/posts'
     | '/admin/reports'
+    | '/admin/settings'
     | '/admin/sponsor-content'
     | '/admin/sponsors'
     | '/admin/tickets'
@@ -388,6 +408,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/sponsors'
     | '/tickets'
+    | '/admin/analytics'
     | '/admin/applications'
     | '/admin/episodes'
     | '/admin/founders'
@@ -395,6 +416,7 @@ export interface FileRouteTypes {
     | '/admin/panelists'
     | '/admin/posts'
     | '/admin/reports'
+    | '/admin/settings'
     | '/admin/sponsor-content'
     | '/admin/sponsors'
     | '/admin/tickets'
@@ -425,6 +447,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/sponsors'
     | '/tickets'
+    | '/admin/analytics'
     | '/admin/applications'
     | '/admin/episodes'
     | '/admin/founders'
@@ -432,6 +455,7 @@ export interface FileRouteTypes {
     | '/admin/panelists'
     | '/admin/posts'
     | '/admin/reports'
+    | '/admin/settings'
     | '/admin/sponsor-content'
     | '/admin/sponsors'
     | '/admin/tickets'
@@ -663,6 +687,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminSponsorContentRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/settings': {
+      id: '/admin/settings'
+      path: '/settings'
+      fullPath: '/admin/settings'
+      preLoaderRoute: typeof AdminSettingsRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/reports': {
       id: '/admin/reports'
       path: '/reports'
@@ -712,10 +743,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminApplicationsRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/analytics': {
+      id: '/admin/analytics'
+      path: '/analytics'
+      fullPath: '/admin/analytics'
+      preLoaderRoute: typeof AdminAnalyticsRouteImport
+      parentRoute: typeof AdminRoute
+    }
   }
 }
 
 interface AdminRouteChildren {
+  AdminAnalyticsRoute: typeof AdminAnalyticsRoute
   AdminApplicationsRoute: typeof AdminApplicationsRoute
   AdminEpisodesRoute: typeof AdminEpisodesRoute
   AdminFoundersRoute: typeof AdminFoundersRoute
@@ -723,6 +762,7 @@ interface AdminRouteChildren {
   AdminPanelistsRoute: typeof AdminPanelistsRoute
   AdminPostsRoute: typeof AdminPostsRoute
   AdminReportsRoute: typeof AdminReportsRoute
+  AdminSettingsRoute: typeof AdminSettingsRoute
   AdminSponsorContentRoute: typeof AdminSponsorContentRoute
   AdminSponsorsRoute: typeof AdminSponsorsRoute
   AdminTicketsRoute: typeof AdminTicketsRoute
@@ -731,6 +771,7 @@ interface AdminRouteChildren {
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
+  AdminAnalyticsRoute: AdminAnalyticsRoute,
   AdminApplicationsRoute: AdminApplicationsRoute,
   AdminEpisodesRoute: AdminEpisodesRoute,
   AdminFoundersRoute: AdminFoundersRoute,
@@ -738,6 +779,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminPanelistsRoute: AdminPanelistsRoute,
   AdminPostsRoute: AdminPostsRoute,
   AdminReportsRoute: AdminReportsRoute,
+  AdminSettingsRoute: AdminSettingsRoute,
   AdminSponsorContentRoute: AdminSponsorContentRoute,
   AdminSponsorsRoute: AdminSponsorsRoute,
   AdminTicketsRoute: AdminTicketsRoute,
