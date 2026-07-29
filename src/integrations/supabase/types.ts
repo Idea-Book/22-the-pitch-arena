@@ -136,6 +136,42 @@ export type Database = {
           },
         ]
       }
+      email_templates: {
+        Row: {
+          body: string
+          created_at: string
+          description: string | null
+          enabled: boolean
+          id: string
+          key: string
+          name: string
+          subject: string
+          updated_at: string
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          description?: string | null
+          enabled?: boolean
+          id?: string
+          key: string
+          name: string
+          subject: string
+          updated_at?: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          description?: string | null
+          enabled?: boolean
+          id?: string
+          key?: string
+          name?: string
+          subject?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       episode_founders: {
         Row: {
           episode_id: string
@@ -334,6 +370,33 @@ export type Database = {
           traction?: string | null
           updated_at?: string
           valuation?: string | null
+        }
+        Relationships: []
+      }
+      page_views: {
+        Row: {
+          created_at: string
+          id: string
+          path: string
+          referrer: string | null
+          session_id: string | null
+          user_agent: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          path: string
+          referrer?: string | null
+          session_id?: string | null
+          user_agent?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          path?: string
+          referrer?: string | null
+          session_id?: string | null
+          user_agent?: string | null
         }
         Relationships: []
       }
@@ -643,6 +706,78 @@ export type Database = {
           status?: Database["public"]["Enums"]["report_status"]
           target_id?: string
           target_type?: Database["public"]["Enums"]["report_target"]
+        }
+        Relationships: []
+      }
+      site_settings: {
+        Row: {
+          contact_email: string | null
+          created_at: string
+          custom_body_scripts: string | null
+          custom_head_scripts: string | null
+          email_from_address: string | null
+          email_from_name: string | null
+          email_reply_to: string | null
+          google_analytics_id: string | null
+          gtm_id: string | null
+          id: boolean
+          maintenance_banner: string | null
+          maintenance_banner_enabled: boolean
+          meta_pixel_id: string | null
+          site_name: string
+          social_instagram: string | null
+          social_linkedin: string | null
+          social_x: string | null
+          social_youtube: string | null
+          support_email: string | null
+          tagline: string | null
+          updated_at: string
+        }
+        Insert: {
+          contact_email?: string | null
+          created_at?: string
+          custom_body_scripts?: string | null
+          custom_head_scripts?: string | null
+          email_from_address?: string | null
+          email_from_name?: string | null
+          email_reply_to?: string | null
+          google_analytics_id?: string | null
+          gtm_id?: string | null
+          id?: boolean
+          maintenance_banner?: string | null
+          maintenance_banner_enabled?: boolean
+          meta_pixel_id?: string | null
+          site_name?: string
+          social_instagram?: string | null
+          social_linkedin?: string | null
+          social_x?: string | null
+          social_youtube?: string | null
+          support_email?: string | null
+          tagline?: string | null
+          updated_at?: string
+        }
+        Update: {
+          contact_email?: string | null
+          created_at?: string
+          custom_body_scripts?: string | null
+          custom_head_scripts?: string | null
+          email_from_address?: string | null
+          email_from_name?: string | null
+          email_reply_to?: string | null
+          google_analytics_id?: string | null
+          gtm_id?: string | null
+          id?: boolean
+          maintenance_banner?: string | null
+          maintenance_banner_enabled?: boolean
+          meta_pixel_id?: string | null
+          site_name?: string
+          social_instagram?: string | null
+          social_linkedin?: string | null
+          social_x?: string | null
+          social_youtube?: string | null
+          support_email?: string | null
+          tagline?: string | null
+          updated_at?: string
         }
         Relationships: []
       }
