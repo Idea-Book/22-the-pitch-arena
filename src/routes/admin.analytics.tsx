@@ -126,6 +126,18 @@ function AnalyticsAdmin() {
             ))}
           </div>
 
+          <div className="grid md:grid-cols-3 gap-6">
+            <Bars title="Episode views" data={data.engagement.episodes} />
+            <Bars title="Panelist page engagement" data={data.engagement.panelists} />
+            <Bars title="Founder page engagement" data={data.engagement.founders} />
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            <Bars title={`Ticket funnel · ${data.rates.ticketConversion}% convert`} data={data.funnels.tickets} />
+            <Bars title={`Application funnel · ${data.rates.applyConversion}% convert`} data={data.funnels.applications} />
+            <Bars title={`Talent funnel · ${data.rates.viewsPerSession} views/session`} data={data.funnels.talent} />
+          </div>
+
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             <Bars title="Top pages" data={data.breakdowns.topPaths} />
             <Bars title="Referrers" data={data.breakdowns.referrers} />
