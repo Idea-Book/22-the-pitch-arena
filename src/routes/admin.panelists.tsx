@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { listPanelists } from "@/lib/content.functions";
 import { adminUpsertPanelist, adminDeletePanelist } from "@/lib/admin.functions";
 import { AdminHeader, Field, inputCls } from "@/components/admin/admin-shell";
+import { ImageInput } from "@/components/admin/image-input";
 import { panelistUpsertSchema } from "@/lib/schemas";
 
 export const Route = createFileRoute("/admin/panelists")({ component: PanelistsAdmin });
@@ -79,7 +80,7 @@ function Form({ initial, onCancel, onSave, busy }: { initial: any; onCancel: () 
       <Field label="Deals"><input type="number" min={0} className={inputCls} value={v.deals ?? 0} onChange={(e) => set("deals", Number(e.target.value))} /></Field>
       <Field label="Wins"><input type="number" min={0} className={inputCls} value={v.record_wins} onChange={(e) => set("record_wins", Number(e.target.value))} /></Field>
       <Field label="KOs"><input type="number" min={0} className={inputCls} value={v.record_kos} onChange={(e) => set("record_kos", Number(e.target.value))} /></Field>
-      <Field label="Headshot URL"><input className={inputCls} value={v.headshot ?? ""} onChange={(e) => set("headshot", e.target.value)} /></Field>
+      <ImageInput label="Headshot" folder="panelists" value={v.headshot ?? ""} onChange={(val) => set("headshot", val)} error={errs.headshot} />
       <div className="md:col-span-2"><Field label="Quote"><input className={inputCls} value={v.quote ?? ""} onChange={(e) => set("quote", e.target.value)} /></Field></div>
       <div className="md:col-span-2"><Field label="Bio"><textarea rows={4} className={inputCls} value={v.bio ?? ""} onChange={(e) => set("bio", e.target.value)} /></Field></div>
       <div className="md:col-span-2 flex justify-end gap-2 pt-2 border-t border-border">

@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { listEpisodes } from "@/lib/content.functions";
 import { adminUpsertEpisode, adminDeleteEpisode } from "@/lib/admin.functions";
 import { AdminHeader, Field, inputCls } from "@/components/admin/admin-shell";
+import { ImageInput } from "@/components/admin/image-input";
 import { episodeUpsertSchema } from "@/lib/schemas";
 
 export const Route = createFileRoute("/admin/episodes")({ component: EpisodesAdmin });
@@ -95,7 +96,7 @@ function EpisodeForm({ initial, onCancel, onSave, busy }: { initial: any; onCanc
         </select>
       </Field>
       <Field label="Video URL (embed)" error={errs.video_url}><input className={inputCls} value={v.video_url ?? ""} onChange={(e) => set("video_url", e.target.value)} /></Field>
-      <Field label="Hero image URL"><input className={inputCls} value={v.hero_img ?? ""} onChange={(e) => set("hero_img", e.target.value)} /></Field>
+      <ImageInput label="Hero image" folder="episodes" value={v.hero_img ?? ""} onChange={(val) => set("hero_img", val)} error={errs.hero_img} />
       <div className="md:col-span-2">
         <Field label="Recap" error={errs.recap}><textarea rows={5} className={inputCls} value={v.recap ?? ""} onChange={(e) => set("recap", e.target.value)} /></Field>
       </div>
