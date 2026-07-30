@@ -16,6 +16,7 @@ import { SiteNav } from "../components/site-nav";
 import { SiteFooter } from "../components/site-footer";
 import { StickyPitchCTA } from "../components/sticky-pitch-cta";
 import { SiteConfig, SiteBanner } from "../components/site-config";
+import { PageViewTracker } from "../components/page-view-tracker";
 
 function NotFoundComponent() {
   return (
