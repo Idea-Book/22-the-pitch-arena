@@ -6,6 +6,7 @@ import panel02 from "@/assets/panel-02.jpg";
 import panel03 from "@/assets/panel-03.jpg";
 import panel04 from "@/assets/panel-04.jpg";
 import panel05 from "@/assets/panel-05.jpg";
+import { resolveMediaUrl } from "./media";
 
 const EPS = [ep01, ep02, ep03];
 const PANS = [panel01, panel02, panel03, panel04, panel05];
@@ -16,18 +17,24 @@ function hashIdx(key: string, mod: number) {
   return h % mod;
 }
 
-function clean(url?: string | null) {
-  const v = (url ?? "").trim();
-  return v.length > 0 ? v : null;
+/** Deterministic bundled fallbacks — used when the DB value is empty or broken. */
+export function episodeFallback(key: string) {
+  return EPS[hashIdx(key, EPS.length)];
+}
+export function panelistFallback(key: string) {
+  return PANS[hashIdx(key, PANS.length)];
+}
+export function founderFallback(key: string) {
+  return EPS[hashIdx(key, EPS.length)];
 }
 
-/** DB value wins; local asset is only a fallback. */
+/** DB value (URL, storage path or legacy /media path) wins; asset is fallback. */
 export function episodeImage(slugOrId: string, dbUrl?: string | null) {
-  return clean(dbUrl) ?? EPS[hashIdx(slugOrId, EPS.length)];
+  return resolveMediaUrl(dbUrl) ?? episodeFallback(slugOrId);
 }
 export function panelistImage(slugOrId: string, dbUrl?: string | null) {
-  return clean(dbUrl) ?? PANS[hashIdx(slugOrId, PANS.length)];
+  return resolveMediaUrl(dbUrl) ?? panelistFallback(slugOrId);
 }
 export function founderImage(slugOrId: string, dbUrl?: string | null) {
-  return clean(dbUrl) ?? EPS[hashIdx(slugOrId, EPS.length)];
+  return resolveMediaUrl(dbUrl) ?? founderFallback(slugOrId);
 }
