@@ -35,6 +35,7 @@ import { Route as FoundersSlugRouteImport } from './routes/founders.$slug'
 import { Route as EpisodesSlugRouteImport } from './routes/episodes.$slug'
 import { Route as AdminUsersRouteImport } from './routes/admin.users'
 import { Route as AdminTicketsRouteImport } from './routes/admin.tickets'
+import { Route as AdminStatusRouteImport } from './routes/admin.status'
 import { Route as AdminSponsorsRouteImport } from './routes/admin.sponsors'
 import { Route as AdminSponsorContentRouteImport } from './routes/admin.sponsor-content'
 import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
@@ -179,6 +180,11 @@ const AdminTicketsRoute = AdminTicketsRouteImport.update({
   path: '/tickets',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminStatusRoute = AdminStatusRouteImport.update({
+  id: '/status',
+  path: '/status',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminSponsorsRoute = AdminSponsorsRouteImport.update({
   id: '/sponsors',
   path: '/sponsors',
@@ -274,6 +280,7 @@ export interface FileRoutesByFullPath {
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/sponsor-content': typeof AdminSponsorContentRoute
   '/admin/sponsors': typeof AdminSponsorsRoute
+  '/admin/status': typeof AdminStatusRoute
   '/admin/tickets': typeof AdminTicketsRoute
   '/admin/users': typeof AdminUsersRoute
   '/episodes/$slug': typeof EpisodesSlugRoute
@@ -314,6 +321,7 @@ export interface FileRoutesByTo {
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/sponsor-content': typeof AdminSponsorContentRoute
   '/admin/sponsors': typeof AdminSponsorsRoute
+  '/admin/status': typeof AdminStatusRoute
   '/admin/tickets': typeof AdminTicketsRoute
   '/admin/users': typeof AdminUsersRoute
   '/episodes/$slug': typeof EpisodesSlugRoute
@@ -356,6 +364,7 @@ export interface FileRoutesById {
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/sponsor-content': typeof AdminSponsorContentRoute
   '/admin/sponsors': typeof AdminSponsorsRoute
+  '/admin/status': typeof AdminStatusRoute
   '/admin/tickets': typeof AdminTicketsRoute
   '/admin/users': typeof AdminUsersRoute
   '/episodes/$slug': typeof EpisodesSlugRoute
@@ -399,6 +408,7 @@ export interface FileRouteTypes {
     | '/admin/settings'
     | '/admin/sponsor-content'
     | '/admin/sponsors'
+    | '/admin/status'
     | '/admin/tickets'
     | '/admin/users'
     | '/episodes/$slug'
@@ -439,6 +449,7 @@ export interface FileRouteTypes {
     | '/admin/settings'
     | '/admin/sponsor-content'
     | '/admin/sponsors'
+    | '/admin/status'
     | '/admin/tickets'
     | '/admin/users'
     | '/episodes/$slug'
@@ -480,6 +491,7 @@ export interface FileRouteTypes {
     | '/admin/settings'
     | '/admin/sponsor-content'
     | '/admin/sponsors'
+    | '/admin/status'
     | '/admin/tickets'
     | '/admin/users'
     | '/episodes/$slug'
@@ -699,6 +711,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminTicketsRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/status': {
+      id: '/admin/status'
+      path: '/status'
+      fullPath: '/admin/status'
+      preLoaderRoute: typeof AdminStatusRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/sponsors': {
       id: '/admin/sponsors'
       path: '/sponsors'
@@ -805,6 +824,7 @@ interface AdminRouteChildren {
   AdminSettingsRoute: typeof AdminSettingsRoute
   AdminSponsorContentRoute: typeof AdminSponsorContentRoute
   AdminSponsorsRoute: typeof AdminSponsorsRoute
+  AdminStatusRoute: typeof AdminStatusRoute
   AdminTicketsRoute: typeof AdminTicketsRoute
   AdminUsersRoute: typeof AdminUsersRoute
   AdminIndexRoute: typeof AdminIndexRoute
@@ -822,6 +842,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminSettingsRoute: AdminSettingsRoute,
   AdminSponsorContentRoute: AdminSponsorContentRoute,
   AdminSponsorsRoute: AdminSponsorsRoute,
+  AdminStatusRoute: AdminStatusRoute,
   AdminTicketsRoute: AdminTicketsRoute,
   AdminUsersRoute: AdminUsersRoute,
   AdminIndexRoute: AdminIndexRoute,
