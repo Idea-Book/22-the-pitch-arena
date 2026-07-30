@@ -111,14 +111,47 @@ export const adminAnalytics = createServerFn({ method: "GET" })
     const sessions = new Set(viewRows.map((v: any) => v.session_id).filter(Boolean)).size;
     const ticketSeats = (tickets.data ?? []).reduce((s: number, t: any) => s + (t.seats ?? 0), 0);
 
+    // --- Content engagement: pageviews grouped by detail-route prefix -------
+    const [epRows, panRows, fndRows] = await Promise.all([
+      sb.from("episodes").select("slug, title"),
+      sb.from("panelists").select("slug, name"),
+      sb.from("founders").select("slug, name"),
+    ]);
+    const nameFor = (rows: any[], slug: string, field: string) =>
+      rows.find((r) => r.slug === slug)?.[field] ?? slug;
+
+    const engagement = (prefix: string, rows: any[], field: string) => {
+      const m = new Map<string, number>();
+      for (const v of viewRows) {
+        const p = String(v.path ?? "");
+        if (!p.startsWith(prefix)) continue;
+        const slug = p.slice(prefix.length).split("/")[0];
+        if (!slug) continue;
+        m.set(slug, (m.get(slug) ?? 0) + 1);
+      }
+      return [...m.entries()]
+        .map(([slug, value]) => ({ label: nameFor(rows ?? [], slug, field), value }))
+        .sort((a, b) => b.value - a.value)
+        .slice(0, 10);
+    };
+
+    const pathViews = (p: string) => viewRows.filter((v: any) => String(v.path) === p).length;
+    const ticketRows = tickets.data ?? [];
+    const appRows = apps.data ?? [];
+    const countStatus = (rows: any[], ...statuses: string[]) =>
+      rows.filter((r) => statuses.includes(String(r.status))).length;
+
+    const ticketPageViews = pathViews("/tickets");
+    const ticketConverted = countStatus(ticketRows, "confirmed", "paid", "approved");
+
     return {
       days: data.days,
       totals: {
         pageViews: viewRows.length,
         sessions,
-        applications: (apps.data ?? []).length,
+        applications: appRows.length,
         posts: (posts.data ?? []).length,
-        ticketInquiries: (tickets.data ?? []).length,
+        ticketInquiries: ticketRows.length,
         ticketSeats,
         sponsorInquiries: (sponsors.data ?? []).length,
         talentApplications: (talent.data ?? []).length,
@@ -128,18 +161,47 @@ export const adminAnalytics = createServerFn({ method: "GET" })
       },
       series: {
         pageViews: bucket(viewRows),
-        applications: bucket(apps.data ?? []),
+        applications: bucket(appRows),
         posts: bucket(posts.data ?? []),
-        tickets: bucket(tickets.data ?? []),
+        tickets: bucket(ticketRows),
         signups: bucket(profiles.data ?? []),
+      },
+      engagement: {
+        episodes: engagement("/episodes/", epRows.data ?? [], "title"),
+        panelists: engagement("/panelists/", panRows.data ?? [], "name"),
+        founders: engagement("/founders/", fndRows.data ?? [], "name"),
+      },
+      funnels: {
+        tickets: [
+          { label: "Tickets page views", value: ticketPageViews },
+          { label: "Inquiries submitted", value: ticketRows.length },
+          { label: "Seats requested", value: ticketSeats },
+          { label: "Converted / confirmed", value: ticketConverted },
+        ],
+        applications: [
+          { label: "Apply page views", value: pathViews("/apply") },
+          { label: "Applications submitted", value: appRows.length },
+          { label: "In review", value: countStatus(appRows, "reviewing", "shortlisted") },
+          { label: "Accepted", value: countStatus(appRows, "accepted", "approved") },
+        ],
+        talent: [
+          { label: "Join page views", value: pathViews("/join") },
+          { label: "Talent applications", value: (talent.data ?? []).length },
+          { label: "Panel invites", value: (invites.data ?? []).length },
+        ],
+      },
+      rates: {
+        ticketConversion: ticketPageViews ? +((ticketRows.length / ticketPageViews) * 100).toFixed(1) : 0,
+        applyConversion: pathViews("/apply") ? +((appRows.length / pathViews("/apply")) * 100).toFixed(1) : 0,
+        viewsPerSession: sessions ? +(viewRows.length / sessions).toFixed(2) : 0,
       },
       breakdowns: {
         topPaths: tally(viewRows, "path"),
         referrers: tally(viewRows.filter((v: any) => v.referrer), "referrer"),
-        applicationStage: tally(apps.data ?? [], "product_stage"),
-        applicationSegment: tally(apps.data ?? [], "customer_segment"),
-        applicationStatus: tally(apps.data ?? [], "status"),
-        ticketTiers: tally(tickets.data ?? [], "tier"),
+        applicationStage: tally(appRows, "product_stage"),
+        applicationSegment: tally(appRows, "customer_segment"),
+        applicationStatus: tally(appRows, "status"),
+        ticketTiers: tally(ticketRows, "tier"),
         talentRoles: tally(talent.data ?? [], "role"),
         postStatus: tally(posts.data ?? [], "status"),
       },

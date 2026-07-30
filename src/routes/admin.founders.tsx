@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { listFounders } from "@/lib/content.functions";
 import { adminUpsertFounder, adminDeleteFounder } from "@/lib/admin.functions";
 import { AdminHeader, Field, inputCls } from "@/components/admin/admin-shell";
+import { ImageInput } from "@/components/admin/image-input";
 import { founderUpsertSchema } from "@/lib/schemas";
 
 export const Route = createFileRoute("/admin/founders")({ component: FoundersAdmin });
@@ -81,7 +82,7 @@ function Form({ initial, onCancel, onSave, busy }: { initial: any; onCancel: () 
       <Field label="Heat (0-100)"><input type="number" min={0} max={100} className={inputCls} value={v.heat} onChange={(e) => set("heat", Number(e.target.value))} /></Field>
       <Field label="Status"><select className={inputCls} value={v.status} onChange={(e) => set("status", e.target.value)}>{STATUS.map(s => <option key={s}>{s}</option>)}</select></Field>
       <Field label="Funded label"><input className={inputCls} value={v.funded_label ?? ""} onChange={(e) => set("funded_label", e.target.value)} /></Field>
-      <Field label="Headshot URL"><input className={inputCls} value={v.headshot ?? ""} onChange={(e) => set("headshot", e.target.value)} /></Field>
+      <ImageInput label="Headshot" folder="founders" value={v.headshot ?? ""} onChange={(val) => set("headshot", val)} error={errs.headshot} />
       <div className="md:col-span-2"><Field label="Traction"><input className={inputCls} value={v.traction ?? ""} onChange={(e) => set("traction", e.target.value)} /></Field></div>
       <div className="md:col-span-2"><Field label="Bio"><textarea rows={4} className={inputCls} value={v.bio ?? ""} onChange={(e) => set("bio", e.target.value)} /></Field></div>
       <div className="md:col-span-2 flex justify-end gap-2 pt-2 border-t border-border">
