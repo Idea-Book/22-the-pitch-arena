@@ -46,6 +46,7 @@ import { Route as AdminFoundersRouteImport } from './routes/admin.founders'
 import { Route as AdminEpisodesRouteImport } from './routes/admin.episodes'
 import { Route as AdminApplicationsRouteImport } from './routes/admin.applications'
 import { Route as AdminAnalyticsRouteImport } from './routes/admin.analytics'
+import { Route as ApiPublicHealthRouteImport } from './routes/api/public/health'
 import { Route as ApiPublicMediaSplatRouteImport } from './routes/api/public/media.$'
 
 const TicketsRoute = TicketsRouteImport.update({
@@ -233,6 +234,11 @@ const AdminAnalyticsRoute = AdminAnalyticsRouteImport.update({
   path: '/analytics',
   getParentRoute: () => AdminRoute,
 } as any)
+const ApiPublicHealthRoute = ApiPublicHealthRouteImport.update({
+  id: '/api/public/health',
+  path: '/api/public/health',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicMediaSplatRoute = ApiPublicMediaSplatRouteImport.update({
   id: '/api/public/media/$',
   path: '/api/public/media/$',
@@ -277,6 +283,7 @@ export interface FileRoutesByFullPath {
   '/legal/terms': typeof LegalTermsRoute
   '/panelists/$slug': typeof PanelistsSlugRoute
   '/admin/': typeof AdminIndexRoute
+  '/api/public/health': typeof ApiPublicHealthRoute
   '/api/public/media/$': typeof ApiPublicMediaSplatRoute
 }
 export interface FileRoutesByTo {
@@ -316,6 +323,7 @@ export interface FileRoutesByTo {
   '/legal/terms': typeof LegalTermsRoute
   '/panelists/$slug': typeof PanelistsSlugRoute
   '/admin': typeof AdminIndexRoute
+  '/api/public/health': typeof ApiPublicHealthRoute
   '/api/public/media/$': typeof ApiPublicMediaSplatRoute
 }
 export interface FileRoutesById {
@@ -357,6 +365,7 @@ export interface FileRoutesById {
   '/legal/terms': typeof LegalTermsRoute
   '/panelists/$slug': typeof PanelistsSlugRoute
   '/admin/': typeof AdminIndexRoute
+  '/api/public/health': typeof ApiPublicHealthRoute
   '/api/public/media/$': typeof ApiPublicMediaSplatRoute
 }
 export interface FileRouteTypes {
@@ -399,6 +408,7 @@ export interface FileRouteTypes {
     | '/legal/terms'
     | '/panelists/$slug'
     | '/admin/'
+    | '/api/public/health'
     | '/api/public/media/$'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -438,6 +448,7 @@ export interface FileRouteTypes {
     | '/legal/terms'
     | '/panelists/$slug'
     | '/admin'
+    | '/api/public/health'
     | '/api/public/media/$'
   id:
     | '__root__'
@@ -478,6 +489,7 @@ export interface FileRouteTypes {
     | '/legal/terms'
     | '/panelists/$slug'
     | '/admin/'
+    | '/api/public/health'
     | '/api/public/media/$'
   fileRoutesById: FileRoutesById
 }
@@ -499,6 +511,7 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SponsorsRoute: typeof SponsorsRoute
   TicketsRoute: typeof TicketsRoute
+  ApiPublicHealthRoute: typeof ApiPublicHealthRoute
   ApiPublicMediaSplatRoute: typeof ApiPublicMediaSplatRoute
 }
 
@@ -763,6 +776,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminAnalyticsRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/api/public/health': {
+      id: '/api/public/health'
+      path: '/api/public/health'
+      fullPath: '/api/public/health'
+      preLoaderRoute: typeof ApiPublicHealthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/media/$': {
       id: '/api/public/media/$'
       path: '/api/public/media/$'
@@ -877,6 +897,7 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SponsorsRoute: SponsorsRoute,
   TicketsRoute: TicketsRoute,
+  ApiPublicHealthRoute: ApiPublicHealthRoute,
   ApiPublicMediaSplatRoute: ApiPublicMediaSplatRoute,
 }
 export const routeTree = rootRouteImport
