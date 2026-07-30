@@ -34,7 +34,7 @@ function PanelistDetail() {
   return (
     <section className="pt-24 pb-24">
       <div className="relative h-[60vh] min-h-[440px] overflow-hidden border-b border-border">
-        <img src={panelistImage(p.slug)} alt="" className="absolute inset-0 size-full object-cover grayscale opacity-70" />
+        <img src={panelistImage(p.slug, (p as any).headshot)} alt="" className="absolute inset-0 size-full object-cover grayscale opacity-70" />
         <div className="absolute inset-0 bg-gradient-to-r from-background via-background/40 to-transparent" />
         <div className="relative z-10 h-full max-w-7xl mx-auto px-6 flex flex-col justify-end pb-12">
           <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-[var(--crimson)]">The Council · Shark Profile</span>
@@ -58,7 +58,7 @@ function PanelistDetail() {
                 const e = m.episodes; if (!e) return null;
                 return (
                   <li key={i} className="flex items-center gap-4 p-4 bg-background hover:bg-[var(--surface)] transition-colors">
-                    <img src={episodeImage(e.slug)} alt="" className="size-14 object-cover" />
+                    <img src={episodeImage(e.slug, (e as any).hero_img)} alt="" className="size-14 object-cover" />
                     <div className="flex-1 min-w-0">
                       <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground">{e.round_code} · {e.city}</div>
                       <Link to="/episodes/$slug" params={{ slug: e.slug }} className="font-display text-lg hover:text-[var(--crimson)] truncate block">{e.title}</Link>

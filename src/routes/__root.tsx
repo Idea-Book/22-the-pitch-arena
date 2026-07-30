@@ -15,6 +15,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteNav } from "../components/site-nav";
 import { SiteFooter } from "../components/site-footer";
 import { StickyPitchCTA } from "../components/sticky-pitch-cta";
+import { SiteConfig, SiteBanner } from "../components/site-config";
 
 function NotFoundComponent() {
   return (
@@ -127,7 +128,9 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <SiteConfig />
       <div className="min-h-screen bg-background text-foreground">
+        <SiteBanner />
         <SiteNav />
         <main>
           <Outlet />

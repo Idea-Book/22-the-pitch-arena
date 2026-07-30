@@ -32,7 +32,7 @@ function FounderDetail() {
   return (
     <section className="pt-24 pb-24">
       <div className="relative h-[58vh] min-h-[420px] overflow-hidden border-b border-border">
-        <img src={founderImage(f.slug)} alt="" className="absolute inset-0 size-full object-cover opacity-50" />
+        <img src={founderImage(f.slug, (f as any).headshot)} alt="" className="absolute inset-0 size-full object-cover opacity-50" />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
         <div className="relative z-10 h-full max-w-7xl mx-auto px-6 flex flex-col justify-end pb-12">
           <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-[var(--crimson)]">Founder profile · Grid {f.position ?? "—"}</span>
@@ -66,7 +66,7 @@ function FounderDetail() {
                 const e = a.episodes; if (!e) return null;
                 return (
                   <li key={i} className="flex items-center gap-4 p-4 bg-background">
-                    <img src={episodeImage(e.slug)} alt="" className="size-14 object-cover" />
+                    <img src={episodeImage(e.slug, (e as any).hero_img)} alt="" className="size-14 object-cover" />
                     <div className="flex-1 min-w-0">
                       <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground">{e.round_code} · {e.city}{e.air_date ? ` · ${new Date(e.air_date).toLocaleDateString("en-IN", { day: "2-digit", month: "short" })}` : ""}</div>
                       <Link to="/episodes/$slug" params={{ slug: e.slug }} className="font-display text-lg hover:text-[var(--crimson)] truncate block">{e.title}</Link>

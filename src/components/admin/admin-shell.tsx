@@ -14,7 +14,9 @@ const SECTIONS: Section[] = [
   { to: "/admin/tickets", label: "Tickets" },
   { to: "/admin/sponsors", label: "Sponsor inquiries" },
   { to: "/admin/invitations", label: "Panel invites" },
+  { to: "/admin/analytics", label: "Analytics" },
   { to: "/admin/users", label: "Users", admin: true },
+  { to: "/admin/settings", label: "Configuration", admin: true },
 ];
 
 export function AdminShell() {

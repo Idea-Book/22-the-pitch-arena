@@ -29,7 +29,7 @@ function EpisodeDetail() {
   });
   if (!data) return null;
   const { episode, panelists, founders } = data;
-  const hero = episodeImage(episode.slug);
+  const hero = episodeImage(episode.slug, (episode as any).hero_img);
   const recap = (episode.recap ?? "").split(/\n+/).filter(Boolean);
   // Pitch-control timeline is synthesized from panelist verdicts + investments
   const timeline = panelists
@@ -101,7 +101,7 @@ function EpisodeDetail() {
                   return (
                     <li key={f.id} className="bg-background p-5">
                       <div className="flex gap-4">
-                        <img src={founderImage(f.slug)} alt="" className="size-16 object-cover grayscale" />
+                        <img src={founderImage(f.slug, (f as any).headshot)} alt="" className="size-16 object-cover grayscale" />
                         <div className="flex-1">
                           <Link to="/founders/$slug" params={{ slug: f.slug }} className="font-display text-xl hover:text-[var(--crimson)]">{f.name}</Link>
                           <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground mt-1">{f.startup} · {f.sector}</div>
@@ -127,7 +127,7 @@ function EpisodeDetail() {
                 const p = row.panelists; if (!p) return null;
                 return (
                   <li key={p.id} className="bg-[var(--surface)] ring-1 ring-border p-4 flex items-center gap-3">
-                    <img src={panelistImage(p.slug)} alt="" className="size-12 object-cover" />
+                    <img src={panelistImage(p.slug, (p as any).headshot)} alt="" className="size-12 object-cover" />
                     <div className="flex-1 min-w-0">
                       <Link to="/panelists/$slug" params={{ slug: p.slug }} className="font-display text-lg hover:text-[var(--crimson)] truncate block">{p.name}</Link>
                       <div className="font-mono text-[9px] uppercase tracking-[0.25em] text-muted-foreground truncate">{p.firm}</div>
