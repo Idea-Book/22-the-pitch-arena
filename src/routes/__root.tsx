@@ -129,6 +129,7 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <SiteConfig />
+      <PageViewTracker />
       <div className="min-h-screen bg-background text-foreground">
         <SiteBanner />
         <SiteNav />
